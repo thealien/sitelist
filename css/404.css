@@ -1,0 +1,169 @@
+/* глобальные фиксы */
+a img {
+    border: none;
+}
+
+a {
+    color: #0384e8;
+    outline: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+html, body {
+    line-height: 1.5em;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+body {
+    background-image: url(/images/404/head_bg_404.png);
+    background-repeat: repeat-x;
+	background-color: #E3E3E3;
+}
+/* гланый контейнер, зацентрованный */
+#main {
+    margin: 0 auto;
+    width: 940px;
+}
+#content {
+	height:634px
+}
+
+#logo-404-container{
+	text-align: center;
+}
+
+#search{
+	float: left;
+	margin-left: 184px;
+	margin-top: 38px;
+	margin-right: 10px;
+}
+/* подложка */
+#search-bg {
+    width: 136px;
+    height: 24px;
+    background-image: url(http://i.sitelist.in/top_logo_newcont_search_sprite.png);
+    background-position: -79px -6px;
+    background-repeat: no-repeat;
+    padding: 2px 3px;
+    margin-left: 46px;
+}
+
+/* форма */
+#search-form {
+    padding: 0;
+    margin-right: 7px;
+}
+
+/* инпут */
+#search-form input.s-input {
+    width: 110px;
+    font-size: 12px;
+    border: none;
+    background: none;
+}
+
+/* кнопка поиска */
+#search-form input.s-btn {
+    margin-top: 1px;
+    background-image: url(http://i.sitelist.in/top_logo_newcont_search_sprite.png);
+    background-position: -221px -10px;
+    background-repeat: no-repeat;
+    border: none;
+    width: 16px;
+    height:16px;
+    cursor: pointer;
+}
+
+
+#info {
+	margin-top: 40px;
+}
+#info .title{
+	font-size: 18px;
+	color: #fff;
+	font-weight: 700;
+	line-height: 2em;
+}
+#info .text{
+	color: #fff;
+	font-size: 12px;
+	line-height: 1.2em;
+}
+
+
+/* лого в шапке */
+#head-top-logo{
+    width: 40px;
+    height: 36px;
+    display: block;
+    background: url(http://i.sitelist.in/top_logo_newcont_search_sprite.png) 0 0 no-repeat; 
+}
+/* футер */
+#footer {
+    height: 134px;
+    background-color: #e3e3e3;
+}
+
+/* центрованный блок в футере */
+#footer div.info {
+    width: 940px;
+    margin: 0 auto;
+}
+
+/* копирайты в футере */
+#footer div.copyright {
+    width: 190px;
+    margin: 20px 20px 0 0;
+    border-left: solid 2px black;
+    font-weight: 700;
+    padding-left: 10px;
+}
+
+/* меню в шапке */
+#menu {
+    padding: 0;
+    color: white;
+    list-style: none;
+    margin: 0;
+	line-height: 2em;
+}
+
+/* пункт меню */
+#menu li.menu-item {
+    disp1lay: inline;
+    margin-right: 15px;
+}
+
+/* линк в меню */
+#menu a {
+    color: #0384e8;
+    font-size: 14px;
+}
+
+/* линк в меню текущего раздела/при напведении */
+#menu a.current, #menu a:hover {
+    color: #8e8e8e;
+    text-decoration: none;
+}
