@@ -1,0 +1,32 @@
+{% extends "views/layouts/main.html" %}
+
+{% block menu_about %}
+    <li class='menu-item'><a href='/about/' class='current'>О проекте</a></li>
+{% endblock %}
+
+{% block bookmarklet %}
+{% endblock %}
+
+{% block vk %}
+{% endblock %}
+
+{% block content %}
+<div id='feedback' class='forms'>
+    <h2 class='title'>О проекте</h2>
+    <br>
+    <p>
+        <strong>SiteList</strong> &mdash; это каталог современных и качественных сайтов.<br>
+        Все ресурсы тщательно отобраны, проверены на работоспособность и рассортированы по категориям. 
+        Здесь вы не найдете унылых сайтов-визиток, кривых интернет-магазинов, сайтов-однодневок и других жалких подобий интернет-страничек. 
+        Мы собрали для вас только лучшее!
+        <br><br>
+        Наш каталог пополняется ежедневно. Чтобы следить за обновлениями, подпишитесь на <a href='/rss/'>RSS</a>, 
+        либо присоединитесь к группе в одной из ваших любимых соц.сетей 
+        (<a href='http://www.facebook.com/pages/%CA%E0%F2%E0%EB%EE%E3-%F1%E0%E9%F2%EE%E2-SiteList/199559380065617' target='_blank'>Facebook</a> | <a href='http://vkontakte.ru/sitelist' target='_blank'>Вконтакте</a>).
+        <br><br>
+		Все вопросы о сотрудничестве направляйте через <a href='/feedback/'>обратную связь</a>.
+		<br><br>
+        Если вы хотите помочь в развитии проекта, то просто расскажите своим друзьям о сайте <a href='http://sitelist.in'>SiteList.in</a> &mdash; это будет для нас лучшей благодарностью :)
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "views/layouts/main.html" %}
+
+{% block add_css %}
+{% if links %}
+<style type="text/css">
+.faviconed {background: url(http://favicon.yandex.ru/favicon/{% for l in links %}{{ l.domain }}/{% endfor %}) 0 0 no-repeat; width:16px; height:16px;}
+{% for l in links %}.fav_{{ loop.index }} {background-position: 0 -{{ loop.index0*16 }}px;}{% endfor %}
+</style>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+	<form action='/main/search/' class='forms'>
+		<b>Я ищу:</b>&nbsp;&nbsp;
+		<input size='74' class='query' name='q' value='{{ q|e }}'>&nbsp;
+		<input type='submit' value='Найти'>
+	</form>
+<br><br>
+{{ error }}
+
+{% if links %}
+{% for l in links %}
+<div class='top-site search'>
+    <div class='rate left'>
+    <span>{{ pages.offset+loop.index }}</span>
+    </div>
+    <div class='favicon left'>
+        {% if l.domain %}
+			<div class='faviconed fav_{{ loop.index }}'></div>
+        {% endif %}
+    </div>
+    <div class='right site'>
+        {% if l.url %}
+        <p class='name'>
+            <a title='{{ l.title|e }}' href='/link/{{ l.id }}/{{ l.domain|e }}'>
+                {{ l.title|e }}
+            </a>
+        </p>
+        <p class='desc'>{{ l.desc|cut(250)|e }}</p>
+        {% else %}
+        <p class='desc'>[ Тут был сайт, но мы его удалили. Скоро он пропадет из поискового индекса ]</p>
+        {% endif %}
+    </div>
+    <div class='clear'></div>
+</div>
+{% endfor %}
+<div class="paginator">
+    <p class='right'>Результаты: {{ pages.offset+1 }} &mdash; {{ pages.offset+links|length }} из {{ pages.itemCount }}</p>
+    {{ search_paginator }}
+</div>
+{% endif %}
+{% endblock %}

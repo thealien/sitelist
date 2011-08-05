@@ -1,0 +1,22 @@
+{% extends "views/layouts/main.html" %}
+
+{% block content %}
+
+{% include "views/layouts/messages.html" %}
+
+{% if comment %}
+    <form action="" method="post" class='forms'>
+    	{% if Yii.user.id!=comment.userid %}
+        <p>Ник</p>
+        <p><input maxlength="32" name="Comment[user]" value='{{ comment.user|e }}' size="30"></p>
+        <br>
+		{% endif %}
+        <p>Комментарий</p>
+        <p><textarea name="Comment[text]" cols="70" rows="10">{{ comment.text|e }}</textarea></p>
+        <br>
+        <p><input type="submit" value='Применить'></p>
+    </form>
+    <br>
+{% endif %}
+
+{% endblock %}

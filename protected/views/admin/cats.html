@@ -1,0 +1,40 @@
+{% extends "views/admin/index.html" %}
+
+{% block admin_content %}
+{% if categories %}<h1>Категории</h1>
+<table cellspacing=5 width='95%' align=center>
+    <tr valign=top>
+        {% set count = (categories|length)/3 %}
+        {% set i = 0 %}
+        {% for cat in categories %}
+        {% if i==0 %}
+        <td width='33%'>
+            {% endif %}
+            {% set i = (i+1) %}
+            <p>
+                <div>
+                <b>
+                    <span style='float: left;'><a title='{{ cat.catname|e }}' href='/category/{{ cat.id }}/'>{{ cat.catname|e }}</a></b>&nbsp;({{ cat.linksCount}})</span>
+                <form style='float: left;' action='/admin/catdelete/{{ cat.id }}/' method='post'>
+                    <input style='background: none; border: none; color: red;' type='submit' value='[d]' onclick='return confirm("Удалить?");'>
+                </form>
+                <a href='/admin/catedit/{{ cat.id }}/'>
+                    <font color=green>
+                        [e]
+                    </font>
+                </a>
+                </div>
+                <br>
+                {% if i>count %}
+                {% set i = 0 %}
+            </p>
+        </td>
+        {% endif %}
+        {% endfor %}
+        {% if i==0 %}
+        </td>
+        {% endif %}
+    </tr>
+</table>
+{% endif %}
+{% endblock %}

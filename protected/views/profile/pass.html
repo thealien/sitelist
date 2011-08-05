@@ -1,0 +1,42 @@
+{% extends "views/layouts/main.html" %}
+
+{% block content %}
+
+<div>
+    <div class='title left'>
+        <b>Смена пароля</b>
+    </div>
+    <div class='pref-links right'>
+        <a href='/profile/edit/'>Редактировать профиль</a> | 
+        <a href='/profile/email/'>Изменить email</a>
+    </div>
+    <div class='clear'></div>
+</div>
+<br>
+{% include "views/layouts/messages.html" %}
+{% if not changed %}
+<form class='forms' action="" method="POST">
+    <p class='label'>Текущий пароль</p>
+    <p>
+        <input maxlength='50' size='50' title='Ваш текущий пароль' name="oldpass" type="password" value=''>
+    </p>
+    <br>
+    <p class='label'>Новый пароль</p>
+    <p>
+        <input maxlength='50' size='50' title='Укажите желаемый пароль'  type="password" name="pass" value='{{ pass|e }}'>
+    </p>
+    <br>
+    <p class='label'>Повторите новый пароль</p>
+    <p>
+        <input maxlength='50' size='50' title='Повторите новый пароль'  type="password" name="pass2" value=''>
+    </p>
+    <br>
+    <div>
+        <input class='submit' type="submit" name="change_pass" value="Сменить">
+    </div>
+    <div class='clear'></div>
+</form>
+{% else %}
+    Пароль успешно изменен.
+{% endif %}
+{% endblock %}

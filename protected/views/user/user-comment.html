@@ -1,0 +1,25 @@
+{% extends "views/layouts/comment.html" %}
+
+{% block avatar%} 
+    <a href='/user/{{ c.user|e }}/'>
+    {% if user.profile.avatar=='' %}
+    <img class='avatar' src='/images/user/noavatar.jpg' alt=''>
+    {% else %}
+    <img class='avatar' src='/images/avatars/{{ user.profile.avatar|e }}' alt=''>
+    {% endif %}
+    </a>
+{% endblock %}
+
+{% block sitename %}
+<div class='right'>
+    <small><a href='/link/{{ c.links.id }}/{{ c.links.domain|e }}'>
+    	{{ c.links.title|e }}
+    </a></small>
+</div>
+{% endblock %} 
+
+{% block date %}
+    <div class='date left'>
+        <a class='date' href='/link/{{ c.links.id }}/{{ c.links.domain|e }}#comment{{c.id}}'>{{ c.datetime|date_format("H:i, d.m.y") }}</a>
+    </div>
+{% endblock %}

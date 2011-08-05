@@ -1,0 +1,48 @@
+{% extends "views/layouts/main.html" %}
+
+{% block content %}
+<div id='add-site' class='forms'>
+	{% include "views/layouts/messages.html" %}
+	{% if added == false %}
+	<form id='addform' action="" method=POST>
+	<h2 class='title'>Добавление сайта в каталог</h2>
+	<br>
+	<br>
+	<p class='label'>Категория</p>
+	<p>{% include "views/layouts/catbox.html" with {'cats':categories, 'curr':form.catid} %}</p>
+	<br>
+    <p class='label'>Адрес</p>
+    <p><input title='Укажите адрес сайта, начинающийся c http://' name="Link[url]" value='{{ form.url|e }}'></p>
+	<br>
+    <p class='label'>Название</p>
+    <p><input size='256' maxlength='256' title='Укажите название сайта. Кол-во символов не должно превышать 256' name="Link[title]" value='{{ form.title|e }}'></p>
+	<br>
+    <p class='label'>Описание</p>
+    <p><textarea cols="78" name="Link[desc]" rows="5" title="Описание сайта. Не более 4000 символов">{{ form.desc|e }}</textarea></p>
+	<br>
+	<div>
+		<ul class='line'>
+		{% if  Yii.user.isGuest %}
+		<li class='line-item'>{{ captcha }}</li>
+		<li class='line-item'>
+			<input class='icaptcha' maxlength='10' size='10' title='Введите код с картинки левее. Это нужно для того, чтобы подтвердить, что вы не робот ;)' type=text name="Link[captcha]">
+		</li>
+        {% endif %}
+		<li class='line-item'>
+			<input class='add-btn' type="submit" name="addbtn" value=''>
+		</li>
+		</ul>
+	</div>
+	<div class='clear'></div>
+	</form>
+	<br><br>
+	<p>
+		В каталог допускаются только качественные интернет-сервисы.<br>
+		Сайты-визитки, варезные порталы, порносайты и другой шлак - модерацию не пройдут.
+	</p>
+	{% else %}
+        <h4>Сайт успешно добавлен. <br>После одобрения модератором страница ресурса <a href='/link/{{ added_id }}'>появится в каталоге</a>.</h4>
+    {% endif %}
+	<div class='clear'></div>
+</div>
+{% endblock %}

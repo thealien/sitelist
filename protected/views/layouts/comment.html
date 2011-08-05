@@ -1,0 +1,52 @@
+<a name='comment{{ c.id }}'></a>
+{% block avatar%}	
+{% if c.userid!=0 %}
+    <a href='/user/{{ c.user|e }}/'>
+{% endif %}
+{% if c.userid==0 or c.user_profile.avatar=='' %}
+    <img class='avatar' src='/images/user/noavatar.jpg' alt=''>
+{% else %}
+    <img class='avatar' src='/images/avatars/{{ c.user_profile.avatar|e }}' alt=''>
+{% endif %}
+{% if c.userid!=0 %}
+    </a>
+{% endif %}
+{% endblock %}        
+<div class='info'>
+	{% block sitename %}
+    {% endblock %}   
+    <div class='name'>
+    {% if c.userid!=0 %}
+        <a class='name' href='/user/{{ c.user|e }}/'>
+    {% endif %}
+    {{ c.user|e }}
+    {% if c.userid!=0 %}
+    </a>
+    {% endif %}
+    </div>
+	         
+			
+    <div class='message'>{{ c.text|e|auto_link|nl2div }}</div>
+    <div class='clear'></div>
+	{% block date %}
+    <div class='date left'>
+		<a class='date' href='#comment{{c.id}}'>{{ c.datetime|date_format("H:i, d.m.y") }}</a>
+    </div>
+	{% endblock %}
+    <div class='right'>
+        {% if ((Yii.user.id>0) and Yii.user.id==c.userid) or Yii.user.getState("admin") %}
+        <form action='/comment/edit/{{ c.id }}' method='post' class='right'>
+            <input class='adm' type='submit' name='d' value='редактировать'>
+        </form>
+        {% endif %}
+		
+        {% if Yii.user.getState("admin") %}
+        <form action='/comment/delete/{{ c.id }}' method='post' class='right'>
+            <input class='adm' type='submit' name='d' value='удалить' onclick='return confirm("Удалить?")'>
+        </form>
+        {% endif %}
+    </div>
+    <div class='clear'></div>
+    <div class='splitter'></div>
+</div>
+<div class='clear'></div>

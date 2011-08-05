@@ -1,0 +1,7 @@
+{% if link.collections %}
+В подборках:&nbsp;
+{% for c in link.collections %}<a href='/collection/{{ c.id }}/'>{{ c.title|e }}</a>{% if not loop.last%}, {% endif %} 
+{% endfor %} 
+| <a href='javascript:void(0);' class='edit-collection-btn'>(редактировать)</a>
+{% else %}<a href='javascript:void(0);' class='edit-collection-btn'>Добавить сайт в подборку</a>
+{% endif %}

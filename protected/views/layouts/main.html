@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ru">
+    {% block head %}
+    <head>
+        <title>
+        {{ Yii.params.title|e|default('SiteList :: Каталог Сайтов') }}
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="SiteList.in - каталог только качественных сайтов.">
+        <meta name="keywords" content="sitelist, сайтлист, каталог сайтов, web 2.0 сайты, подборка сайтов, добавить сайт, предложить сайт, белый каталог сайтов, рейтинг сайтов">
+		<link rel="alternate" type="application/atom+xml" title="Новые сайты в каталоге SiteList.in" href="/rss/" >
+		{% block add_meta %}
+        {% endblock %}
+        <link href="/favicon.ico" type="image/x-icon" rel="shortcut icon" >
+        <link href="http://i.sitelist.in/opera_sd.png" rel="image_src" type="image/png">
+        <link href="/css/style.min.css?20110717_2" rel="stylesheet" type="text/css">
+        {% block add_css %}
+		{% endblock %}
+        <script type='text/javascript' src='http://js.sitelist.in/extsrc.min.js?20110502'></script>
+        {% block add_head %}
+        {% endblock %}
+    </head>
+    {% endblock %}
+    
+    {% block body %}
+    <body>
+    	<div id='main'>
+    		<div id='head'>
+    			<div id='head-top'>
+    				<a id='head-top-logo' href='{% if Yii.user.getState("admin") %}/admin/{% else %}/{% endif %}'></a>
+                </div>
+				<div id='head-middle'>
+					<div style='float: left; padding-top: 30px;'>
+						<div class='left'>
+							<a href='/'><img width='461' height='82' alt='На главную' title='На главную' src='http://i.sitelist.in/head/logo.png'></a>
+						</div>
+						<div class='left' id='head-desc'>
+							<p style='font-size:18px; color: white;'>Белый каталог</p>
+							<p>только хороших сайтов</p><br>
+							<p>Все добавляемые ресурсы проходят модерацию. Можете быть уверены в качестве сайтов нашего каталога.</p>
+                        </div>
+					</div>
+					<div class='right' id='head-add-btn'>
+                        <a href='/add/'><img width='126' height='126' src='http://i.sitelist.in/head/add_site_t.png' alt='Добавить сайт' title='Добавить сайт'></a>
+					</div>
+					<div class='clear'></div>
+                </div>
+				<div id='head-bottom'>
+					<div class='left'>
+						{% block menu %}
+						<nav>
+						<ul id='head-menu'>
+                            {% block menu_main %}
+                            <li class='menu-item'><a href='/'>Главная</a></li>
+                            {% endblock %}
+                            {% block menu_top %}
+                            <li class='menu-item'><a href='/top/'>Рейтинг сайтов</a></li>
+                            {% endblock %}
+                            {% block menu_new %}
+                            <li class='menu-item'><a href='/new/'>Новые сайты</a></li>
+                            {% endblock %}
+							{% block menu_users %}
+                            <li class='menu-item'><a href='/users/'>Пользователи</a></li>
+                            {% endblock %}
+                            {% block menu_feedback %}
+                            <li class='menu-item'><a href='/feedback/'>Обратная связь</a></li>
+                            {% endblock %}
+                            {% block menu_about %}
+                            <li class='menu-item'><a href='/about/'>О проекте</a></li>
+                            {% endblock %}		
+						</ul>
+						</nav>
+						{% endblock %}
+					</div>
+					<div id='head-search' class='right'>
+						<div class='left rss_twitter_fb'>
+							{% block rss_link %}
+                            <a class='rss_twitter_fb rss' target='_blank' href='/rss/' title='RSS-лента новых сайтов'></a>
+							{% endblock %}
+                            <a class='rss_twitter_fb twitter' target='_blank' href='http://twitter.com/sitelistin' title='Мы в Twitter'></a>
+                            <a class='rss_twitter_fb facebook' target='_blank' title='Мы в Facebook' href='http://www.facebook.com/pages/%CA%E0%F2%E0%EB%EE%E3-%F1%E0%E9%F2%EE%E2-SiteList/199559380065617'></a>
+						</div>
+					<div id='search-bg' class='left'>
+					<form id='search-form' action='/main/search/'>
+					<input class='s-input left' placeholder='я ищу...' name='q' value=''>
+					<input class='s-btn right' type='submit' value=''>
+					</form>
+					</div>
+                    </div>
+					<div class='clear'></div>
+                </div>
+    		</div>
+			<div id='content'>
+				<div id='main-content' class='left'>
+					<!-- Главный контент -->
+                    {% block content %}
+					
+					{% endblock %}
+				</div>
+				<div id='sidebar' class='right'>
+					{% block sidebar %}
+					<!-- Юзерпанель -->
+                    <div class='text'>
+                    {% if not Yii.user.isGuest %}
+                    Вы вошли как <b><a href='/user/{{ Yii.user.name|e }}'>{{ Yii.user.name|e }}</a></b>
+                    <form class='right' action='/logout/' method='post'>
+                    	<input class='logout_btn' type='submit' name='logout[]' value='выйти' title='Выйти' onclick='return confirm("Действительно выйти?")'>
+                    </form>
+					{% else %}
+					<a href='/login/'>Вход</a> или <a href='/register/'>Регистрация</a>
+					{% endif %}
+                    </div>
+                    <br>
+					<!-- RotaBan.ru Zone Code -->
+                    <div id="rotaban_203513" class="rbrocks rotaban_d2b2d9b7a02f4535a0ade8f4b6a7179c"></div>
+                    <!-- END RotaBan.ru Zone Code -->
+					{% block bookmarklet %}
+					<!-- Букмарклет -->
+					<div id='bm-block'>
+						<h2 class='title'>Добавить сайт в каталог за 2 клика? </h2>
+						<br>
+						<p>
+							Это очень просто!<br> 
+							Наше приложение <strong>Bookmarklet</strong> позволит вам быстро это сделать. 
+							Просто перетяните кнопку, расположенную ниже, на панель вашего 
+							браузера и все готово.
+							<br>
+							<a id='bm-btn' title='Добавить сайт' href="javascript:eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('i e(h){2 5=4.k(\'q\');l(2 3=0;3<5.p;3++){o(5[3].n.f()==h.f()){b 5[3].r}}b\'\'}i 8(){2 c=\'j://8.m/A/\';2 1=\'\';1=4.a.D.d()+\'//\'+4.a.F.d();1=1.t(/^\\s|\\s$/g,\'\');1=9(1);2 6=4.E;6=9(6);2 7=e(\'C\');7=9(7);B.v(c+\'?u=w&amp;\'+\'x=\'+1+\'&amp;z=\'+6+\'&amp;y=\'+7)}8();',42,42,'|sitelist_url|var|counter|document|my_arr|sitelist_title|sitelist_desc|sitelist|encodeURIComponent|location|return|destination|toString|GetMetaValue|toLowerCase||meta_name|function|http|getElementsByTagName|for|in|name|if|length|META|content||replace|source|open|bookmarklet|bookmarklet_url|bookmarklet_desc|bookmarklet_title|add|window|description|protocol|title|hostname'.split('|'),0,{}))" style='margin-left: -4px;'><img width='226' height='62' src='http://i.sitelist.in/bm-btn.png' alt='Букмарклет для добавления сайтов'></a>
+						</p>
+					</div>
+                    {% endblock %}
+                    <br>
+                    {% block lastLinks %}
+					{% if lastLinks %}
+					<!-- Новые сайты -->
+					<div id='new-sites-block'>
+                        <h2><a class='title' href='/new/'>Новые сайты</a></h2>
+                        <br>
+						{% for lastlink in lastLinks %}
+						<p>
+							<a class='name' href='/link/{{ lastlink.id }}/{{ lastlink.domain|e }}'>{{ lastlink.title|e }}</a>
+						</p>
+                        <p class='desc'>{{ lastlink.desc|cut(150)|e }}</p>
+						<br>
+                        <p class='image'>
+                        	<a href='/link/{{ lastlink.id }}/{{ lastlink.domain|e }}'>
+                        		<img class='image' width='200' src='http://f.sitelist.in/t_{{ lastlink.foto }}' alt='{{ lastlink.title|e }}'>
+                            </a>							
+						</p>
+                        {% endfor %}
+                    </div>
+					{% endif %}
+                    {% endblock %}
+                    
+					{% endblock %}
+				</div>
+				<div class='clear'></div>
+			</div>
+	         <br>
+			<div id='footer-padding'></div>
+        </div>
+		<div id='footer'>
+			<div class='info'>
+				<div class='copyright right'>
+					<p><a target='_blank' href='http://sitelist.in'>sitelist.in</a> &copy; 2008–2011</p>
+					<p>powered by <a target='_blank' href='http://www.yiiframework.com/'>Yii Framework</a></p>
+				</div>
+			</div>
+		</div>
+        <script type='text/javascript' src='http://js.sitelist.in/jquery-1.6.2.min.js'></script>
+        {% block add_js %}
+        {% endblock %}
+        <script type='text/javascript' extsrc='/js/func.min.js?20110704_2'></script>
+        
+		<!-- RotaBan.ru Ad Code -->
+        <script type="text/javascript">
+        (function(){
+            var rb = document.createElement('script');
+                d = new Date();
+            d.setHours(0);
+            d.setMinutes(0);
+            d.setSeconds(0);
+            d.setMilliseconds(0);
+		    rb.type = 'text/javascript';
+		    rb.async = true;
+		    rb.src = '//s1.rotaban.ru/rotaban.js?v=' + d.getTime();
+		    (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(rb);
+		})();
+        </script>
+        <!-- END RotaBan.ru Ad Code -->
+		
+        <!-- Yandex.Metrika counter -->
+		<div style="display:none;"><script type="text/javascript">
+		(function(w, c) {
+		    (w[c] = w[c] || []).push(function() {
+		        try {
+		            w.yaCounter488379 = new Ya.Metrika({id:488379,
+		                    clickmap:true,
+		                    trackLinks:true});
+		        }
+		        catch(e) { }
+		    });
+		})(window, 'yandex_metrika_callbacks');
+		</script></div>
+		<script extsrc="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+		<noscript><div><img src="//mc.yandex.ru/watch/488379" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+		<!-- /Yandex.Metrika counter -->
+    </body>
+    {% endblock %}
+</html>

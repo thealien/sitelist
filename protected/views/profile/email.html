@@ -1,0 +1,37 @@
+{% extends "views/layouts/main.html" %}
+
+{% block content %}
+
+<div>
+    <div class='title left'>
+    <b>Смена email</b>
+    </div>
+    <div class='pref-links right'>
+        <a href='/profile/edit/'>Редактировать профиль</a> | 
+        <a href='/profile/pass/'>Изменить пароль</a>
+    </div>
+    <div class='clear'></div>
+</div>
+<br>
+{% include "views/layouts/messages.html" %}
+{% if not changed %}
+<form class='forms' action="" method="POST">
+    <p class='label'>Текущий email</p>
+    <p>
+        <input disabled="true" size='50' maxlength='256' title='Ваш текущий email'  type="text" value='{{ user.email|e }}'>
+    </p>
+    <br>
+    <p class='label'>Новый email</p>
+    <p>
+        <input size='50' maxlength='256' title='Укажите желаемый email'  type="text" name="email" value='{{ email|e }}'>
+    </p>
+    <br>
+    <div>
+        <input class='submit' type="submit" name="change_email" value="Сменить">
+    </div>
+    <div class='clear'></div>
+</form>
+{% else %}
+    Письмо с дальнейшими инструкциями по смене email выслано на <u>{{ user.email|e }}</u>.
+{% endif %}
+{% endblock %}

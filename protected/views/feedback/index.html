@@ -1,0 +1,42 @@
+{% extends "views/layouts/main.html" %}
+
+{% block menu_feedback %}
+    <li class='menu-item'><a href='/feedback/' class='current'>Обратная связь</a></li>
+{% endblock %}
+
+{% block bookmarklet %}
+{% endblock %}
+
+{% block content %}
+<div id='feedback' class='forms'>
+    <h2 class='title'>Контакты</h2>
+    <br>
+    <p><b>ICQ:</b> <a target="_blank" href="http://www.icq.com/people/466499433/">466-499-433</a></p>
+    <p><b>Микроблог разработчика:</b> <a target="_blank" href="http://sitelist.microbloggy.ru/">sitelist.microbloggy.ru</a></p>
+    <br>
+    <br>
+    <br>
+    <h2 class='title'>Обратная связь</h2>
+    <br>
+    <p>
+        Если вы нашли какую-либо ошибку, хотите предложить сотрудничество или просто отправить нам сообщение, 
+        заполните форму ниже, указав адрес электропочты и текст послания.
+    </p>
+    <br>
+    <p>
+        <input id='email' name="email" value="" placeholder="Ваш email">
+    </p>
+    <br>
+    <p>
+        <textarea name='message' rows='5' cols='78' id='message'></textarea>
+    </p>
+    <br>
+    <p>
+        <a class='send-btn' href='javascript:void(0);'></a>
+    </p>
+	<br>
+	<p>
+		<span id='feedback-result'></span>
+	</p>
+</div>
+{% endblock %}

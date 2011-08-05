@@ -1,0 +1,61 @@
+{% extends "views/layouts/main.html" %}
+
+{% block add_css %}
+{% if links %}
+<style type="text/css">
+.faviconed {background: url(http://favicon.yandex.ru/favicon/{% for l in links %}{{ l.domain }}/{% endfor %}) 0 0 no-repeat; width:16px; height:16px;}
+{% for l in links %}.fav_{{ loop.index }} {background-position: 0 -{{ loop.index0*16 }}px;}{% endfor %}
+</style>
+{% endif %}
+{% endblock %}
+
+{% block menu_new %}
+    <li class='menu-item'><a href='/new/' class='current'>Новые сайты</a></li>
+{% endblock %}
+
+{% block content %}
+{% if links %}
+{% for l in links %}
+<div class='new-site'>
+	<div class='photo left'>
+        <a href='/link/{{ l.id }}/{{ l.domain|e }}'>
+            <img class='photo' width='200' src='http://f.sitelist.in/t_{{ l.foto }}' alt='{{ l.title|e }}'>
+        </a>
+	</div>
+	<div class='favicon left'>
+		{% if l.domain!=false %}
+			<div class='faviconed fav_{{ loop.index }}'></div>
+        {% endif %}
+	</div>
+	<div class='right site'>
+		<h2 class='name'>
+			<a title='{{ l.title|e }}' href='/link/{{ l.id }}/{{ l.domain|e }}'>
+                {{ l.title|e }}
+            </a>
+		</h2>
+		<p class='desc'>{{ l.desc|cut(250)|e }}</p>
+        <div>
+            <ul class='site-rate' id='site{{ l.id }}'>
+                <li class='rate'><a title='{{ l.voted?"Вы уже голосовали":"Нравится" }}' class='site{{ l.id }} t-up{{ (l.voted) ?"":" active" }}' href='javascript:void(0)'></a></li>
+                <li class='rate-value site{{ l.id }}' title='Рейтинг: {{ l.rate }} [голосов: {{ l.votes }}]'>{{ l.rate }}</li>
+                <li class='rate'><a title='{{ l.voted?"Вы уже голосовали":"Не нравится" }}' class='site{{ l.id }} t-down{{ l.voted ? "":" active" }}' href='javascript:void(0)'></a></li>
+            </ul>
+        </div>
+	</div>
+	<div class='clear'></div>
+</div>
+{% endfor %}
+<div class="paginator">
+    {{ top_paginator }}
+</div>
+<br>
+{% else %}
+
+<h3>
+    оУ! <br>
+    Походу сайтеги потерялися... или ты набрал страницу. которой нет...хзхз. <br>
+    ну, лучше тебе пойти на главную, там уж точно есть, что глянуть ;)
+</h3>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "views/layouts/main.html" %}
+
+{% block content %}
+{% include "views/layouts/messages.html" %}
+<form class='forms' action="" method="POST">
+	<p class='label'>Логин</p>
+	<p>
+		<input maxlength='50' size='50' title='Укажите имя пользователя' type="text" name="User[username]" value='{{ form.username|e }}'>
+	</p>
+	<br>
+	<p class='label'>Пароль</p>
+	<p>
+		<input maxlength='50' size='50' title='Укажите ваш пароль'  type="password" name="User[password]" value=''>
+	</p>
+	<br>
+	<p>
+		<input type='submit' name='loginbtn' value='Войти'>
+	</p>
+	<input type='hidden' name='return' value='{{ return|e }}'>
+</form>
+{% endblock %}

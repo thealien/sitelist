@@ -1,0 +1,92 @@
+{% extends "views/layouts/main.html" %}
+
+{% block content %}
+
+<div>
+    <div class='title left'>
+        <b>Редактирование профиля</b>
+    </div>
+    <div class='pref-links right'>
+        <a href='/profile/'>Вернуться в профиль</a> | 
+        <a href='/profile/email/'>Изменить email</a> |
+        <a href='/profile/pass/'>Изменить пароль</a>
+    </div>
+    <div class='clear'></div>
+</div>
+<br>
+{% include "views/layouts/messages.html" %}
+<form class='forms profile' action="" method="POST" enctype='multipart/form-data'>
+	<div>
+	{% if profile.avatar %}
+    <img class='avatar' src='/images/avatars/{{ profile.avatar }}' alt='Аватар пользователя'>
+	{% else %}
+	<img class='avatar' src='/images/user/noavatar.jpg' alt='Аватар пользователя'>
+    {% endif %}
+	</div>
+	
+    <p class='label'>Аватар</p>
+    <div class='left'>
+    <p>
+        <input type='file' name="avatar" accept="image/*">
+    </p>
+    </div>
+    <div class='left'>
+    <p>
+         &nbsp; &nbsp;<input class='submit' type="submit" name="avatar_update" value="Обновить">
+    </p>
+    </div>
+    {% if profile.avatar %}
+    <div class='left'>
+    <p>
+         &nbsp;&nbsp;или&nbsp;&nbsp;
+         <input class='submit' type="submit" name="avatar_delete" value="Удалить" onclick="return confirm('Удалить аватар?');">
+    </p>
+    </div>
+    {% endif %}
+    <div class='clear'>
+    	<small>
+        Допускаются изображения форматов jpg, gif и png размером не более 1 мБ.
+		<br>
+		Если потребуется, заливаемый аватар будет уменьшеньшен до размеров 100x100 пикселей.
+		</small>
+    </div>
+</form>
+<br>
+<form class='forms profile' action="" method="POST">
+    <p class='label'>Откуда</p>
+    <p>
+        <input maxlength='50' size='25' title='Откуда вы' name="Profile[from]" value='{{ profile.from|e }}'>
+    </p>
+    <br>
+	
+	<p class='label'>День рождения <small>(в формате дд.мм.гггг)</small></p>
+    <p>
+        <input maxlength='10' size='15' title='>День рождения' name="Profile[birthday]" value='{{ profile.birthday|e }}'>
+		
+    </p>
+    <br>
+	
+	<p class='label'>ICQ</p>
+    <p>
+        <input maxlength='15' size='15' title='Ваш ICQ-номер' name="Profile[icq]" value='{{ profile.icq|e }}'>
+    </p>
+    <br>
+	
+	<p class='label'>Сайт</p>
+    <p>
+        <input maxlength='50' size='25' title='Сайт' name="Profile[site]" type='url' value='{{ profile.site|e }}'>
+    </p>
+    <br>
+	
+	<p class='label'>Skype</p>
+    <p>
+        <input maxlength='50' size='25' title='Skype' name="Profile[skype]" value='{{ profile.skype|e }}'>
+    </p>
+    <br>
+	
+    <div>
+        <input class='submit' type="submit" name="profile_edit" value="Сохранить">
+    </div>
+    <div class='clear'></div>
+</form>
+{% endblock %}

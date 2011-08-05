@@ -1,0 +1,24 @@
+{% extends "views/admin/index.html" %}
+
+{% block admin_content %}
+    {% if links %}
+    <table width="90%" class="p" align=center cellspacing=3 cellpadding=3>
+    <tr bgcolor=orange>
+        <td><b><font color='white'>Название</font></b></td>
+		<td><b><font color='white'>Категория</font></b></td>
+        <td><b><font color='white'>IP</font></b></td>
+        <td><b><font color='white'>Редактирование</font></b></td>
+    </tr>
+    {% for l in links %}
+        <tr>
+            <td><a title='{{ l.title|e }}' href='/link/{{ l.id }}/'>{{ l.title|e }}</a></td>
+			<td><a title='{{ l.category.catname|e }}' href='/category/{{ l.catid }}/'>{{ l.category.catname|e }}</a></td>
+            <td><a href=#>{{ l.ip }}</a></td>
+            <td><a href='/link/edit/{{ l.id }}/'>Редактировать</a></td>
+        </tr>
+    {% endfor %}
+    </table>    
+{% else %}
+    Нет новых ссылок
+{% endif %}
+{% endblock %}

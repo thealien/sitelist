@@ -1,0 +1,26 @@
+{% extends "views/layouts/main.html" %}
+{% block menu_main %}
+<li class='menu-item'><a href='/' class='current'>Главная</a></li>
+{% endblock %}
+{% block content %}<!-- Главный контент -->
+<ul id='cat-list'>
+    {% for cat in categories %}
+    <li class='cat-item'>
+        <div class='left cat-logo cat-{{ cat.alias}}'>
+            <a class='cat-logo-link' href='/category/{{ cat.id }}/{{ cat.alias|e }}'></a>
+        </div>
+        <div class='right info'>
+            <p class='cat-name'>
+                <a href='/category/{{ cat.id }}/{{ cat.alias|e }}'>{{ cat.catname|e }}</a>
+            </p>
+            <p class='cat-links-cnt'>
+                {{ cat.linksCount|world_ending("сайт сайта сайтов")}}
+            </p>
+        </div>
+        {% if(cat.newLinksCount>0) %}
+        <div title='Новых сайтов за последние 3 дня' class='subcat-cnt'>{{ cat.newLinksCount }}</div>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

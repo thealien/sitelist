@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<atom:link href="http://sitelist.in/linksgroup/{{ collection.id }}/" rel="self" type="application/rss+xml" />
+<title>Подборка сайтов "{{ collection.title|e }}" пользователя {{ user.username|e }} - Каталог сайтов SiteList</title>
+<link>http://sitelist.in/linksgroup/{{ collection.id }}/</link>
+<description>Каталог сайтов SiteList</description>
+<language>ru</language>
+{% for link in collection.links %}
+<item>
+    <title>{{ link.title|e }}</title>
+    <link>http://sitelist.in/link/{{ link.id }}/{{ link.domain|e}}</link>
+    <description>
+    	<![CDATA[
+		  <div>{{ link.desc|e }}
+		  <br>
+          Подборка сайтов <a href='http://sitelist.in/linksgroup/{{ collection.id }}/'>"{{ collection.title|e }}"</a> 
+		  пользователя <a href='http://sitelist.in/user/{{ user.username|e }}/'>{{ user.username|e}}</a>.
+		  </div>
+		  {% if link.foto=='' %}{% else %}<div>
+		  <a href='http://sitelist.in/link/{{ link.id }}/{{ link.domain|e}}'><img src="http://f.sitelist.in/t_{{ link.foto }}" border="0"></a></div>{% endif %}
+		 ]]>
+	</description>
+    <pubDate>{{ link.date|date('r') }}</pubDate>
+    <guid>http://sitelist.in/link/{{ link.id }}</guid>
+</item>
+{% endfor %}
+</channel>
+</rss>

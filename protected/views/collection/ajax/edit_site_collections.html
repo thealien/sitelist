@@ -1,0 +1,15 @@
+<div class='collect-add-inner'>
+	<a class='right' href='/user/{{ user.username|e }}/#collections'>Мои подборки</a>
+    <form action='' method='post' onsubmit="return saveSiteCollections($(this))">
+        {% for c in user.collections %}
+        <label>
+            <input {% if c.id in link_collection %}checked{% endif %} type='checkbox' name='collections[]' value='{{ c.id }}'>{{ c.title|e }}
+        </label>
+        <br>
+        {% endfor %}<input type='hidden' name='new_collection' value='0'><input type='checkbox' name='new_collection' id='new_collection' onclick="if (this.checked) { $('#new_collection_name').focus() }" value='1'><input type='texy' name='new_collection_name' id='new_collection_name' placeholder='создать подборку' onfocus="$('#new_collection').attr('checked', 'checked')">
+        <br>
+        <br>
+        <input type='submit' name='add_to_collection' value='Сохранить'> или <a href='javascript:void(0)' class='cancel-edit-collection-btn'>Отменить</a>
+		<input type='hidden' name='link_id' value='{{ link.id }}'>
+    </form>
+</div>

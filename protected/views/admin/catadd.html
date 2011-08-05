@@ -1,0 +1,16 @@
+{% extends "views/admin/index.html" %}
+
+{% block admin_content %}
+<form action="" method="POST" class='forms' >
+    <p class='label'>Название категории</p>
+    <p><input size="50" type=text name="Category[catname]" value='{{ category.catname|e }}'></p>
+    <br>
+    <p class='label'>Подкатегория для</p>
+    <p>
+        {% include "views/layouts/catbox.html" with {'cats':categories, 'curr':category.parentid ,'onlyroot' : true, 'inputname':'Category[parentid]'} %}
+    </p>
+    <br>
+    <p><input type="submit" name="cataddbtn" value='Добавить'></p>
+    <br>
+</form>
+{% endblock %}

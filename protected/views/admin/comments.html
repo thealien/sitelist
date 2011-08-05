@@ -1,0 +1,27 @@
+{% extends "views/admin/index.html" %}
+
+{% block admin_content %}
+<h2>Комментарии:</h2>
+<div id='comments'>
+        {% for c in comments %}
+        <div class='left name'>{{ c.user|e }}</div>
+        <div class='right date'><a href='/link/{{ c.linkid }}' target='_blank'>{{ c.datetime|date("H:i, d.m.y") }}</a></div>
+        <div class='clear'></div>
+        <div class='message'>{{ c.text|e|auto_link|nl2br }}</div>
+        <div>
+            <form target="_blank" action='/comment/edit/{{ c.id }}' method='post' class='right'>
+                <input class='adm' type='submit' name='d' value='редактировать'>
+            </form>
+            <form action='/comment/delete/{{ c.id }}' method='post' class='right'>
+                <input class='adm' type='submit' name='d' value='удалить' onclick='return confirm("Удалить?")'>
+            </form>
+            <div class='clear'></div>
+        </div>
+        <div class='splitter'></div>
+        {% endfor %}
+    </div>
+<br>
+<div>
+    {{ comments_paginator }}
+</div>
+{% endblock %}

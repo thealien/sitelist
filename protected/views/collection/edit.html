@@ -1,0 +1,35 @@
+{% extends "views/layouts/main.html" %}
+
+{% block content %}
+
+<div>
+    <div class='title left'>
+        <b>Редактирование подборки</b>
+    </div>
+    <div class='pref-links right'>
+        <a href='/profile/'>Вернуться в профиль</a> 
+    </div>
+    <div class='clear'></div>
+</div>
+<br>
+{% include "views/layouts/messages.html" %}
+<form class='forms' action="" method="POST">
+    <p class='label'>Название</p>
+    <p>
+        <input maxlength='50' size='50' name="Collection[title]" value='{{ collection.attributes.title|e }}'>
+    </p>
+    <br>
+    
+    <p class='label'>Описание</p>
+    <p>
+        <textarea cols="78" name="Collection[desc]" rows="5">{{ collection.attributes.desc|e }}</textarea>
+    </p>
+    <br>
+    
+    <div>
+        <input class='submit' type="submit" name="fav_add" value="Сохранить">
+		<input class='submit right' type="submit" name="fav_del" value="Удалить" onclick="return confirm('Действительно удалить?');">
+    </div>
+    <div class='clear'></div>
+</form>
+{% endblock %}

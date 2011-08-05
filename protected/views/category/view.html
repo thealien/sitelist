@@ -1,0 +1,61 @@
+{% extends "views/layouts/main.html" %}
+
+{% block add_meta %}
+{% if category %}
+<link rel="alternate" type="application/atom+xml" title="Новые сайты в каталоге SiteList.in - {{ category.catname|e }}" href="/rss/{{ category.alias|e }}/" >
+{% endif %}
+{% endblock %}
+
+{% block rss_link %}
+    <a class='rss_twitter_fb rss' target='_blank' href='/rss/{{ category.alias|e }}/' title='RSS-лента новых сайтов в категории "{{ category.catname|e }}"'></a>
+{% endblock %}
+
+{% block add_css %}
+{% if category.links %}
+<style type="text/css">
+.faviconed {background: url(http://favicon.yandex.ru/favicon/{% for l in category.links %}{{ l.domain }}/{% endfor %}) 0 0 no-repeat; width:16px; height:16px; float:right;}
+{% for l in category.links %}.fav_{{ loop.index }} {background-position: 0 -{{ loop.index0*16 }}px;}{% endfor %}
+</style>
+{% endif %}
+{% endblock %}
+
+{% block bookmarklet %}
+{% endblock %}
+
+{% block content %}
+<div id='category-head'>
+    <div class='left category-info'>
+        <div class='left cat-logo cat-{{ category.alias }}'></div>
+        <div class='left info'>
+            <p class='name'>{{ category.catname|e }}</p>
+            <p class='link-count'>{{ category.linksCount|world_ending("сайт сайта сайтов")}}</p>
+        </div>
+    </div>
+    <div class='clear'></div>
+</div>
+{# Ссылки в категории #}
+{% if category.links %}
+    {% for l in category.links %}
+        <div class='cat-site'>
+            <div class='favicon left'>
+                {% if l.domain!=false %}
+					<div class='faviconed fav_{{ loop.index }}'></div>
+                {% endif %}
+            </div>
+            <div class='right site'>
+                <h2 class='name'>
+                    <a title='{{ l.title|e }}' href='/link/{{ l.id }}/{{ l.domain|e }}'>{{ l.title|e }}</a>
+					{% if l.isnew==true %} <sup class='new'>new</sup>{% endif %}
+                </h2>
+                <p class='desc'>{{ l.desc|cut(250)|e }}</p>
+            </div>
+            <div class='clear'></div>
+        </div>
+    {% endfor %}
+    <div>
+    {{ cat_paginator }}
+    </div>
+{% else %}
+    <h3>Нет ссылок в данной категории</h3>
+{% endif %}
+{% endblock %}

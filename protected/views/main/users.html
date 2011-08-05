@@ -1,0 +1,32 @@
+{% extends "views/layouts/main.html" %}
+
+{% block menu_users %}
+    <li class='menu-item'><a href='/users/' class='current'>Пользователи</a></li>
+{% endblock %}
+
+{% block content %}
+{% if users %}
+<div id='users'>
+	{% for user in users %}
+	<div class='user'>
+		<div class='left'>
+        <a href='/user/{{ user.username|e }}/'>
+        {% if user.profile.avatar %}
+        <img style='' class='avatar' src='/images/avatars/t_{{ user.profile.avatar }}' alt='Аватар пользователя'>
+        {% else %}
+        <img class='avatar' src='/images/user/noavatar.jpg' alt='Аватар пользователя'>
+        {% endif %}
+        </a>
+		<a href='/user/{{ user.username|e }}/'>
+			{{ user.username|e }}
+		</a>
+        </div>
+	</div>
+    {% endfor %}    
+    <div class='clear'></div>
+</div>
+<div class="paginator">
+    {{ users_paginator }}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "views/layouts/main.html" %}
+
+{% block add_css %}
+<!--[if lte IE 7]>
+<style type="text/css">
+div.sites-groups div.group { 
+    display: inline;
+    zoom:1;
+}
+</style>
+<![endif]-->
+{% endblock %}
+
+{% block content %}
+<div id='profile'>
+	<div class='title left'>
+    <b>
+    {% if user.userID == Yii.user.id %}
+    Просмотр своего профиля
+    {% else %}
+    Просмотр профиля пользователя
+    {% endif %}
+    </b>
+    </div>
+	{% if user.userID == Yii.user.id %}
+	<div class='pref-links right'>
+        <a href='/profile/edit/'>Редактировать</a> | 
+        <a href='/profile/email/'>Изменить email</a> |
+        <a href='/profile/pass/'>Изменить пароль</a>
+    </div>
+	{% endif %}
+	<div class='clear'></div>
+	<!-- краткая инфа о пользователе -->
+    <h1>{{ user.username }}</h1>
+	<div>
+	   <div class='left'>
+	   	{% if user.profile.avatar %}
+		<img class='avatar' src='/images/avatars/{{ user.profile.avatar }}' alt='Аватар пользователя'>
+		{% else %}
+		<img class='avatar' src='/images/user/noavatar.jpg' alt='Аватар пользователя'>
+		{% endif %}
+	   	
+        </div>
+	   <div class='left'>
+	   {% if user.profile %}
+	       {% if user.profile.birthday %}
+	       <div><b>День рождения:</b> {{ user.profile.birthday|e }}</div>
+		   {% endif %}
+		   {% if user.profile.from %}
+	       <div><b>Откуда:</b> {{ user.profile.from|e|default('не указано') }}</div>
+		   {% endif %}
+		   {% if user.profile.icq %}
+	       <div><b>ICQ:</b> {{ user.profile.icq|e|default('не указано') }}</div>
+		   {% endif %}
+		   {% if user.profile.site %}
+	       <div><b>Сайт:</b> <a href='{{ user.profile.site|e }}' target='_blank'>{{ user.profile.site|e }}</a></div>
+		   {% endif %}
+		   {% if user.profile.skype %}
+	       <div><b>Skype:</b> <a href='skype:{{ user.profile.skype|e }}?call' target='_blank'>{{ user.profile.skype|e }}</a></div>
+		   {% endif %}
+	   {% else %}
+	       {% if user.userID == Yii.user.id %}
+		   <p>
+		   	Ваш профиль не заполнен. <a href='/profile/edit/'>Отредактировать</a> сейчас?
+		   </p>
+	       {% endif %}
+	   {% endif %}
+	   </div>
+	<div class='clear'></div>
+	</div>
+	<!-- Подборки сайтов -->
+	<a name='collections'></a>
+	<div>
+        <h3 class='left'>Подборки сайтов:</h3>
+		<div class='right'>
+            {% if user.userID == Yii.user.id %}
+			<a href='/collection/add/' style='vertical-align: top;'>Создать подборку</a>
+            {% endif %}
+		</div>
+		<div class='clear'><br></div>
+	</div>
+	{% if not collections %}
+	Тут пока ничего нет.
+	{% else %}
+	<div class='sites-groups'>
+		{% for g in collections %}
+        <div class='group'>
+            <div class='buttons left'>
+                <a class="rss_twitter_fb rss" target="_blank" href="/collection/rss/{{ g.id }}/"></a>
+				{% if user.userID == Yii.user.id %}
+                <a class="edit" href="/collection/edit/{{ g.id }}/" title='Редактировать подборку'></a>
+				{% endif %}
+            </div>
+            <div class='info'>
+                <div class='title'><a href='/collection/{{ g.id }}/'>{{ g.title|e }}</a></div>
+                <div class='desc'>{{ g.desc|e }}</div>
+                <div class='counter'>{{ g.linksCount|world_ending("сайт сайта сайтов")}}</div>
+            </div>
+            <div class='clear'></div>
+        </div>
+		{% endfor %}
+	</div>
+	{% endif %}
+	<br><br>
+	<!-- Комментарии пользователя -->
+    <a name='comments'></a>
+    <div>
+        <h3 class='left'>Комментарии пользователя:</h3>
+        <div class='clear'><br></div>
+    </div>
+    {% if not comments %}
+    Нет комментариев.
+    {% else %}
+    <div id='comments'>
+        {% for c in comments %}
+            {% include "views/user/user-comment.html" %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

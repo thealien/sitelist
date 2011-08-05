@@ -1,0 +1,8 @@
+{% if cats %}
+<select title="Укажите категорию, наиболее близкую к тематике сайта" name="{{ inputname|default('Link[catid]') }}">
+    <option value="0"> -- Не выбрана -- </option>
+	{% for c in cats %}
+    <option {{ c.id==curr ? 'selected="selected"' : '' }} value="{{ c.id }}">{{ c.catname|e }}</option>
+    {% endfor %}
+</select>
+{% endif %}
