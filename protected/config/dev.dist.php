@@ -27,6 +27,23 @@ return CMap::mergeArray(
                 'enableParamLogging' => true,
             ),
             
+			// Twig шаблонизатор
+            'viewRenderer'=>array(
+                'class'             =>'ext.yiiext.renderers.twig.ETwigViewRenderer',
+                'options'           => array(
+                    'charset'           => 'utf-8',
+                    'trim_blocks'       => FALSE,
+                    'strict_variables'  => false,
+                    'auto_reload'       => true,
+                    'autoescape'        => false,
+                    'minify'            => false,
+                    'cache'             => false
+                ),
+                'extentions'        => array(
+                    'My_Twig_Extension' // file vendors/My_Twig_Extension.php must exists
+                ),
+            ),
+			
             // Логирование
             'log'=>array(
                 'class'=>'CLogRouter',
