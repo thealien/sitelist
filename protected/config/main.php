@@ -16,6 +16,7 @@ return array(
     'import'=>array(
         'application.models.*',
         'application.components.*',
+        'application.extensions.yii-mail.*',
     ),
 
     // application components
@@ -102,12 +103,22 @@ return array(
                 'My_Twig_Extension' // file vendors/My_Twig_Extension.php must exists
             ),
         ),
+		
+		// Mailer ( http://www.yiiframework.com/extension/mail )
+        'mail' => array(
+            'class' => 'ext.yii-mail.YiiMail',
+            'transportType' => 'php',
+            'viewPath' => 'application.views.layouts.mail',
+            'logging' => true,
+            'dryRun' => false
+        ),
     ),
     
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
     'params'=>array(
-        'adminEmail'=>'your@mail.com',
+        'adminEmail' => 'your@mail.com',
+		'system_mail' => 'mail@' . $_SERVER['SERVER_NAME'], 
         'title' => 'Каталог сайтов SiteList',
         'SITE_RATE_DATE_EXP' => 3*24*60*60,
         'IMAGES_DIR' => realpath(dirname(__FILE__) . '/../..') . '/foto/',
