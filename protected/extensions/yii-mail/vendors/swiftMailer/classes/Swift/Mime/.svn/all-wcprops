@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/9/trunk/vendors/swiftMailer/classes/Swift/Mime
+END
+EmbeddedFile.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/EmbeddedFile.php
+END
+SimpleHeaderFactory.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/SimpleHeaderFactory.php
+END
+SimpleMessage.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/SimpleMessage.php
+END
+EncodingObserver.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/EncodingObserver.php
+END
+SimpleMimeEntity.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/9/trunk/vendors/swiftMailer/classes/Swift/Mime/SimpleMimeEntity.php
+END
+CharsetObserver.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/CharsetObserver.php
+END
+HeaderSet.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/HeaderSet.php
+END
+ParameterizedHeader.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/ParameterizedHeader.php
+END
+ContentEncoder.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/ContentEncoder.php
+END
+SimpleHeaderSet.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/SimpleHeaderSet.php
+END
+MimePart.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/MimePart.php
+END
+HeaderFactory.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/HeaderFactory.php
+END
+MimeEntity.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/MimeEntity.php
+END
+Message.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/Message.php
+END
+Attachment.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/Attachment.php
+END
+Header.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/Header.php
+END
+HeaderEncoder.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/Mime/HeaderEncoder.php
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/StreamFilters
+END
+StringReplacementFilter.php
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/StreamFilters/StringReplacementFilter.php
+END
+StringReplacementFilterFactory.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/StreamFilters/StringReplacementFilterFactory.php
+END
+ByteArrayReplacementFilter.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/4/trunk/vendors/swiftMailer/classes/Swift/StreamFilters/ByteArrayReplacementFilter.php
+END
