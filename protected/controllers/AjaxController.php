@@ -79,7 +79,7 @@ class AjaxController extends Controller
         exit(json_encode($r));
 	}
 	/**
-	 * Слздание скриншота (доступно только администратору)
+	 * Создание скриншота (доступно только администратору)
 	 * @param int $id [optional]
 	 * @return 
 	 */
@@ -171,9 +171,14 @@ class AjaxController extends Controller
         exit(json_encode($res));
 	}
     
+	/**
+	 * Feedback
+	 * @return 
+	 */
     public function actionFeedback(){
         $result = array('error'=>true, 'message'=>'');
         $mail = isset($_POST['mail']) ? trim($_POST['mail']) :  false;
+		// TODO check mail format
         $text = isset($_POST['text']) ? trim($_POST['text']) :  false;
         if(!$mail){
             $result['message'] = 'Не указан e-mail';
@@ -182,23 +187,10 @@ class AjaxController extends Controller
             $result['message'] = 'Не указано сообщение';
         }
         else{
-            $to  = "megafon-don@mail.ru";
-            $from = 'mail@sitelist.in';
-            $subject = "SiteList.in Feedback";
-            $message = "
-E-mail: ".htmlspecialchars($mail)."<br>
-Сообщение: ".htmlspecialchars($text)."<br>
----------<br>
-Browser: ".htmlspecialchars(@$_SERVER['HTTP_USER_AGENT'])."<br>
-IP: ".htmlspecialchars(@$_SERVER['REMOTE_ADDR']); 
-            $headers  = "Content-type: text/html; charset=utf-8 \r\n"; 
-            $headers .= "From: ". htmlspecialchars($from) ."\r\n"; 
-            if(mail($to, $subject, $message, $headers)){
+        	if(MailHelper::sendFeedback($mail, $text))
                 $result['error'] = false;
-            }
-            else{
+            else
                 $result['message'] = 'Ошибка отправки сообщения на e-mail';
-            }
         }
         header('Content-type: application/json;');
         exit(json_encode($result));
@@ -226,24 +218,17 @@ IP: ".htmlspecialchars(@$_SERVER['REMOTE_ADDR']);
 		$list = array();
 		if($collections) $list = array_merge($list, $collections);
 		if($new_collection){
-			//$new_collection = iconv('utf-8', 'windows-1251', $new_collection);
 			$c = new Collection();
 			$c->title = trim($new_collection);
 			$c->user_id = Yii::app()->user->id;
 			if($c->save())
                 $list[] = $c->id;
 		}
-		//if($list){
-			//var_dump($list);
-			$link->setCollections($list);
-		//}
-		
+        $link->setCollections($list);
 		$html = $this->render('//collection/ajax/info_site_collections', array(
             'link'      => $link,
         ), true);
-        //$html = iconv('windows-1251', 'utf-8', $html);
         exit($html);
-		
 	}
 	
 	public function actionGetEditSiteCollectionPanel(){
@@ -264,7 +249,6 @@ IP: ".htmlspecialchars(@$_SERVER['REMOTE_ADDR']);
 			'link_collection' => $link_collection,
             'user' => (Yii::app()->user->isGuest) ? false : Users::model()->findByPk(Yii::app()->user->id)
         ), true);
-		//$html = iconv('windows-1251', 'utf-8', $html);
 		exit($html);
 	}
 	
@@ -278,7 +262,6 @@ IP: ".htmlspecialchars(@$_SERVER['REMOTE_ADDR']);
         $html = $this->render('//collection/ajax/info_site_collections', array(
             'link'      => $link,
         ), true);
-        //$html = iconv('windows-1251', 'utf-8', $html);
         exit($html);
     }
 	
@@ -320,7 +303,6 @@ IP: ".htmlspecialchars(@$_SERVER['REMOTE_ADDR']);
 		if(isset($_POST['Comment'])){
 			$comment = new Comments('add');
             $comment->attributes = $_POST['Comment'];
-			//$comment->text = iconv('utf-8', 'windows-1251', $comment->text);
             $comment->linkid = $link->id;
             $comment->userid = 0;
             $comment->datetime = new CDbExpression('NOW()');
@@ -336,7 +318,6 @@ IP: ".htmlspecialchars(@$_SERVER['REMOTE_ADDR']);
                     'link'      => $link,
 					'c' => $comment
                 ), true);
-                //$html = iconv('windows-1251', 'utf-8', $html);
 				$result['message'] = $html;
             }
             else{
@@ -349,7 +330,6 @@ IP: ".htmlspecialchars(@$_SERVER['REMOTE_ADDR']);
 				$errors = $this->render('//layouts/messages', array(
                     'errors'      => $errors
                 ), true);
-                //$errors = iconv('windows-1251', 'utf-8', $errors);
 				$result['message'] = $errors;
             }
         }

@@ -177,7 +177,7 @@ class LinkController extends Controller
 			if($form->save()){
                 Yii::app()->session['added'] = true;
                 Yii::app()->session['added_id'] = $form->id;
-                self::notify($form->title, $form->url);
+                MailHelper::sendNewSiteNotify($form->title, $form->url);
                 $this->redirect('/add/', true, 302);
             }
             else{
@@ -189,6 +189,7 @@ class LinkController extends Controller
 					if($k=='url' && !(empty($form->url))){
 						$l = Links::model()->findByAttributes(array('url'=>$form->url));
 						if($l){
+							// TODO bad code :(
 							$errors[] = $l->title . ' <a href="/link/'.$l->id.'">уже есть на сайте</a>';
 						}
 					}
@@ -247,24 +248,4 @@ class LinkController extends Controller
             )
         ), true);
 	}
-	
-    /**
-     * Оповещение о новом добавлении сайта
-     * @param object $name
-     * @param object $url
-     * @return 
-     */
-    static private function notify($name, $url){
-        $to  = "megafon-don@mail.ru";
-        $from = 'mail@sitelist.in';
-        $subject = "SiteList.in New Site";
-        $message = "
-        Добавлен новый сайт: ".htmlspecialchars($name)." - ".htmlspecialchars($url)."<br>
-        ---------<br>
-        Browser: ".htmlspecialchars(@$_SERVER['HTTP_USER_AGENT'])."<br>
-        IP: ".htmlspecialchars(@$_SERVER['REMOTE_ADDR']); 
-        $headers  = "Content-type: text/html; charset=utf-8 \r\n"; 
-        $headers .= "From: ". htmlspecialchars($from) ."\r\n"; 
-        return mail($to, $subject, $message, $headers);
-    }
 }
