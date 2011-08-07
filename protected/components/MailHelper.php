@@ -35,7 +35,7 @@ class MailHelper {
         $message = new YiiMailMessage;
         $message->view = 'new_site';
         $message->setBody(array(
-            'titele' => $title,
+            'title' => $title,
             'url' => $url,
             'ip' => $ip,
             'user_agent' => $user_agent
