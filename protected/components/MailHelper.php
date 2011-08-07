@@ -33,7 +33,7 @@ class MailHelper {
 		$ip = $_SERVER['REMOTE_ADDR'];
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $message = new YiiMailMessage;
-        $message->view = 'feedback';
+        $message->view = 'new_site';
         $message->setBody(array(
             'titele' => $title,
             'url' => $url,
