@@ -8,6 +8,7 @@
  *
  * @version 0.9.4
  */
+
 class ETwigViewRenderer extends CApplicationComponent implements IViewRenderer {
     public $fileExtension='.html';
 
@@ -47,6 +48,7 @@ class ETwigViewRenderer extends CApplicationComponent implements IViewRenderer {
         if(!isset($this->options['cache'])){
             $this->options['cache'] = Yii::app()->getRuntimePath().DIRECTORY_SEPARATOR.'views_twig'.DIRECTORY_SEPARATOR;
         }
+		
         // here we are using twig loader
         $loader = new Twig_Loader_Filesystem($this->getBasePath(), (!empty($this->options['minify']) && $this->options['minify']));
         $this->twig = new Twig_Environment($loader, $this->options);

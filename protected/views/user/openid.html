@@ -1,0 +1,49 @@
+{% extends "views/layouts/main.html" %}
+
+{% block content %}
+
+{% if userinfo %}
+<h4>Здравствуйте. Под данной учетной записью ({{ userinfo.email|e }}) Вы вошли в первый раз.<br>
+Для продолжения выберите один из вариантов:</h4>
+<br>
+<form action='' method='post' class='forms left' style='width:36%;'>
+    <input type='hidden' name='create_acc'>
+	<h4>Создать новый аккаунт:</h4>
+	<br>
+    <p class='label'>Логин</p>
+	<p><input name='username' value='{{ userinfo.username|e }}'></p>
+	 <br>
+	<p class='label'>Электропочта</p>
+	<p><input name='email' value='{{ userinfo.email|e }}'></p>
+	 <br>
+	<input type='submit' value='Создать'>
+</form>
+<form action='' method='post' class='forms right' style='width:50%;'>
+    <input type='hidden' name='attach_acc'>
+    <h4>Связать с существующим аккаунтом:</h4>
+	<br>
+    <p class='label'>Логин</p>
+    <p><input name='User[username]' value=''></p>
+     <br>
+    <p class='label'>Пароль</p>
+    <p><input name='User[password]' value=''></p>
+     <br>
+    <input type='submit' value='Войти'>
+</form>
+<div class='clear'></div>
+
+{% else %}
+<p>
+    <center><h3 align='center'>Войти с помощью:</h3></center>
+</p>
+{% endif %}
+
+<br>
+
+{% if error %}
+<i>{{ error|e }}</i>
+{% endif %}
+
+{{ this.widget('application.widgets.openidProviders.openidProviders', {"options":{"lang":"ru"}}, true) }}
+
+{% endblock %}

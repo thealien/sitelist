@@ -325,4 +325,5 @@ class Links extends CActiveRecord
         }
 		return true;
 	}
+
 }

@@ -133,5 +133,73 @@ class UserController extends Controller
 			'collections' => $collections
         ));
 	}
+	
+	public function actionOpenid(){
+		$err = false;
+		$user_openid = Yii::app()->session['user_openid'];
+		$loid = Yii::app()->loid->load();
+        if (!empty($_GET['openid_mode'])) {
+		    if ($_GET['openid_mode'] == 'cancel') {
+		        $err = Yii::t('core', 'Authorization cancelled');
+		    } 
+			else {
+		        try {
+		        	if($loid->validate()){
+						$userinfo = $loid->getAttributes();
+						$user_openid = array();
+						$user_openid['identity'] = $loid->identity;
+						if(isset($userinfo['contact/email'])){
+							$user_openid['email'] = $userinfo['contact/email'];
+						}
+						if(isset($userinfo['namePerson/friendly'])){
+                            $user_openid['username'] = $userinfo['namePerson/friendly'];
+                        }
+						
+						if(Users::authenticateByEmail(@$user_openid['email'])){
+							$this->redirect(array('main/index'));
+						}
+						elseif(Users::authenticateByOidIdentity($user_openid['identity'])){
+							$this->redirect(array('main/index'));
+						}
+						
+						//var_dump($user_openid['identity']);
+						//exit();
+						
+						
+						Yii::app()->session['user_openid'] = $user_openid;
+						// Попытаться авторизовать по e-mail
+						// Попытаться авторизовать по identity
+						
+						$this->redirect(array('user/openid'));
+		        	}
+					else{
+						
+					}
+		        } catch (Exception $e) {
+		            $err = Yii::t('core', $e->getMessage());
+		        }
+		    }
+		    if(!empty($err)) echo $err;
+		} elseif(isset($_GET['openid_identifier'])) {
+		    $loid->identity = strval($_GET['openid_identifier']);
+		    $loid->required = array('namePerson/friendly', 'contact/email', 'namePerson');
+		    $loid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']; 
+		    $loid->returnUrl = $loid->realm . $_SERVER['REQUEST_URI'];
+		    if (empty($err)) {
+		        try {
+		            $url = $loid->authUrl();
+		            $this->redirect($url);
+		        } catch (Exception $e) {
+		            $err = Yii::t('core', $e->getMessage());
+		        }
+		    }
+		}
+		
+		$this->render('openid', array(
+            'userinfo' => $user_openid,
+			'error' => $err
+		));
+	}
+
     
 }

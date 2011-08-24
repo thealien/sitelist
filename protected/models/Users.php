@@ -136,4 +136,34 @@ class Users extends CActiveRecord
             }
         }
     }
+	
+	
+	public static function authenticateByEmail($email){
+		$user = self::model()->findByAttributes(array('email' => $email));
+		if(!$user) return false;
+		$identity= new UserIdentity($user->username, null);
+		$identity->authenticateById($user->userID);
+		if($identity->errorCode != UserIdentity::ERROR_NONE) return false;	
+		Yii::app()->user->login($identity, 60*60*24*365);
+        return true;
+	}
+	
+	
+	public static function authenticateByOidIdentity($identity){
+		$id = Yii::app()->db->createCommand()
+            ->select('user_id')
+            ->from('users_openid')
+            ->where('identity = :identity', array(':identity'=>$identity))
+            ->queryScalar();
+		if(!$id) return false;
+        $identity= new UserIdentity(null, null);
+        $identity->authenticateById($id);
+        if($identity->errorCode == UserIdentity::ERROR_NONE){
+            Yii::app()->user->login($identity, 60*60*24*365);
+            return true;
+        }
+        return false;
+	}
 }
+
+

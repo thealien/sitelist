@@ -20,6 +20,21 @@ class UserIdentity extends CUserIdentity
         }
         return !$this->errorCode;
     }
+	
+	public function authenticateById($id)
+    {
+        $record = Users::model()->findByPk($id);
+        if($record===null)
+            $this->errorCode=self::ERROR_USERNAME_INVALID;
+        else
+        {
+            $this->setState('admin', $this->_admin = ($record->role==='admin'));
+			$this->username = $record->username;
+            $this->_id = $record->userID;
+            $this->errorCode=self::ERROR_NONE;
+        }
+        return !$this->errorCode;
+    }
  
     public function getId()
     {

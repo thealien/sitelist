@@ -42,6 +42,14 @@
 	</div>
     <div class='clear'></div>
 </form>
+<p>
+    <center>
+    <br>
+    <h3 align='center'>Или войти с помощью:</h3>
+    <br>
+    </center>
+</p>
+{{ this.widget('application.widgets.openidProviders.openidProviders', {"options":{"lang":"ru"}}, true) }}
 {% else %}
 <h3>Вы успешно зарегистрировались. Теперь можете <a href='/login/'>войти</a>.</h3>
 {% endif %}

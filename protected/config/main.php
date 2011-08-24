@@ -27,6 +27,10 @@ return array(
                 'domain' => $_SERVER['SERVER_NAME']
             ),
         ),
+		'session' => array(
+            //'class' => 'CDbHttpSession',
+            'cookieParams' => array('domain' => $_SERVER['SERVER_NAME']),
+        ),
         'urlManager'=>array(
             'urlFormat'=>'path',
             'showScriptName'=>false,
@@ -49,6 +53,7 @@ return array(
                 'profile/pass'=>'profile/pass',
                 'user/<user:\w+>/fav/?'=>'user/fav',
 				'user/captcha' => 'user/captcha',
+				'user/openid' => 'user/openid',
                 'user/<user:[\w\s]+>'=>'user/index',
 				'collection/<id:\d+>'=>'collection/index',
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
@@ -111,6 +116,10 @@ return array(
             'viewPath' => 'application.views.layouts.mail',
             'logging' => true,
             'dryRun' => false
+        ),
+		
+		'loid' => array(
+            'class' => 'application.extensions.lightopenid.loid',
         ),
     ),
     

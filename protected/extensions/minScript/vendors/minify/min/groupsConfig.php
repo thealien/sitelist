@@ -1,0 +1,1 @@
+<?php return array('jquery'=>array('js/jquery-1.6.2.min.js',),'func'=>array('js/func.js',),'fancybox'=>array('js/fancybox/jquery.fancybox-1.3.1.pack.js',));
