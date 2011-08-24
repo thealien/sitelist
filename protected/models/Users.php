@@ -49,7 +49,7 @@ class Users extends CActiveRecord
 		return array(
             // Общие
             array('username, password', 'required', 'message' => '{attribute} не может быть пустым'),
-            array('username', 'match', 'pattern' => '/^[A-Za-z0-9А-Яа-я\s-]+$/i','message' => 'Логин содержит недопустимые символы'),
+            array('username', 'match', 'pattern' => '/^[A-Za-z0-9А-Яа-я\s-_]+$/i','message' => 'Логин содержит недопустимые символы'),
             array('email', 'email', 'message' => '{attribute} имеет недопустимый формат'),
             array('username', 'length', 'max'=>32, 'min'=>3, 'message' => 'Длина логина - от 3 до 32 символов'),
             array('password', 'length', 'max'=>32, 'min'=>3, 'message' => 'Длина пароля - от 3 до 32 символов'),
@@ -57,9 +57,9 @@ class Users extends CActiveRecord
             // Авторизация
             array('password', 'authenticate', 'on' => 'login'),
             // Регистрация
-            array('username, email', 'unique', 'message' => 'Указанный {attribute} уже используется в системе','on' => 'register'),
-            array('email', 'required','on' => 'register', 'message' => ' Не указан {attribute}'),
-            array('password', 'compare', 'compareAttribute'=>'password2', 'on'=>'register', 'message' => 'Пароли не совпадают'),
+            array('username, email', 'unique', 'message' => 'Указанный {attribute} уже используется в системе','on' => 'register, register_oid'),
+            array('email', 'required','on' => 'register,register_oid', 'message' => ' Не указан {attribute}'),
+            array('password', 'compare', 'compareAttribute'=>'password2', 'on'=>'register,register_oid', 'message' => 'Пароли не совпадают'),
             array('captcha', 'captcha', 'allowEmpty'=>!extension_loaded('gd'), 'on' => 'register', 'message' => 'Неверный код подтверждения'),
             array('password2', 'safe')
 		);
@@ -148,6 +148,14 @@ class Users extends CActiveRecord
         return true;
 	}
 	
+	public static function authenticateById($id){
+        $identity= new UserIdentity(null, null);
+        $identity->authenticateById($id);
+        if($identity->errorCode != UserIdentity::ERROR_NONE) return false;  
+        Yii::app()->user->login($identity, 60*60*24*365);
+        return true;
+    }
+	
 	
 	public static function authenticateByOidIdentity($identity){
 		$id = Yii::app()->db->createCommand()
@@ -163,6 +171,13 @@ class Users extends CActiveRecord
             return true;
         }
         return false;
+	}
+	
+	public function attachOidIdentity($identity, $user_id){
+        return Yii::app()->db->createCommand()->insert('users_openid', array(
+            'identity' => $identity,
+            'user_id' => $user_id,
+        ));
 	}
 }
 

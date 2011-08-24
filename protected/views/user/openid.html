@@ -7,27 +7,29 @@
 Для продолжения выберите один из вариантов:</h4>
 <br>
 <form action='' method='post' class='forms left' style='width:36%;'>
-    <input type='hidden' name='create_acc'>
 	<h4>Создать новый аккаунт:</h4>
 	<br>
     <p class='label'>Логин</p>
-	<p><input name='username' value='{{ userinfo.username|e }}'></p>
-	 <br>
+	<p><input name='NewUser[username]' value='{{ reg_form.attributes.username|e }}'></p>
+	<small><i>{{ reg_form.errors.username[0] }}</i></small>
+	<br>
 	<p class='label'>Электропочта</p>
-	<p><input name='email' value='{{ userinfo.email|e }}'></p>
-	 <br>
+	<p><input name='NewUser[email]' value='{{ reg_form.attributes.email|e }}'></p>
+	<small><i>{{ reg_form.errors.email[0] }}</i></small>
+	<br>
 	<input type='submit' value='Создать'>
 </form>
 <form action='' method='post' class='forms right' style='width:50%;'>
-    <input type='hidden' name='attach_acc'>
     <h4>Связать с существующим аккаунтом:</h4>
 	<br>
     <p class='label'>Логин</p>
-    <p><input name='User[username]' value=''></p>
-     <br>
+    <p><input name='User[username]' value='{{ login_form.attributes.username|e }}'></p>
+	<small><i>{{ login_form.errors.username[0] }}</i></small>
+    <br>
     <p class='label'>Пароль</p>
-    <p><input name='User[password]' value=''></p>
-     <br>
+    <p><input type='password' name='User[password]' value=''></p>
+	<small><i>{{ login_form.errors.password[0] }}</i></small>
+    <br>
     <input type='submit' value='Войти'>
 </form>
 <div class='clear'></div>
