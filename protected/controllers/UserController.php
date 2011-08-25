@@ -218,7 +218,7 @@ class UserController extends Controller
             'userinfo' => $user_openid,
 			'error' => $err,
 			'login_form' => $login_form,
-			'reg_form' => $reg_form
+			'reg_form' => $reg_form,
 		));
 	}
 
