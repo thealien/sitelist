@@ -10,13 +10,18 @@ var providers_large = {
 		name : 'Яндекс',
 		url : 'http://openid.yandex.ru'
 	},
+	google : {
+        name : 'Google',
+        url : 'https://www.google.com/accounts/o8/id'
+    },
+	mailru : {
+        name : 'Mail.ru',
+        label : 'Введите ваше имя пользователя на Mail.ru.',
+        url : 'http://{username}.id.mail.ru/'
+    },
 	rambler : {
 		name : 'Рамблер',
 		url : 'http://www.rambler.ru'
-	},
-	google : {
-		name : 'Google',
-		url : 'https://www.google.com/accounts/o8/id'
 	},
 	yahoo : {
 		name : 'Yahoo',
@@ -26,7 +31,7 @@ var providers_large = {
 		name : 'MyOpenID',
 		label : 'Введите ваше имя пользователя на MyOpenID.',
 		url : 'http://{username}.myopenid.com/'
-	}
+	},
 };
 
 var providers_small = {
@@ -52,17 +57,17 @@ var providers_small = {
 	},
 	blogger : {
 		name : 'Blogger',
-		label : 'Ваш Blogger аккаунт',
+		label : 'Ваш Blogger аккаунт.',
 		url : 'http://{username}.blogspot.com/'
 	},
 	verisign : {
 		name : 'Verisign',
-		label : 'Ваше имя пользователя на Verisign',
+		label : 'Ваше имя пользователя на Verisign.',
 		url : 'http://{username}.pip.verisignlabs.com/'
 	},
 	google_profile : {
 		name : 'Профиль Google',
-		label : 'Введите ваше имя на Google Profile',
+		label : 'Введите ваше имя на Google Profile.',
 		url : 'http://www.google.com/profiles/{username}'
 	}
 };

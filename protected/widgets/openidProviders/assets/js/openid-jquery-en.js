@@ -28,7 +28,7 @@ var providers_large = {
 		name : 'OpenID',
 		label : 'Enter your OpenID.',
 		url : null
-	}
+	},
 };
 
 var providers_small = {

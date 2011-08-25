@@ -161,15 +161,8 @@ class UserController extends Controller
 						elseif(Users::authenticateByOidIdentity($user_openid['identity'])){
 							$this->redirect(array('main/index'));
 						}
-						
-						//var_dump($user_openid['identity']);
-						//exit();
-						
-						
+
 						Yii::app()->session['user_openid'] = $user_openid;
-						// Попытаться авторизовать по e-mail
-						// Попытаться авторизовать по identity
-						
 						$this->redirect(array('user/openid'));
 		        	}
 					else{

@@ -173,6 +173,7 @@ class Users extends CActiveRecord
         return false;
 	}
 	
+	
 	public function attachOidIdentity($identity, $user_id){
         return Yii::app()->db->createCommand()->insert('users_openid', array(
             'identity' => $identity,

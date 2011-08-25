@@ -4,7 +4,6 @@
 	</div>
 	<div id="openid_input_area">
 	    <input id="openid_identifier" name="openid_identifier" type="text" value="http://" />
-		&nbsp;
 	    <input id="openid_submit" type="submit" value="Войти"/>
 	</div>
 	<noscript>
