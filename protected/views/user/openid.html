@@ -3,7 +3,7 @@
 {% block content %}
 
 {% if userinfo %}
-<h4>Здравствуйте. Под данной учетной записью ({{ userinfo.email|e }}) Вы вошли в первый раз.<br>
+<h4>Здравствуйте. Под данной учетной записью {% if userinfo.email %}({{ userinfo.email|e }}){% endif %} Вы вошли в первый раз.<br>
 Для продолжения выберите один из вариантов:</h4>
 <br>
 <form action='' method='post' class='forms left' style='width:43%;'>
