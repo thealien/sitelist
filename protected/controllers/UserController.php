@@ -172,7 +172,7 @@ class UserController extends Controller
 		            $err = Yii::t('core', $e->getMessage());
 		        }
 		    }
-		    if(!empty($err)) echo $err;
+		    //if(!empty($err)) echo $err;
 		} elseif(isset($_GET['openid_identifier'])) {
 		    $loid->identity = strval($_GET['openid_identifier']);
 		    $loid->required = array('namePerson/friendly', 'contact/email', 'namePerson');

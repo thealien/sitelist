@@ -41,10 +41,11 @@
 {% endif %}
 
 <br>
-
+{#
 {% if error %}
 <i>{{ error|e }}</i>
 {% endif %}
+#}
 
 {{ this.widget('application.widgets.openidProviders.openidProviders', {"options":{"lang":"ru"}}, true) }}
 
