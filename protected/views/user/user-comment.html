@@ -3,7 +3,7 @@
 {% block avatar%} 
     <a href='/user/{{ c.user|e }}/'>
     {% if user.profile.avatar=='' %}
-    <img class='avatar' src='/images/user/noavatar.jpg' alt=''>
+    <img class='avatar' src='/images/user/noavatar.gif' alt=''>
     {% else %}
     <img class='avatar' src='/images/avatars/{{ user.profile.avatar|e }}' alt=''>
     {% endif %}
