@@ -36,26 +36,44 @@ return array(
             'showScriptName'=>false,
             'rules'=>array(
                 'link/<id:\d+>/*'=>'link/view',
+				
                 'category/<id:\d+>/<alias:([a-z]*)>/<page:\d*>/'=>'category/view',
                 'category/<id:\d+>/<alias:([a-z]*)>/'=>'category/view',
                 'category/<id:\d+>/'=>'category/view',
+				
                 'add'=>'link/add',
                 'about'=>'main/about',
+				
                 'top/<page:\d+>/*'=>'top/index',
+				'top'=>'top/index',
+				
+				'feedback'=>'feedback/index',
+				
                 'new/<page:\d+>/*'=>'new/index',
-                'rss/?<category:\w*>/?'=>'main/rss',
+				'new'=>'new/index',
+				
+                'rss/<category:\w*>/'=>'main/rss',
+				'rss'=>'main/rss',
+				
                 'login'=>'user/login',
                 'logout'=>'user/logout',
                 'register'=>'user/register',
+				
 				'users/<page:\d+>'=>'main/users',
 				'users'=>'main/users',
-                'profile/email/?<hash:\w*>'=>'profile/email',
+				
+                'profile/email/<hash:\w*>'=>'profile/email',
+				'profile/email'=>'profile/email',
                 'profile/pass'=>'profile/pass',
+				'profile'=>'profile/index',
+				
                 'user/<user:\w+>/fav/?'=>'user/fav',
 				'user/captcha' => 'user/captcha',
 				'user/openid' => 'user/openid',
                 'user/<user:[\w\s]+>'=>'user/index',
+				
 				'collection/<id:\d+>'=>'collection/index',
+				
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/<id:.+>'=>'<controller>/<action>',
                 '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -107,6 +125,9 @@ return array(
             'extentions'        => array(
                 'My_Twig_Extension' // file vendors/My_Twig_Extension.php must exists
             ),
+			'register_static' => array(
+                'CHtml',
+			)
         ),
 		
 		// Mailer ( http://www.yiiframework.com/extension/mail )
