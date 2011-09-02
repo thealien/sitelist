@@ -43,11 +43,11 @@ class ProfileController extends Controller
                 $user->email = $row['email'];
                 if($user->save(true, array('email'))){
                     Yii::app()->db->createCommand()->delete('email_change', 'userid=:userid', array(':userid' => Yii::app()->user->id));
-                    $this->refresh();
+                    $this->redirect(array('profile/email'));
                 }
             }
             else
-                $this->refresh();
+                throw new CHttpException(404);
         }
 
         if(isset($_POST['email'])){
@@ -63,20 +63,9 @@ class ProfileController extends Controller
                     'hash'      => $hash                    
                 ));
                 if($res){
-                    $mail_body = $this->render(
-                        'email_change_tpl', 
-                        array(
-                            'email' => $email,
-                            'user'  => $user,
-                            'hash'  => $hash
-                        ), 
-                        true
-                    );
-                    $headers  = "Content-type: text/html; charset=windows-1251 \r\n"; 
-                    $headers .= "From: mail@sitelist.in\r\n"; 
-                    mail($user->email, 'Каталог сайтов SiteList - смена email', $mail_body, $headers);
-                    Yii::app()->session['changed'] = true;
-                    $this->redirect('/user/email/', true, 302);
+                	MailHelper::sendEmailChangeLink($user, $email, $hash);
+					Yii::app()->session['changed'] = true;
+					$this->refresh();
                 }
                 else{
                     $errors[] = 'В данный момент смена email невозможна. Попробуйте позже.';    
