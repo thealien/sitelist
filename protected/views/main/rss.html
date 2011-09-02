@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-<atom:link href="http://sitelist.in/main/rss/" rel="self" type="application/rss+xml" />
+<atom:link href="{{ Yii.getBaseUrl(true) }}{{ this.createUrl('main/rss') }}" rel="self" type="application/rss+xml" />
 <title>Новые сайты в каталоге SiteList.in{{ cat ? " - "~cat.catname|e : "" }}</title>
-<link>http://sitelist.in</link>
+<link>"{{ Yii.getBaseUrl(true) }}</link>
 <description>Описание RSS-ленты</description>
 <language>ru</language>
 {% for link in links %}
 <item>
     <title>{{ link.title|e }}</title>
-    <link>http://sitelist.in/link/{{ link.id }}/{{ link.domain|e}}</link>
-    <description><![CDATA[<div>{{ link.desc|cut(300)|e }}</div>{% if link.foto=='' %}{% else %}<div><a href='http://sitelist.in/link/{{ link.id }}/{{ link.domain|e}}'><img src="http://f.sitelist.in/t_{{ link.foto }}" border="0"></a></div>{% endif %}]]></description>
+    <link>{{ Yii.getBaseUrl(true) }}{{ this.createUrl("link/view", {"id" : link.id }) }}/{{ link.domain|e}}</link>
+    <description><![CDATA[<div>{{ link.desc|cut(300)|e }}</div>{% if link.foto=='' %}{% else %}<div><a href='{{ Yii.getBaseUrl(true) }}{{ this.createUrl("link/view", {"id" : link.id }) }}/{{ link.domain|e}}'><img src="http://f.sitelist.in/t_{{ link.foto }}" border="0"></a></div>{% endif %}]]></description>
     <pubDate>{{ link.date|date('r') }}</pubDate>
-    <guid>http://sitelist.in/link/{{ link.id }}</guid>
+    <guid>{{ Yii.getBaseUrl(true) }}{{ this.createUrl("link/view", {"id" : link.id }) }}</guid>
 </item>
 {% endfor %}
 </channel>

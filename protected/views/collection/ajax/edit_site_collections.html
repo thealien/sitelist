@@ -1,5 +1,5 @@
 <div class='collect-add-inner'>
-	<a class='right' href='/user/{{ user.username|e }}/#collections'>Мои подборки</a>
+	<a class='right' href='{{ this.createUrl("user/index", {"user":user.username}) }}#collections'>Мои подборки</a>
     <form action='' method='post' onsubmit="return saveSiteCollections($(this))">
         {% for c in user.collections %}
         <label>

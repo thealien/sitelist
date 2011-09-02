@@ -1,7 +1,7 @@
 {% extends "views/layouts/main.html" %}
 
 {% block add_meta %}
-<link rel="alternate" type="application/atom+xml" title="Подборка сайтов &laquo;{{ collection.title|e }}&raquo; пользователя {{ user.username|e}}" href="/collection/rss/{{ collection.id }}" >
+<link rel="alternate" type="application/atom+xml" title="Подборка сайтов &laquo;{{ collection.title|e }}&raquo; пользователя {{ user.username|e}}" href="{{ this.createUrl('collection/index', {"id":collection.id}) }}" >
 {% endblock %}
 
 {% block add_css %}
@@ -21,16 +21,17 @@
     </div>
     <div class='pref-links right'>
     	{% if Yii.user.id == user.userID %}
-		<a href='/user/{{ user.username|e }}'>Вернуться в профиль</a>
+		<a href='{{ this.createUrl("user/index", {"user" : user.username}) }}'>Вернуться в профиль</a>
 		{% else %}
-        <a href='/user/{{ user.username|e }}'>автор &mdash; {{ user.username|e }}</a> 
+        <a href='{{ this.createUrl("user/index", {"user" : user.username}) }}'>автор &mdash; {{ user.username|e }}</a> 
 		{% endif %}
     </div>
     <div class='clear'></div>
 </div>
+<br>
 <div>
-<h1 class='left'>{{ collection.title|e }}</h1>
-<h1 class='right'><a class="rss_twitter_fb rss" target="_blank" href="/collection/rss/{{ collection.id }}/" title='RSS-лента этой подборки сайтов'></a></h1>
+<h1 class='left'>&laquo;{{ collection.title|e }}&raquo;</h1>
+<h1 class='right'><a class="rss_twitter_fb rss" target="_blank" href="{{ this.createUrl('collection/rss', {"id":collection.id}) }}" title='RSS-лента этой подборки сайтов'></a></h1>
 <div class='clear'></div>
 <p>{{ collection.desc|e }}</p>
 </div>
@@ -40,7 +41,7 @@
 {% for l in collection.links %}
 <div class='new-site' id='site_{{ l.id }}'>
     <div class='photo left'>
-        <a target='_blank' href='/link/{{ l.id }}/{{ l.domain|e }}'>
+        <a target='_blank' href='{{ this.createUrl("link/view", {"id" : l.id }) }}/{{ l.domain|e }}'>
             <img class='photo' width='100' src='http://f.sitelist.in/t_{{ l.foto }}' alt='{{ l.title|e }}'>
         </a>
     </div>
@@ -54,7 +55,7 @@
     	<a class='del-site-btn' href='javascript:void();' title='Удалить сайт из подборки' onclick="return deleteSiteFromCollection({{ l.id }},{{ collection.id }});">удалить</a>
 		{% endif %}
         <p class='name'>
-            <a target='_blank' title='{{ l.title|e }}' href='/link/{{ l.id }}/{{ l.domain|e }}'>
+            <a target='_blank' title='{{ l.title|e }}' href='{{ this.createUrl("link/view", {"id" : l.id }) }}/{{ l.domain|e }}'>
                 {{ l.title|e }}
             </a>
         </p>

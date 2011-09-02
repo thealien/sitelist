@@ -24,9 +24,9 @@ div.sites-groups div.group {
     </div>
 	{% if user.userID == Yii.user.id %}
 	<div class='pref-links right'>
-        <a href='/profile/edit/'>Редактировать</a> | 
-        <a href='/profile/email/'>Изменить email</a> |
-        <a href='/profile/pass/'>Изменить пароль</a>
+        <a href='{{ this.createUrl("profile/edit") }}'>Редактировать</a> | 
+        <a href='{{ this.createUrl("profile/email") }}'>Изменить email</a> |
+        <a href='{{ this.createUrl("profile/pass") }}'>Изменить пароль</a>
     </div>
 	{% endif %}
 	<div class='clear'></div>
@@ -35,9 +35,9 @@ div.sites-groups div.group {
 	<div>
 	   <div class='left'>
 	   	{% if user.profile.avatar %}
-		<img class='avatar' src='/images/avatars/{{ user.profile.avatar }}' alt='Аватар пользователя'>
+		<img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/avatars/{{ user.profile.avatar }}' alt='Аватар пользователя'>
 		{% else %}
-		<img class='avatar' src='/images/user/noavatar.gif' alt='Аватар пользователя'>
+		<img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/user/noavatar.gif' alt='Аватар пользователя'>
 		{% endif %}
 	   	
         </div>
@@ -61,7 +61,7 @@ div.sites-groups div.group {
 	   {% else %}
 	       {% if user.userID == Yii.user.id %}
 		   <p>
-		   	Ваш профиль не заполнен. <a href='/profile/edit/'>Отредактировать</a> сейчас?
+		   	Ваш профиль не заполнен. <a href='{{ this.createUrl("profile/edit") }}'>Отредактировать</a> сейчас?
 		   </p>
 	       {% endif %}
 	   {% endif %}
@@ -74,7 +74,7 @@ div.sites-groups div.group {
         <h3 class='left'>Подборки сайтов:</h3>
 		<div class='right'>
             {% if user.userID == Yii.user.id %}
-			<a href='/collection/add/' style='vertical-align: top;'>Создать подборку</a>
+			<a href='{{ this.createUrl("collection/add") }}' style='vertical-align: top;'>Создать подборку</a>
             {% endif %}
 		</div>
 		<div class='clear'><br></div>
@@ -86,13 +86,13 @@ div.sites-groups div.group {
 		{% for g in collections %}
         <div class='group'>
             <div class='buttons left'>
-                <a class="rss_twitter_fb rss" target="_blank" href="/collection/rss/{{ g.id }}/"></a>
+                <a class="rss_twitter_fb rss" target="_blank" href="{{ this.createUrl("collection/rss", {"id":g.id}) }}"></a>
 				{% if user.userID == Yii.user.id %}
-                <a class="edit" href="/collection/edit/{{ g.id }}/" title='Редактировать подборку'></a>
+                <a class="edit" href="{{ this.createUrl("collection/edit", {"id":g.id}) }}" title='Редактировать подборку'></a>
 				{% endif %}
             </div>
             <div class='info'>
-                <div class='title'><a href='/collection/{{ g.id }}/'>{{ g.title|e }}</a></div>
+                <div class='title'><a href='{{ this.createUrl("collection/index", {"id":g.id}) }}'>{{ g.title|e }}</a></div>
                 <div class='desc'>{{ g.desc|e }}</div>
                 <div class='counter'>{{ g.linksCount|world_ending("сайт сайта сайтов")}}</div>
             </div>

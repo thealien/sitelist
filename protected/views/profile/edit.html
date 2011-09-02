@@ -7,9 +7,9 @@
         <b>Редактирование профиля</b>
     </div>
     <div class='pref-links right'>
-        <a href='/profile/'>Вернуться в профиль</a> | 
-        <a href='/profile/email/'>Изменить email</a> |
-        <a href='/profile/pass/'>Изменить пароль</a>
+        <a href='{{ this.createUrl("profile/index") }}'>Вернуться в профиль</a> | 
+        <a href='{{ this.createUrl("profile/email") }}'>Изменить email</a> |
+        <a href='{{ this.createUrl("profile/pass") }}'>Изменить пароль</a>
     </div>
     <div class='clear'></div>
 </div>
@@ -18,9 +18,9 @@
 <form class='forms profile' action="" method="POST" enctype='multipart/form-data'>
 	<div>
 	{% if profile.avatar %}
-    <img class='avatar' src='/images/avatars/{{ profile.avatar }}' alt='Аватар пользователя'>
+    <img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/avatars/{{ profile.avatar }}' alt='Аватар пользователя'>
 	{% else %}
-	<img class='avatar' src='/images/user/noavatar.gif' alt='Аватар пользователя'>
+	<img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/user/noavatar.gif' alt='Аватар пользователя'>
     {% endif %}
 	</div>
 	

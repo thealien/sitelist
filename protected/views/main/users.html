@@ -1,7 +1,7 @@
 {% extends "views/layouts/main.html" %}
 
 {% block menu_users %}
-    <li class='menu-item'><a href='/users/' class='current'>Пользователи</a></li>
+    <li class='menu-item'><a href='{{ this.createUrl("main/users") }}' class='current'>Пользователи</a></li>
 {% endblock %}
 
 {% block content %}
@@ -10,14 +10,14 @@
 	{% for user in users %}
 	<div class='user'>
 		<div class='left'>
-        <a href='/user/{{ user.username|e }}/'>
+        <a href='{{ this.createUrl("user/index", {"user" : user.username}) }}'>
         {% if user.profile.avatar %}
-        <img style='' class='avatar' src='/images/avatars/t_{{ user.profile.avatar }}' alt='Аватар пользователя'>
+        <img style='' class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/avatars/t_{{ user.profile.avatar }}' alt='Аватар пользователя'>
         {% else %}
-        <img class='avatar' src='/images/user/noavatar.gif' alt='Аватар пользователя'>
+        <img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/user/noavatar.gif' alt='Аватар пользователя'>
         {% endif %}
         </a>
-		<a href='/user/{{ user.username|e }}/'>
+		<a href='{{ this.createUrl("user/index", {"user" : user.username}) }}'>
 			{{ user.username|e }}
 		</a>
         </div>

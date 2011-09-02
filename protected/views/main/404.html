@@ -9,12 +9,12 @@
         <meta HTTP-EQUIV="Content-language" content ="ru">
         <meta name="description" content="SiteList.in - каталог только качественных сайтов.">
         <meta name="keywords" content="sitelist, сайтлист, каталог сайтов, web 2.0 сайты, подборка сайтов, добавить сайт, предложить сайт, белый каталог сайтов, рейтинг сайтов">
-        <link rel="alternate" type="application/atom+xml" title="Новые сайты в каталоге SiteList.in" href="/rss/" >
+        <link rel="alternate" type="application/atom+xml" title="Новые сайты в каталоге SiteList.in" href="{{ this.createUrl('main/rss') }}" >
         {% block add_meta %}
         {% endblock %}
-        <link href="/favicon.ico" type="image/x-icon" rel="shortcut icon" >
-        <link href="http://i.sitelist.in/opera_sd.png" rel="image_src" type="image/png">
-        <link href="/css/404.css" rel="stylesheet" type="text/css">
+        <link href="{{ Yii.getBaseUrl(true) }}/favicon.ico" type="image/x-icon" rel="shortcut icon" >
+        <link href="{{ Yii.getBaseUrl(true) }}/images/opera_sd.png" rel="image_src" type="image/png">
+        <link href="{{ Yii.getBaseUrl(true) }}/css/404.css" rel="stylesheet" type="text/css">
         {% block add_css %}
         {% endblock %}
         
@@ -28,15 +28,15 @@
         <div id='main'>
             <div id='content'>
             	<div id='head-top'>
-                    <a id='head-top-logo' href='{% if Yii.user.getState("admin") %}/admin/{% else %}/{% endif %}'></a>
+                    <a id='head-top-logo' href='{% if Yii.user.getState("admin") %}{{ Yii.getBaseUrl(true) }}/admin/{% else %}/{% endif %}'></a>
                 </div>
 				<div id='logo-404-container'>
-					<img src='/images/404/logo_404.png' alt=''>
+					<img src='{{ Yii.getBaseUrl(true) }}/images/404/logo_404.png' alt=''>
 				</div>
 				<div id='info'>
 					<div id='search'>
 						<div id='search-bg'>
-                        <form id='search-form' action='/main/search/'>
+                        <form id='search-form' action='{{ this.createUrl("main/search") }}'>
                         <input class='s-input left' placeholder='я ищу...' name='q' value=''>
                         <input class='s-btn right' type='submit' value=''>
                         </form>
@@ -52,12 +52,12 @@
                         </div>
 						<br>
 						<ul id='menu'>
-                            <li class='menu-item'><a href='/'>Главная</a></li>
-                            <li class='menu-item'><a href='/top/'>Рейтинг сайтов</a></li>
-                            <li class='menu-item'><a href='/new/'>Новые сайты в каталоге</a></li>
-							<li class='menu-item'><a href='/users/'>Пользователи</a></li>
-                            <li class='menu-item'><a href='/feedback/'>Обратная связь</a></li>
-                            <li class='menu-item'><a href='/about/'>О проекте</a></li>
+                            <li class='menu-item'><a href='{{ Yii.getBaseUrl(true) }}'>Главная</a></li>
+                            <li class='menu-item'><a href='{{ this.createUrl("top/index") }}'>Рейтинг сайтов</a></li>
+                            <li class='menu-item'><a href='{{ this.createUrl("new/index") }}'>Новые сайты в каталоге</a></li>
+							<li class='menu-item'><a href='{{ this.createUrl("main/users") }}'>Пользователи</a></li>
+                            <li class='menu-item'><a href='{{ this.createUrl("feedback/index") }}'>Обратная связь</a></li>
+                            <li class='menu-item'><a href='{{ this.createUrl("main/about") }}'>О проекте</a></li>
                         </ul>
 					</div>
 					<div class='clear'></div>
@@ -70,16 +70,12 @@
         <div id='footer'>
             <div class='info'>
                 <div class='copyright right'>
-                    <p><a target='_blank' href='http://sitelist.in'>sitelist.in</a> &copy; 2008–2011</p>
+                    <p><a target='_blank' href='{{ Yii.getBaseUrl(true) }}'>sitelist.in</a> &copy; 2008–2011</p>
                     <p>powered by <a target='_blank' href='http://www.yiiframework.com/'>Yii Framework</a></p>
                 </div>
             </div>
         </div>
-        <script type='text/javascript' src='http://js.sitelist.in/jquery-1.6.min.js'></script>
-        {% block add_js %}
-        {% endblock %}
-        <script type='text/javascript' extsrc='/js/func.min.js?20110329'></script>
-        
+       
         <!-- Yandex.Metrika counter -->
 <div style="display:none;"><script type="text/javascript">
 (function(w, c) {

@@ -1,18 +1,18 @@
 {% extends "views/layouts/comment.html" %}
 
 {% block avatar%} 
-    <a href='/user/{{ c.user|e }}/'>
+    <a href='{{ this.createUrl("user/index", {"user" : c.user}) }}'>
     {% if user.profile.avatar=='' %}
-    <img class='avatar' src='/images/user/noavatar.gif' alt=''>
+    <img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/user/noavatar.gif' alt=''>
     {% else %}
-    <img class='avatar' src='/images/avatars/{{ user.profile.avatar|e }}' alt=''>
+    <img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/avatars/{{ user.profile.avatar|e }}' alt=''>
     {% endif %}
     </a>
 {% endblock %}
 
 {% block sitename %}
 <div class='right'>
-    <small><a href='/link/{{ c.links.id }}/{{ c.links.domain|e }}'>
+    <small><a href='{{ this.createUrl("link/view", {"id" : c.links.id }) }}/{{ c.links.domain|e }}'>
     	{{ c.links.title|e }}
     </a></small>
 </div>
@@ -20,6 +20,6 @@
 
 {% block date %}
     <div class='date left'>
-        <a class='date' href='/link/{{ c.links.id }}/{{ c.links.domain|e }}#comment{{c.id}}'>{{ c.datetime|date_format("H:i, d.m.y") }}</a>
+        <a class='date' href='{{ this.createUrl("link/view", {"id" : c.links.id }) }}/{{ c.links.domain|e }}#comment{{c.id}}'>{{ c.datetime|date_format("H:i, d.m.y") }}</a>
     </div>
 {% endblock %}

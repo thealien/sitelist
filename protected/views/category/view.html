@@ -2,12 +2,12 @@
 
 {% block add_meta %}
 {% if category %}
-<link rel="alternate" type="application/atom+xml" title="Новые сайты в каталоге SiteList.in - {{ category.catname|e }}" href="/rss/{{ category.alias|e }}/" >
+<link rel="alternate" type="application/atom+xml" title="Новые сайты в каталоге SiteList.in - {{ category.catname|e }}" href="{{ this.createUrl('main/rss', {'category':category.alias}) }}" >
 {% endif %}
 {% endblock %}
 
 {% block rss_link %}
-    <a class='rss_twitter_fb rss' target='_blank' href='/rss/{{ category.alias|e }}/' title='RSS-лента новых сайтов в категории "{{ category.catname|e }}"'></a>
+    <a class='rss_twitter_fb rss' target='_blank' href="{{ this.createUrl('main/rss', {'category':category.alias}) }}" title='RSS-лента новых сайтов в категории "{{ category.catname|e }}"'></a>
 {% endblock %}
 
 {% block add_css %}
@@ -44,7 +44,7 @@
             </div>
             <div class='right site'>
                 <h2 class='name'>
-                    <a title='{{ l.title|e }}' href='/link/{{ l.id }}/{{ l.domain|e }}'>{{ l.title|e }}</a>
+                    <a title='{{ l.title|e }}' href='{{ this.createUrl("link/view", {"id" : l.id }) }}/{{ l.domain|e }}'>{{ l.title|e }}</a>
 					{% if l.isnew==true %} <sup class='new'>new</sup>{% endif %}
                 </h2>
                 <p class='desc'>{{ l.desc|cut(250)|e }}</p>

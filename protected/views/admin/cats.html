@@ -13,8 +13,7 @@
             {% set i = (i+1) %}
             <p>
                 <div>
-                <b>
-                    <span style='float: left;'><a title='{{ cat.catname|e }}' href='/category/{{ cat.id }}/'>{{ cat.catname|e }}</a></b>&nbsp;({{ cat.linksCount}})</span>
+                <span style='float: left;'><a title='{{ cat.catname|e }}' href='{{ this.createUrl("category/view", {"id":cat.id}) }}'>{{ cat.catname|e }}</a></b>&nbsp;({{ cat.linksCount}})</span>
                 <form style='float: left;' action='/admin/catdelete/{{ cat.id }}/' method='post'>
                     <input style='background: none; border: none; color: red;' type='submit' value='[d]' onclick='return confirm("Удалить?");'>
                 </form>

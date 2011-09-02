@@ -1,12 +1,12 @@
 <a name='comment{{ c.id }}'></a>
 {% block avatar%}	
 {% if c.userid!=0 %}
-    <a href='/user/{{ c.user|e }}/'>
+    <a href='{{ this.createUrl("user/index", {"user" : c.user}) }}'>
 {% endif %}
 {% if c.userid==0 or c.user_profile.avatar=='' %}
-    <img class='avatar' src='/images/user/noavatar.gif' alt=''>
+    <img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/user/noavatar.gif' alt=''>
 {% else %}
-    <img class='avatar' src='/images/avatars/{{ c.user_profile.avatar|e }}' alt=''>
+    <img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/avatars/{{ c.user_profile.avatar|e }}' alt=''>
 {% endif %}
 {% if c.userid!=0 %}
     </a>
@@ -17,7 +17,7 @@
     {% endblock %}   
     <div class='name'>
     {% if c.userid!=0 %}
-        <a class='name' href='/user/{{ c.user|e }}/'>
+        <a class='name' href='{{ this.createUrl("user/index", {"user" : c.user}) }}'>
     {% endif %}
     {{ c.user|e }}
     {% if c.userid!=0 %}
@@ -35,13 +35,13 @@
 	{% endblock %}
     <div class='right'>
         {% if ((Yii.user.id>0) and Yii.user.id==c.userid) or Yii.user.getState("admin") %}
-        <form action='/comment/edit/{{ c.id }}' method='post' class='right'>
+        <form action='{{ this.createUrl("comment/edit", {"id" : c.id}) }}' method='post' class='right'>
             <input class='adm' type='submit' name='d' value='редактировать'>
         </form>
         {% endif %}
 		
         {% if Yii.user.getState("admin") %}
-        <form action='/comment/delete/{{ c.id }}' method='post' class='right'>
+        <form action='{{ this.createUrl("comment/delete", {"id" : c.id}) }}' method='post' class='right'>
             <input class='adm' type='submit' name='d' value='удалить' onclick='return confirm("Удалить?")'>
         </form>
         {% endif %}

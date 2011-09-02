@@ -1,10 +1,10 @@
 {% extends "views/layouts/main.html" %}
 
 {% block add_meta %}
-<link rel="alternate" type="application/atom+xml" title="Новые сайты в каталоге SiteList.in - {{ link.category.catname|e }}" href="/rss/{{ link.category.alias|e }}/" >
+<link rel="alternate" type="application/atom+xml" title="Новые сайты в каталоге SiteList.in - {{ link.category.catname|e }}" href="{{ this.createUrl('main/rss', {'category':link.category.alias}) }}" >
 {% endblock %}
 {% block rss_link %}
-    <a class='rss_twitter_fb rss' target='_blank' href='/rss/{{ link.category.alias|e }}/' title='RSS-лента новых сайтов в категории "{{ link.category.catname|e }}"'></a>
+    <a class='rss_twitter_fb rss' target='_blank' href='{{ this.createUrl('main/rss', {'category':link.category.alias}) }}' title='RSS-лента новых сайтов в категории "{{ link.category.catname|e }}"'></a>
 {% endblock %}
 
 {% block add_css %}
@@ -34,7 +34,7 @@
         <div class='left cat-logo cat-{{ link.category.alias }}'></div>
         <div class='left info'>
             <p class='name'>
-            	<a href='/category/{{ link.category.id }}/{{ link.category.alias|e }}'>{{ link.category.catname|e }}</a></p>
+            	<a href='{{ this.createUrl("category/view", {"id":link.category.id, "alias":link.category.alias}) }}'>{{ link.category.catname|e }}</a></p>
             <p class='link-count'>{{ link.category.linksCount|world_ending("сайт сайта сайтов")}}</p>
         </div>
     </div>
@@ -49,13 +49,13 @@
                 {% if pr_is_old %}
                     <input type='hidden' id='pr_is_old' value=true >
                 {% endif %}
-                <img width='16' height='16' src='http://i.sitelist.in/yandex.png' alt='Яндекс.тИЦ'> <b>тИЦ</b>:&nbsp;
+                <img width='16' height='16' src='{{ Yii.getBaseUrl(true) }}/images/yandex.png' alt='Яндекс.тИЦ'> <b>тИЦ</b>:&nbsp;
                 <span id='yandex_ci'>
                     {{ link.ci }}
                 </span>
                 </div>
 			<div class='google_pr'>
-                <img width='16' height='16' src='http://i.sitelist.in/google.png' alt='Google.PR'> <b>PR</b>:&nbsp;
+                <img width='16' height='16' src='{{ Yii.getBaseUrl(true) }}/images/google.png' alt='Google.PR'> <b>PR</b>:&nbsp;
                 <span id='google_pr'>
                     {{ link.pr }}
                 </span>
@@ -75,17 +75,17 @@
 	<div class='new-site'>
     <div class='photo left'>
         {% if link.foto %}
-        <a target=_blank href='http://f.sitelist.in/{{ link.foto }}' class="thumbnail fancy" >
-            <img title='Кликните для просмотра в полный размер' class='photo' width='200' src='http://f.sitelist.in/t_{{ link.foto }}' alt='{{ link.title|e }}'>
+        <a target=_blank href='{{ Yii.getBaseUrl(true) }}/foto/{{ link.foto }}' class="thumbnail fancy" >
+            <img title='Кликните для просмотра в полный размер' class='photo' width='200' src='{{ Yii.getBaseUrl(true) }}/foto/t_{{ link.foto }}' alt='{{ link.title|e }}'>
         </a>
         {% endif %}
 		{% if Yii.user.getState("admin") %}
             <span title='Сгененировать скриншот' class='genScreenBtn'>Сгенерить&nbsp;скрин</span><br>
-            <img width='16' height='16' src='http://i.sitelist.in/ajax.gif' class='ajaxProgress' alt=''>
+            <img width='16' height='16' src='{{ Yii.getBaseUrl(true) }}/images/ajax.gif' class='ajaxProgress' alt=''>
         {% endif %}
 		<div id='link-share'>
             <script asyncsrc="http://connect.facebook.net/ru_RU/all.js#xfbml=1" type='text/javascript'></script>
-            <fb:like href="http://sitelist.in/link/{{ link.id }}" layout="button_count" width="136" font="arial"></fb:like>
+            <fb:like href="{{ Yii.getBaseUrl(true) }}{{ this.createUrl("link/view", {"id" : link.id }) }}" layout="button_count" width="136" font="arial"></fb:like>
 			
 			<div class='right' style='padding:0 0 0 2px;'>
                 <script type="text/javascript" asyncsrc="https://apis.google.com/js/plusone.js"></script>
@@ -133,10 +133,10 @@
 	
 	{% if Yii.user.getState("admin") %}
     <div>
-        <form class='right' action='/link/delete/{{ link.id }}/' method="post">
+        <form class='right' action='{{ this.createUrl("link/delete", {"id":link.id}) }}' method="post">
             <input style='color: red;border:none; background: none;' type="submit" value="удалить" onclick="return confirm('Удалить?');" >
         </form>
-        <a class='right' href='/link/edit/{{ link.id }}/'>редактировать</a>
+        <a class='right' href='{{ this.createUrl("link/edit", {"id":link.id}) }}'>редактировать</a>
         <div class='clear'></div>
     </div>
     {% endif %}

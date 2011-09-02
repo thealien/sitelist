@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-	<form action='/main/search/' class='forms'>
+	<form action='{{ this.createUrl("main/search") }}' class='forms'>
 		<b>Я ищу:</b>&nbsp;&nbsp;
 		<input size='74' class='query' name='q' value='{{ q|e }}'>&nbsp;
 		<input type='submit' value='Найти'>
@@ -32,7 +32,7 @@
     <div class='right site'>
         {% if l.url %}
         <p class='name'>
-            <a title='{{ l.title|e }}' href='/link/{{ l.id }}/{{ l.domain|e }}'>
+            <a title='{{ l.title|e }}' href='{{ this.createUrl("link/view", {"id" : l.id }) }}/{{ l.domain|e }}'>
                 {{ l.title|e }}
             </a>
         </p>
