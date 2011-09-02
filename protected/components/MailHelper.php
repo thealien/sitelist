@@ -45,5 +45,19 @@ class MailHelper {
         $message->subject = 'SiteList.in New Site';
         return Yii::app()->mail->send($message);
 	}
+	
+	static function sendEmailChangeLink($user, $email, $hash){
+        $message = new YiiMailMessage;
+        $message->view = 'email_change';
+        $message->setBody(array(
+            'user' => $user,
+            'email' => $email,
+            'hash' => $hash,
+        ), 'text/html');
+        $message->addTo($user->email);
+        $message->from = Yii::app()->params['system_mail'];
+        $message->subject = 'Каталог сайтов SiteList - смена email';
+        return Yii::app()->mail->send($message);
+	}
 }
 
