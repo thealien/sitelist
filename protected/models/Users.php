@@ -125,14 +125,20 @@ class Users extends CActiveRecord
                     Yii::app()->user->login($identity, 60*60*24*365);
                     break;
                 }
+				default: {
+					$this->addError('username','Неверные логин или пароль');
+				}
+				/*
                 case UserIdentity::ERROR_USERNAME_INVALID: {
+                	
+                	echo '123';
                     $this->addError('username','Пользователь не существует!');
                     break;
                 }
                 case UserIdentity::ERROR_PASSWORD_INVALID: {
                     $this->addError('password','Вы указали неверный пароль!');
                     break;
-                }
+                }*/
             }
         }
     }

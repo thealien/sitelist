@@ -13,7 +13,7 @@
         {% endblock %}
         <link href="{{ Yii.getBaseUrl(true) }}/favicon.ico" type="image/x-icon" rel="shortcut icon" >
         <link href="{{ Yii.getBaseUrl(true) }}/images/opera_sd.png" rel="image_src" type="image/png">
-        <link href="{{ Yii.getBaseUrl(true) }}/css/style.min.css?20110717_2" rel="stylesheet" type="text/css">
+        <link href="{{ Yii.getBaseUrl(true) }}/css/style.css?20110717_2" rel="stylesheet" type="text/css">
         {% block add_css %}
 		{% endblock %}
         <script type='text/javascript' src='{{ Yii.getBaseUrl(true) }}/js/extsrc.min.js?20110502'></script>
@@ -164,12 +164,12 @@
 		<div id='footer'>
 			<div class='info'>
 				<div class='copyright right'>
-					<p><a target='_blank' href='{{ Yii.getBaseUrl(true) }}'>sitelist.in</a> &copy; 2008–2011</p>
+					<p><a href='{{ Yii.getBaseUrl(true) }}'>sitelist.in</a> &copy; 2008–2011</p>
 					<p>powered by <a target='_blank' href='http://www.yiiframework.com/'>Yii Framework</a></p>
 				</div>
 			</div>
 		</div>
-        <script type='text/javascript' extsrc='{{ Yii.getBaseUrl(true) }}/js/jquery-1.6.3.min.js'></script>
+        <script type='text/javascript' src='{{ Yii.getBaseUrl(true) }}/js/jquery-1.6.3.min.js'></script>
         {% block add_js %}
         {% endblock %}
         <script type='text/javascript' extsrc='{{ Yii.getBaseUrl(true) }}/js/func.min.js?20110704_2'></script>

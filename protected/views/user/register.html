@@ -4,44 +4,63 @@
 
 {% include "views/layouts/messages.html" %}
 
-{% if not register %}
-<form class='forms' action="" method="POST">
-	<p class='label'>Логин</p>
-    <p>
-        <input maxlength='50' size='50' title='Укажите имя пользователя' type="text" name="User[username]" value='{{ form.username|e }}'>
-    </p>
-	<br>
-	
-	<p class='label'>Пароль</p>
-    <p>
-        <input maxlength='50' size='50' title='Укажите желаемый пароль'  type="password" name="User[password]" value=''>
-    </p>
-    <br>
-	
-	<p class='label'>Снова пароль</p>
-    <p>
-        <input maxlength='50' size='50' title='Повторите пароль'  type="password" name="User[password2]" value=''>
-    </p>
-    <br>
-	
-	<p class='label'>Электропочта</p>
-    <p>
-        <input size='50' maxlength='256' title='Укажите ваш email'  type="text" name="User[email]" value='{{ form.email|e }}'>
-    </p>
-    <br>
-	<div>
-		<ul class='line'>
-        <li class='line-item'>{{ captcha }}</li>
-        <li class='line-item'>
-            <input class='icaptcha' maxlength='10' size='10' title='Введите код с картинки левее. Это нужно для того, чтобы подтвердить, что вы не робот ;)' type=text name="User[captcha]">
-        </li>
-        <li class='line-item'>
-            <input class='submit' type="submit" name="regbtn" value='Зарегистрироваться'>
-        </li>
-        </ul>
-	</div>
-    <div class='clear'></div>
-</form>
+{% if not Yii.user.getFlash("register") %}
+{{ CHtml.form('', 'post', {'class':'forms'}) }}
+<p class='label'>Логин</p>
+<p>
+	{{ CHtml.activeTextField(form, 'username', {"title":"Укажите имя пользователя", "maxlength":"50", "size":"50", "required":"required"}) }}
+</p>
+{{ CHtml.error(form, 'username')|default('<br>') }}
+
+<p class='label'>Пароль</p>
+<p>
+    {{ CHtml.activePasswordField(form, 'password', {"title":"Укажите желаемый пароль", "maxlength":"50", "size":"50", "required":"required"}) }}
+</p>
+{{ CHtml.error(form, 'password')|default('<br>') }}
+
+<p class='label'>Снова пароль</p>
+<p>
+    {{ CHtml.activePasswordField(form, 'password2', {"title":"Повторите пароль", "maxlength":"50", "size":"50", "required":"required"}) }}
+</p>
+{{ CHtml.error(form, 'password2')|default('<br>') }}
+
+<p class='label'>Электропочта</p>
+<p>
+	{{ CHtml.activeTextField(form, 'email', {"title":"Укажите ваш email", "maxlength":"256", "size":"50", "required":"required"}) }}
+</p>
+{{ CHtml.error(form, 'email')|default('<br>') }}
+
+<div>
+    <ul class='line'>
+    <li class='line-item'>
+    	{{ 
+        this.widget('CCaptcha', {
+            "showRefreshButton":false,
+			"clickableImage": true,
+			"imageOptions": {
+                'alt': 'проверочный код',
+                'title': 'Кликни по картинке, чтобы сменить код',
+                'border': 1,
+                'width' : '100',
+                'height' : '36'
+            }
+            }, true )
+		}}
+    </li>
+    <li class='line-item'>
+    	{{ CHtml.activeTextField(form, 'captcha', {"title":"Введите код с картинки левее. Это нужно для того, чтобы подтвердить, что вы не робот ;)", "maxlength":"10", "size":"10", "required":"required"}) }}
+    </li>
+    <li class='line-item'>
+    	{{ CHtml.submitButton('Зарегистрироваться') }}
+    </li>
+    </ul>
+	<div class='clear'></div>
+	{{ CHtml.error(form, 'captcha') }}
+</div>
+<div class='clear'></div>
+
+{{ CHtml.endForm() }}
+
 <p>
     <center>
     <br>
@@ -51,6 +70,6 @@
 </p>
 {{ this.widget('application.widgets.openidProviders.openidProviders', {"options":{"lang":"ru"}}, true) }}
 {% else %}
-<h3>Вы успешно зарегистрировались. Теперь можете <a href='/login/'>войти</a>.</h3>
+<h4>Вы успешно зарегистрировались. Теперь можете {{ CHtml.link('войти', ['user/login']) }}.</h4>
 {% endif %}
 {% endblock %}

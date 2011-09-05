@@ -276,7 +276,7 @@ a.rss_twitter_fb.facebook:hover {
 #cat-list p.cat-links-cnt {
     color: #93a4b1;
     font-size: 13px;
-    text-decoration: underline;
+    /*text-decoration: underline;*/
 }
 
 /* просмотр категории */
@@ -696,6 +696,10 @@ ul.yiiPager .first a:hover, ul.yiiPager .last a:hover, ul.yiiPager .previous a:h
     color: #333;
     font-weight: 700;
     line-height: 1.2em;
+}
+.forms .errorMessage{
+	color: red;
+	font-size:11px;
 }
 
 /* добавление сайта */

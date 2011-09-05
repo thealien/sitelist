@@ -32,21 +32,18 @@ class UserController extends Controller
     	}
         $form = new Users('login');
 		$errors = array();
-		if(isset($_POST['loginbtn'])){
-		    $form->attributes = $_POST['User'];
+		if(isset($_POST['Users'])){
+		    $form->attributes = $_POST['Users'];
             if($form->validate()){
             	if(isset($_POST['return']))
 				    $this->redirect($_POST['return']);
 				else
                     $this->redirect('/', true, 302);
             }
-            else{
-                $errors[] = 'Неверные логин или пароль';
-            }
         }
         Yii::app()->params['title'] =  'Вход на сайт' . ' — ' . Yii::app()->params['title'];
         $this->render('login', array(
-            'form'      => $form->attributes,
+            'form'      => $form,
             'errors'    => $errors,
 			'return'     => isset($_POST['return'])?$_POST['return']:Yii::app()->request->urlReferrer
         ));
@@ -56,51 +53,31 @@ class UserController extends Controller
      * @return null
      */
     public function actionRegister(){
+
         if(!Yii::app()->user->isGuest){
-            // Уже авторизованы
-            $this->redirect('/', true, 302);
+            $this->redirect(Yii::app()->getBaseUrl(true));
         }
-        $errors = array();
+
         $form = new Users('register');
-        if(isset($_POST['regbtn'])){
-            $form->attributes = $_POST['User'];
+        if(isset($_POST['Users'])){
+            $form->attributes = $_POST['Users'];
             if($form->save()){
-                Yii::app()->session['register'] = true;
-                $this->redirect('/register/', true, 302);
+            	Yii::app()->user->setFlash('register', true);
+                $this->refresh;
             }
-            else{
-                // Ошибка валидации
-                if($form->hasErrors())
-                foreach($form->getErrors() as $er)
-                    foreach($er as $error){
-                        $errors[] = $error;
-                    }
-            } 
         }
         
-        $captcha = $this->widget('CCaptcha', array(
-            'showRefreshButton'=>false,
-            'clickableImage'=>true,
-            'imageOptions'=>array(
-                'alt'       => 'проверочный код',
-                'title'     => 'Кликни по картинке, чтобы сменить код',
-                'border'    => 1,
-                'width'     => '100',
-                'height'    => '40'
-          )
-        ), true);
-        
-        $register = isset(Yii::app()->session['register']) ? true : false;
-        unset(Yii::app()->session['register']);
         Yii::app()->params['title'] =  'Регистрация' . ' — ' . Yii::app()->params['title'];
         $this->render('register', array(
-            'errors'    => $errors,
-            'captcha'   => $captcha,
-            'register'  => $register,
-            'form'      => $form->attributes
+            'form'      => $form
         ));
     }
 	
+	/**
+	 * Просмотр профиля юзера
+	 * @param string user [optional]
+	 * @return 
+	 */
 	public function actionIndex($user = FALSE){
 		if(!$user && Yii::app()->user->isGuest){
 			throw new CHttpException(404);
@@ -189,8 +166,8 @@ class UserController extends Controller
 		}
 		
 		$login_form = new Users('login');
-		if(isset($_POST['User'])){
-            $login_form->attributes = $_POST['User'];
+		if(isset($_POST['login'], $_POST['Users'])){
+            $login_form->attributes = $_POST['Users'];
 			if($login_form->validate() && $user_openid['identity']){
 				if($login_form->attachOidIdentity($user_openid['identity'], Yii::app()->user->id)){
 					Yii::app()->session->offsetUnset('user_openid');
@@ -199,12 +176,14 @@ class UserController extends Controller
 			}
 		}
 		$reg_form = new Users('register_oid');
+
 		$reg_form->username = @$user_openid['username'];
 		$reg_form->email = @$user_openid['email'];
-		if(isset($_POST['NewUser'])){
-            $reg_form->attributes = $_POST['NewUser'];
+		if(isset($_POST['create'], $_POST['Users'])){
+            $reg_form->attributes = $_POST['Users'];
 			$pass = md5(time().mt_rand(0, 1).$reg_form->attributes['username']);
 			$reg_form->password = $reg_form->password2 = $pass;
+			$reg_form->validate();
 			if(@$user_openid['identity'] && $reg_form->save()){
 				if(Users::authenticateById($reg_form->userID)){
 				    $reg_form->attachOidIdentity($user_openid['identity'], $reg_form->userID);

@@ -2,22 +2,26 @@
 
 {% block content %}
 {% include "views/layouts/messages.html" %}
-<form class='forms' action="" method="POST">
-	<p class='label'>Логин</p>
-	<p>
-		<input maxlength='50' size='50' title='Укажите имя пользователя' type="text" name="User[username]" value='{{ form.username|e }}'>
-	</p>
-	<br>
-	<p class='label'>Пароль</p>
-	<p>
-		<input maxlength='50' size='50' title='Укажите ваш пароль'  type="password" name="User[password]" value=''>
-	</p>
-	<br>
-	<p>
-		<input type='submit' name='loginbtn' value='Войти'>
-	</p>
-	<input type='hidden' name='return' value='{{ return|e }}'>
-</form>
+
+{{ CHtml.form('', 'post', {"class":"forms"}) }}
+<p class='label'>Логин</p>
+<p>
+	{{ CHtml.activeTextField(form, 'username', {"title":"Укажите имя пользователя", "maxlength":"50", "size":"50"}) }}
+</p>
+{{ CHtml.error(form, 'username') }}
+<br>
+<p class='label'>Пароль</p>
+<p>
+    {{ CHtml.activeTextField(form, 'password', {"title":"Укажите ваш пароль", "maxlength":"50", "size":"50"}) }}
+</p>
+{{ CHtml.error(form, 'password') }}
+<br>
+<p>
+	{{ CHtml.submitButton('Войти') }}
+</p>
+{{ CHtml.hiddenField('return', return ) }}
+{{ CHtml.endForm() }}
+
 <p>
 	<center>
     <br>

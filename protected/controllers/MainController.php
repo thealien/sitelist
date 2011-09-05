@@ -98,10 +98,10 @@ class MainController extends Controller
 	{
 		$categories = Category::getRootCats();
         $lastLinks = Links::getLastLinks(3);
-
+		
 		$this->render('index', array(
             'categories'    =>$categories,
-            'lastLinks'     =>$lastLinks
+			'lastLinks'     =>$lastLinks
 		));
 	}
     /*
