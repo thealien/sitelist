@@ -133,6 +133,8 @@ class UserController extends Controller
                         }
 						
 						if(Users::authenticateByEmail(@$user_openid['email'])){
+							$tmp_user = new Users();
+							$tmp_user->attachOidIdentity($user_openid['identity'], Yii::app()->user->id);
 							$this->redirect(array('main/index'));
 						}
 						elseif(Users::authenticateByOidIdentity($user_openid['identity'])){
@@ -224,6 +226,8 @@ class UserController extends Controller
                 }
                 
 				if(Users::authenticateByEmail(@$user_oauth['email'])){
+					$tmp_user = new Users();
+					$tmp_user->attachOidIdentity($user_oauth['identity'], Yii::app()->user->id);
                     $this->redirect(array('main/index'));
                 }
                 elseif(Users::authenticateByOidIdentity($user_oauth['identity'])){
