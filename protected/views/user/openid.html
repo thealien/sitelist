@@ -34,7 +34,7 @@
 
 <p class='label'>Пароль</p>
 <p>
-    {{ CHtml.activeTextField(login_form, 'password') }}
+    {{ CHtml.activePasswordField(login_form, 'password') }}
 </p>
 {{ CHtml.error(login_form, 'password')|default('<br>') }}
 

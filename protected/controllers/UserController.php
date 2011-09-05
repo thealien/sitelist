@@ -27,9 +27,8 @@ class UserController extends Controller
 	 */
     public function actionLogin(){
     	if(!Yii::app()->user->isGuest){
-    		// Уже авторизованы
-    		$this->redirect('/', true, 302);
-    	}
+            $this->redirect(Yii::app()->getBaseUrl(true));
+        }
         $form = new Users('login');
 		$errors = array();
 		if(isset($_POST['Users'])){
@@ -112,6 +111,9 @@ class UserController extends Controller
 	}
 	
 	public function actionOpenid(){
+		if(!Yii::app()->user->isGuest){
+            $this->redirect(Yii::app()->getBaseUrl(true));
+        }
 		$err = false;
 		$user_openid = Yii::app()->session['user_openid'];
 		$loid = Yii::app()->loid->load();
@@ -152,7 +154,10 @@ class UserController extends Controller
 		        }
 		    }
 		} elseif(isset($_GET['openid_identifier'])) {
-			$oauth_providers = array('http://facebook.com/' => $this->createUrl('user/oauthfacebook'));
+			$oauth_providers = array(
+                'http://facebook.com/' => $this->createUrl('user/oauthfacebook'),
+				'http://vkontakte.ru/' => $this->createUrl('user/oauthvkontakte')
+            );
 		    $loid->identity = strval($_GET['openid_identifier']);
 			if(key_exists($loid->identity, $oauth_providers)){
 				$this->redirect($oauth_providers[$loid->identity]);
@@ -208,6 +213,9 @@ class UserController extends Controller
 	}
 	
 	public function actionOauthFacebook(){
+		if(!Yii::app()->user->isGuest){
+            $this->redirect(Yii::app()->getBaseUrl(true));
+        }
 		Yii::import('application.vendors.facebook.src.*');
 		$facebook = new Facebook(array(
             'appId' => Yii::app()->params['facebook']['app_id'], 
@@ -250,6 +258,72 @@ class UserController extends Controller
 			}
 			$loginUrl = $facebook->getLoginUrl(array('scope' => 'email,user_about_me'));
 			$this->redirect($loginUrl);
+		}
+	}
+	
+	public function actionOauthVkontakte(){
+		if(!Yii::app()->user->isGuest){
+            $this->redirect(Yii::app()->getBaseUrl(true));
+        }
+		$self_uri = Yii::app()->getBaseUrl(true).Yii::app()->request->getRequestUri();
+		$app_id = Yii::app()->params['vkontakte']['app_id'];
+		$secret = Yii::app()->params['vkontakte']['secret'];
+		if(empty($_GET)){
+			$url = sprintf('http://api.vk.com/oauth/authorize?client_id=%d&redirect_uri=%s&display=page',
+                $app_id,
+				urlencode($self_uri)
+			);
+			$this->redirect($url);
+		}
+		else{
+			if(isset($_GET['error'])){
+				$this->redirect(array('user/openid'));
+			}
+			if(isset($_GET['code'])){
+				$code = strval($_GET['code']);
+				$resp = @file_get_contents(sprintf('https://api.vk.com/oauth/token?client_id=%s&code=%s&client_secret=%s',
+				    $app_id,
+                    $code,
+                    $secret
+				));
+                $data = json_decode($resp, true);
+				if($data){
+					$access_token = $data['access_token'];
+					$vk_user_id = $data['user_id'];
+					$resp = file_get_contents(sprintf('https://api.vkontakte.ru/method/getProfiles?uid=%d&access_token=%s&fields=%s',
+                        $vk_user_id,
+						$access_token,
+						implode(',', array('uid', 'nickname'))
+					));
+					$data = json_decode($resp, true);
+					if($data && isset($data['response']) && $data['response']){
+						$userinfo = array_shift($data['response']);
+						$user_oauth= array();
+                        $user_oauth['identity'] = sprintf('http://vkontakte.ru/id%d', $userinfo['uid']);
+                        if(isset($userinfo['email'])){
+                            $user_oauth['email'] = $userinfo['email'];
+                        }
+                        if(isset($userinfo['username'])){
+                            $user_oauth['username'] = $userinfo['nickname'];
+                        }
+						else{
+							$user_oauth['username'] = $userinfo['first_name'] . ' ' . $userinfo['last_name'];
+						}
+                
+                        if(Users::authenticateByEmail(@$user_oauth['email'])){
+                            $tmp_user = new Users();
+                            $tmp_user->attachOidIdentity($user_oauth['identity'], Yii::app()->user->id);
+                            $this->redirect(array('main/index'));
+                        }
+                        elseif(Users::authenticateByOidIdentity($user_oauth['identity'])){
+                            $this->redirect(array('main/index'));
+                        }
+                        Yii::app()->session['user_openid'] = $user_oauth;
+                        $this->redirect(array('user/openid'));
+					}
+				}
+			}
+			$this->redirect(array('user/openid'));
 		}
 	}
 

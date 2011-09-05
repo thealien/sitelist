@@ -71,6 +71,7 @@ return array(
 				'user/captcha' => 'user/captcha',
 				'user/openid' => 'user/openid',
 				'user/oauth/facebook' => 'user/oauthfacebook',
+				'user/oauth/vkontakte' => 'user/oauthvkontakte',
                 'user/<user:[\w\s]+>'=>'user/index',
 				
 				
@@ -170,7 +171,11 @@ return array(
 		'facebook' => array(
             'app_id' => null,
 			'secret' => null
-		)
+		),
+        'vkontakte' => array(
+            'app_id' => null,
+            'secret' => null
+        )
         
     ),
 );

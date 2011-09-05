@@ -19,6 +19,10 @@ var providers_large = {
         label : 'Введите ваше имя пользователя на Mail.ru.',
         url : 'http://{username}.id.mail.ru/'
     },
+	vkontakte : {
+        name : 'ВКонтакте',
+        url : 'http://vkontakte.ru/'
+    },
 	fb : {
         name : 'Facebook',
         url : 'http://facebook.com'
@@ -26,16 +30,7 @@ var providers_large = {
 	rambler : {
 		name : 'Рамблер',
 		url : 'http://www.rambler.ru'
-	},
-	/*yahoo : {
-		name : 'Yahoo',
-		url : 'http://me.yahoo.com/'
-	},*/
-	myopenid : {
-		name : 'MyOpenID',
-		label : 'Введите ваше имя пользователя на MyOpenID.',
-		url : 'http://{username}.myopenid.com/'
-	},
+	}
 };
 
 var providers_small = {
@@ -73,7 +68,16 @@ var providers_small = {
 		name : 'Профиль Google',
 		label : 'Введите ваше имя на Google Profile.',
 		url : 'http://www.google.com/profiles/{username}'
-	}
+	},
+	yahoo : {
+        name : 'Yahoo',
+        url : 'http://me.yahoo.com/'
+    },
+	myopenid : {
+        name : 'MyOpenID',
+        label : 'Введите ваше имя пользователя на MyOpenID.',
+        url : 'http://{username}.myopenid.com/'
+    },
 };
 
 openid.lang = 'ru';
