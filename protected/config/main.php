@@ -70,7 +70,9 @@ return array(
                 'user/<user:\w+>/fav/?'=>'user/fav',
 				'user/captcha' => 'user/captcha',
 				'user/openid' => 'user/openid',
+				'user/oauth/facebook' => 'user/oauthfacebook',
                 'user/<user:[\w\s]+>'=>'user/index',
+				
 				
 				'collection/<id:\d+>'=>'collection/index',
 				
@@ -164,7 +166,11 @@ return array(
             'lastPageLabel' => 'в конец',
             'header' => '',
             'cssFile' =>false
-        )
+        ),
+		'facebook' => array(
+            'app_id' => null,
+			'secret' => null
+		)
         
     ),
 );

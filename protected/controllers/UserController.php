@@ -149,9 +149,13 @@ class UserController extends Controller
 		            $err = Yii::t('core', $e->getMessage());
 		        }
 		    }
-		    //if(!empty($err)) echo $err;
 		} elseif(isset($_GET['openid_identifier'])) {
+			$oauth_providers = array('http://facebook.com/' => $this->createUrl('user/oauthfacebook'));
 		    $loid->identity = strval($_GET['openid_identifier']);
+			if(key_exists($loid->identity, $oauth_providers)){
+				$this->redirect($oauth_providers[$loid->identity]);
+			}
+			
 		    $loid->required = array('namePerson/friendly', 'contact/email', 'namePerson');
 		    $loid->realm     = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']; 
 		    $loid->returnUrl = $loid->realm . $_SERVER['REQUEST_URI'];
@@ -199,6 +203,50 @@ class UserController extends Controller
 			'login_form' => $login_form,
 			'reg_form' => $reg_form,
 		));
+	}
+	
+	public function actionOauthFacebook(){
+		Yii::import('application.vendors.facebook.src.*');
+		$facebook = new Facebook(array(
+            'appId' => Yii::app()->params['facebook']['app_id'], 
+			'secret' => Yii::app()->params['facebook']['secret']));
+		$user = $facebook->getUser();
+		if($user){
+			try {
+                $userinfo = $facebook->api('/me');
+				$user_oauth= array();
+                $user_oauth['identity'] = $userinfo['link'];
+                if(isset($userinfo['email'])){
+                    $user_oauth['email'] = $userinfo['email'];
+                }
+                if(isset($userinfo['username'])){
+                    $user_oauth['username'] = $userinfo['username'];
+                }
+                
+				if(Users::authenticateByEmail(@$user_oauth['email'])){
+                    $this->redirect(array('main/index'));
+                }
+                elseif(Users::authenticateByOidIdentity($user_oauth['identity'])){
+                    $this->redirect(array('main/index'));
+                }
+
+                Yii::app()->session['user_openid'] = $user_oauth;
+                $this->redirect(array('user/openid'));
+            }
+            catch(FacebookApiException $e) {
+            	//echo $e;
+                //error_log($e);
+                //$user = null;
+				$this->redirect(array('user/openid'));
+            }
+		}
+		else{
+			if(isset($_GET['error_reason'])){
+				$this->redirect(array('user/openid'));
+			}
+			$loginUrl = $facebook->getLoginUrl(array('scope' => 'email,user_about_me'));
+			$this->redirect($loginUrl);
+		}
 	}
 
     

@@ -19,14 +19,18 @@ var providers_large = {
         label : 'Введите ваше имя пользователя на Mail.ru.',
         url : 'http://{username}.id.mail.ru/'
     },
+	fb : {
+        name : 'Facebook',
+        url : 'http://facebook.com'
+    },
 	rambler : {
 		name : 'Рамблер',
 		url : 'http://www.rambler.ru'
 	},
-	yahoo : {
+	/*yahoo : {
 		name : 'Yahoo',
 		url : 'http://me.yahoo.com/'
-	},
+	},*/
 	myopenid : {
 		name : 'MyOpenID',
 		label : 'Введите ваше имя пользователя на MyOpenID.',
