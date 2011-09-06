@@ -28,7 +28,7 @@ class Category extends CActiveRecord
 		return array(
             // Общие
 			array('parentid, catname', 'required'),
-            array('catname', 'match', 'pattern' => '/^[A-Za-z0-9А-Яа-я\s-.,]+$/i','message' => 'Название категории содержит недопустимые символы'),
+            array('catname', 'match', 'pattern' => '/^[a-zA-Zа-яА-Я0-9\s-.,]+/i','message' => 'Название категории содержит недопустимые символы'),
             array('parentid', 'numerical', 'integerOnly'=>true),
 			
 			array('id, parentid, catname, ip', 'safe', 'on'=>'search'),
