@@ -358,7 +358,7 @@ class UserController extends Controller
 			$user = $connection->get('account/verify_credentials');
             if($user && isset($user->id)){
                 $user_oauth= array();
-                $user_oauth['identity'] = sprintf('http://twitter.com/', $user->screen_name);
+                $user_oauth['identity'] = sprintf('http://twitter.com/' . $user->screen_name);
                 $user_oauth['username'] = $user->screen_name;
 
                 if(Users::authenticateByOidIdentity($user_oauth['identity'])){
