@@ -72,6 +72,7 @@ return array(
 				'user/openid' => 'user/openid',
 				'user/oauth/facebook' => 'user/oauthfacebook',
 				'user/oauth/vkontakte' => 'user/oauthvkontakte',
+				'user/oauth/twitter' => 'user/oauthtwitter',
                 'user/<user:[\w\s]+>'=>'user/index',
 				
 				
@@ -175,7 +176,11 @@ return array(
         'vkontakte' => array(
             'app_id' => null,
             'secret' => null
-        )
+        ),
+		'twitter' => array(
+            'consumer_key' => null,
+			'consumer_secret' => null
+		)
         
     ),
 );

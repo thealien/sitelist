@@ -156,7 +156,8 @@ class UserController extends Controller
 		} elseif(isset($_GET['openid_identifier'])) {
 			$oauth_providers = array(
                 'http://facebook.com/' => $this->createUrl('user/oauthfacebook'),
-				'http://vkontakte.ru/' => $this->createUrl('user/oauthvkontakte')
+				'http://vkontakte.ru/' => $this->createUrl('user/oauthvkontakte'),
+				'http://twitter.com/' => $this->createUrl('user/oauthtwitter'),
             );
 		    $loid->identity = strval($_GET['openid_identifier']);
 			if(key_exists($loid->identity, $oauth_providers)){
@@ -326,6 +327,60 @@ class UserController extends Controller
 			$this->redirect(array('user/openid'));
 		}
 	}
+	
+	public function actionOauthTwitter(){
+		// TODO check all error. refactor it!
+		if(isset($_GET['denied'])){
+			$this->redirect(array('user/openid'));
+		}
+        if(!Yii::app()->user->isGuest){
+            $this->redirect(Yii::app()->getBaseUrl(true));
+        }
+		$self_uri = Yii::app()->getBaseUrl(true).Yii::app()->request->getRequestUri();
+		Yii::import('application.vendors.twitter.*');
+		
+		if(isset($_GET['oauth_verifier'])){
+            $connection = new TwitterOAuth(
+                Yii::app()->params['twitter']['consumer_key'], 
+                Yii::app()->params['twitter']['consumer_secret'],
+                Yii::app()->session['oauth_token'],
+                Yii::app()->session['oauth_token_secret'] 
+            );
+			$access_token = $connection->getAccessToken($_GET['oauth_verifier']);
+			unset(Yii::app()->session['oauth_token']);
+            unset(Yii::app()->session['oauth_token_secret']);
+			$connection = new TwitterOAuth(
+                Yii::app()->params['twitter']['consumer_key'], 
+                Yii::app()->params['twitter']['consumer_secret'],
+                $access_token['oauth_token'],
+                $access_token['oauth_token_secret'] 
+            );
+			$user = $connection->get('account/verify_credentials');
+            if($user && isset($user->id)){
+                $user_oauth= array();
+                $user_oauth['identity'] = sprintf('http://twitter.com/', $user->screen_name);
+                $user_oauth['username'] = $user->screen_name;
 
-    
+                if(Users::authenticateByOidIdentity($user_oauth['identity'])){
+                    $this->redirect(array('main/index'));
+                }
+                Yii::app()->session['user_openid'] = $user_oauth;
+                $this->redirect(array('user/openid'));
+            }
+		}
+
+		$connection = new TwitterOAuth(
+            Yii::app()->params['twitter']['consumer_key'], 
+			Yii::app()->params['twitter']['consumer_secret']
+        );
+		$request_token = $connection->getRequestToken();
+		Yii::app()->session['oauth_token'] = $request_token['oauth_token']; 
+		Yii::app()->session['oauth_token_secret'] = $request_token['oauth_token_secret'];
+        if(empty($_GET)){
+			$url = $connection->getAuthorizeURL($request_token['oauth_token']);
+			$this->redirect($url);
+			exit($url);
+		}
+    }
+
 }

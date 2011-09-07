@@ -27,10 +27,10 @@ var providers_large = {
         name : 'Facebook',
         url : 'http://facebook.com'
     },
-	rambler : {
-		name : 'Рамблер',
-		url : 'http://www.rambler.ru'
-	}
+	tw : {
+        name : 'Twitter',
+        url : 'http://twitter.com'
+    },
 };
 
 var providers_small = {
