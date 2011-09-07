@@ -378,7 +378,6 @@ class UserController extends Controller
 		Yii::app()->session['oauth_token_secret'] = $request_token['oauth_token_secret'];
         $url = $connection->getAuthorizeURL($request_token['oauth_token']);
         $this->redirect($url);
-		}
     }
 
 }
