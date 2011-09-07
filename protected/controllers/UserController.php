@@ -376,10 +376,8 @@ class UserController extends Controller
 		$request_token = $connection->getRequestToken();
 		Yii::app()->session['oauth_token'] = $request_token['oauth_token']; 
 		Yii::app()->session['oauth_token_secret'] = $request_token['oauth_token_secret'];
-        if(empty($_GET)){
-			$url = $connection->getAuthorizeURL($request_token['oauth_token']);
-			$this->redirect($url);
-			exit($url);
+        $url = $connection->getAuthorizeURL($request_token['oauth_token']);
+        $this->redirect($url);
 		}
     }
 
