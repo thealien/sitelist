@@ -74,6 +74,15 @@ class Votes extends CActiveRecord
     public static function canVote($link_id){
         $link_id = intval($link_id);
         if($link_id<1) return false;
+		
+		if(!Yii::app()->user->isGuest){
+			$uid = Yii::app()->user->id;
+			$vote = Votes::model()->findByAttributes(
+                array('link_id'=>$link_id, 'user_id'=>$uid)
+            );
+            if($vote!==null) return false;
+		}
+
         if(isset($_COOKIE['votes'])){
             static $v;
             if(is_null($v)){
@@ -126,6 +135,9 @@ class Votes extends CActiveRecord
         $v->link_id = $link->id;
         $v->ip = $_SERVER['REMOTE_ADDR'];
 		$v->vote = $vote;
+		if(!Yii::app()->user->isGuest){
+			$v->user_id = Yii::app()->user->id;
+		}
         if(!$v->save()){
             return false;
         }
