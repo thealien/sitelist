@@ -62,28 +62,28 @@ class Twig_Node_Module extends Twig_Node
 
     protected function compileGetParent(Twig_Compiler $compiler)
     {
+        $compiler
+            ->write("protected function doGetParent(array \$context)\n", "{\n")
+            ->indent()
+            ->write("return ")
+        ;
+
         if (null === $this->getNode('parent')) {
-            return;
+            $compiler->raw("false");
+        } else {
+            if ($this->getNode('parent') instanceof Twig_Node_Expression_Constant) {
+                $compiler->subcompile($this->getNode('parent'));
+            } else {
+                $compiler
+                    ->raw("\$this->env->resolveTemplate(")
+                    ->subcompile($this->getNode('parent'))
+                    ->raw(")")
+                ;
+            }
         }
 
         $compiler
-            ->write("public function getParent(array \$context)\n", "{\n")
-            ->indent()
-            ->write("\$parent = ")
-            ->subcompile($this->getNode('parent'))
             ->raw(";\n")
-            ->write("if (\$parent instanceof Twig_Template) {\n")
-            ->indent()
-            ->write("\$name = \$parent->getTemplateName();\n")
-            ->write("\$this->parent[\$name] = \$parent;\n")
-            ->write("\$parent = \$name;\n")
-            ->outdent()
-            ->write("} elseif (!isset(\$this->parent[\$parent])) {\n")
-            ->indent()
-            ->write("\$this->parent[\$parent] = \$this->env->loadTemplate(\$parent);\n")
-            ->outdent()
-            ->write("}\n\n")
-            ->write("return \$this->parent[\$parent];\n")
             ->outdent()
             ->write("}\n\n")
         ;
@@ -110,10 +110,6 @@ class Twig_Node_Module extends Twig_Node
             ->write("{\n")
             ->indent()
         ;
-
-        if (null !== $this->getNode('parent')) {
-            $compiler->write("protected \$parent;\n\n");
-        }
     }
 
     protected function compileConstructor(Twig_Compiler $compiler)
@@ -122,7 +118,6 @@ class Twig_Node_Module extends Twig_Node
             ->write("public function __construct(Twig_Environment \$env)\n", "{\n")
             ->indent()
             ->write("parent::__construct(\$env);\n\n")
-            ->write("\$this->parent = array();\n")
         ;
 
         $countTraits = count($this->getNode('traits'));
@@ -157,7 +152,7 @@ class Twig_Node_Module extends Twig_Node
             }
 
             $compiler
-                ->write("\$this->blocks = array_replace(\n")
+                ->write("\$this->blocks = array_merge(\n")
                 ->indent()
             ;
 
