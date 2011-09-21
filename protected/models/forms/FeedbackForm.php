@@ -11,4 +11,12 @@ class FeedbackForm extends CFormModel {
             array('email', 'email'),
         );
     }
+	
+	public function attributeLabels()
+    {
+        return array(
+            'email'         => 'Email',
+            'text'          => 'Сообщение'
+        );
+    }
 }
