@@ -8,12 +8,12 @@
 {% endblock %}
 
 {% block content %}
-<div id='feedback' class='forms'>
+<div id='feedback'>
+{{ CHtml.form('', 'post', {"class":"forms"}) }}
     <h2 class='title'>Контакты</h2>
     <br>
     <p><b>ICQ:</b> <a target="_blank" href="http://www.icq.com/people/466499433/">466-499-433</a></p>
     <p><b>Микроблог разработчика:</b> <a target="_blank" href="http://sitelist.microbloggy.ru/">sitelist.microbloggy.ru</a></p>
-    <br>
     <br>
     <br>
     <h2 class='title'>Обратная связь</h2>
@@ -23,20 +23,30 @@
         заполните форму ниже, указав адрес электропочты и текст послания.
     </p>
     <br>
-    <p>
-        <input id='email' name="email" value="" placeholder="Ваш email">
-    </p>
-    <br>
-    <p>
-        <textarea name='message' rows='5' cols='78' id='message'></textarea>
-    </p>
-    <br>
-    <p>
-        <a class='send-btn' href='javascript:void(0);'></a>
-    </p>
-	<br>
-	<p>
-		<span id='feedback-result'></span>
-	</p>
+{% if Yii.user.hasFlash('feedback') %}
+<p><b>Сообщение успешно отправлено.</b></p>
+{% else %}
+<div class='fields'>
+<p><span id='feedback-result'></span></p>
+<br>
+<p class='label'>Email</p>
+<p>
+    {{ CHtml.activeTextField(model, 'email', {"placeholder":"Ваш email", "size":"50", "id":"email"}) }}
+</p>
+{{ CHtml.error(model, 'email') }}
+<br>
+<p class='label'>Сообщение</p>
+<p>
+	{{ CHtml.activeTextArea(model, 'text', {"rows":'5', "cols":'78', "id":"message"}) }}
+</p>
+{{ CHtml.error(model, 'text') }}
+<br>
+<p>
+    {{ CHtml.submitButton('', {"class":"send-btn"}) }}	
+</p>
 </div>
+{% endif %}
+{{ CHtml.endForm() }}
+</div>
+
 {% endblock %}

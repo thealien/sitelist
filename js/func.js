@@ -136,49 +136,21 @@ $(function(){
     });
 	
 	// Отправка фидбека
-    $('#feedback a.send-btn').click(function(){
-		$('#feedback-result').text('');
-        // e-mail
-        var mail_field = $('#email');
-        var mail = mail_field.val();
-        // Сообщение
-        var text_field = $('#message');
-        var text = text_field.val();
-        // Проверим мыло
-        if(mail.length<1){
-            alert('Заполните, пожалуйста поле "E-mail"');
-            mail_field.focus();
-            return false;
-        }
-        if(!isValidEmail(mail)){
-            alert('Проверьте правильность введенного E-mail');
-            mail_field.focus();
-            return false;
-        }
-        // Проверим сообщение
-        if(text.length<1){
-            alert('Заполните, пожалуйста поле "Сообщение"');
-            text_field.focus();
-            return false;
-        }
-		$('#feedback-result').text('Отправляю сообщение...');
-        // Отправка
+    $('#feedback form').submit(function(){
         $.ajax({
             type: "POST",
             url: "/ajax/feedback/",
             dataType: 'json',
-            data: {
-                action: 'feedback',
-                mail: mail,
-                text: text
-            },
+            data: $(this).serialize(),
             cache: false,
             success: function(data){
+				if(data)
                 if(data.error){
-					$('#feedback-result').text('Ошибка: '+ data.message);
+                    $('#feedback-result').text('Ошибка: '+ data.message);
                 }
                 else{
-					$('#feedback-result').text('Сообщение успешно отправлено!');
+					$('#feedback .fields').replaceWith('<p><b>Сообщение успешно отправлено.</b></p>');
+                    //$('#feedback-result').text('Сообщение успешно отправлено!');
                 }
             }
         });

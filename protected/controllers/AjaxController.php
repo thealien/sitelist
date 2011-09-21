@@ -177,22 +177,20 @@ class AjaxController extends Controller
 	 */
     public function actionFeedback(){
         $result = array('error'=>true, 'message'=>'');
-        $mail = isset($_POST['mail']) ? trim($_POST['mail']) :  false;
-		// TODO check mail format
-        $text = isset($_POST['text']) ? trim($_POST['text']) :  false;
-        if(!$mail){
-            $result['message'] = 'Не указан e-mail';
-        }
-        elseif(!$text){
-            $result['message'] = 'Не указано сообщение';
-        }
-        else{
-        	if(MailHelper::sendFeedback($mail, $text))
-                $result['error'] = false;
-            else
-                $result['message'] = 'Ошибка отправки сообщения на e-mail';
-        }
-        header('Content-type: application/json;');
+		$model = new FeedbackForm();
+		if(isset($_POST['FeedbackForm'])){
+            $model->attributes = $_POST['FeedbackForm'];
+			if($model->validate()){
+				if(MailHelper::sendFeedback($model->email, $model->text))
+                    $result['error'] = false;
+                else
+                    $result['message'] = 'Ошибка отправки сообщения на e-mail';
+			}	
+			else{
+				$result['message'] = array_pop(array_pop(array_values($model->errors)));
+			}
+		}
+		header('Content-type: application/json;');
         exit(json_encode($result));
     }
 	

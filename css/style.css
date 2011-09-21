@@ -646,20 +646,25 @@ ul.yiiPager .first a:hover, ul.yiiPager .last a:hover, ul.yiiPager .previous a:h
 }
 
 /* обратная связь */
+#feedback-result {
+	color: red;
+}
 #feedback p.title {
     font-size: 18px;
     font-weight: 700;
 }
 
-#feedback a.send-btn {
+#feedback .send-btn {
     width: 211px;
     height: 42px;
     display: inline-block;
     background-image: url(http://i.sitelist.in/feedback/feedback_send.png);
     background-repeat: no-repeat;
+	cursor: pointer;
+	border: none;
 }
 
-#feedback a.send-btn:hover {
+#feedback .send-btn:hover {
     background-position: 0 -42px;
 }
 
