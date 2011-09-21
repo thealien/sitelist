@@ -181,27 +181,15 @@ class MainController extends Controller
 		$criteria->order= 'UserID DESC';
         
         $pages = new CPagination($count);
-        // элементов на страницу
-        $pages->pageSize = 18;
-        $pages->route = 'main/users';
+        $pages->pageSize = 30;
 		$pages->applyLimit($criteria);
         
-        $users_paginator = $this->widget(
-            'CLinkPager',
-            array_merge(Yii::app()->params['link_pager'], array('pages' => $pages)),
-            true
-         );
-        
         $users = Users::model()->with('profile')->findAll($criteria);
-        
-        //$lastLinks = Links::getLastLinks(3);
-        
+
         Yii::app()->params['title'] =  'Пользователи' . ' — ' . Yii::app()->params['title'];
         $this->render('users', array(
             'users'             =>$users,
-//            'lastLinks'         =>$lastLinks,
-            'users_paginator'     =>$users_paginator,
-            'page'              => $page
+            'pages'              => $pages
         ));
     }
 }

@@ -148,6 +148,20 @@ return array(
 		'loid' => array(
             'class' => 'application.extensions.lightopenid.loid',
         ),
+		
+		'widgetFactory' => array(
+            'widgets' => array(
+                'CLinkPager' => array(
+				    'pageSize' => 15,
+                    'nextPageLabel'=>'&rarr;',
+                    'prevPageLabel'=>'&larr;',
+                    'firstPageLabel'=> 'начало',
+                    'lastPageLabel' => 'в конец',
+                    'header' => '',
+                    'cssFile' =>false
+				) 
+			)
+		),
     ),
     
     // application-level parameters that can be accessed
@@ -162,14 +176,6 @@ return array(
         'sphinx'=> array(
             'host' => '127.0.0.1',
             'port' => 3312
-        ),
-        'link_pager' => array(
-            'nextPageLabel'=>'&rarr;',
-            'prevPageLabel'=>'&larr;',
-            'firstPageLabel'=> 'начало',
-            'lastPageLabel' => 'в конец',
-            'header' => '',
-            'cssFile' =>false
         ),
 		'facebook' => array(
             'app_id' => null,
