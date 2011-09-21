@@ -12,7 +12,7 @@
 <br>
 <p class='label'>Пароль</p>
 <p>
-    {{ CHtml.activeTextField(form, 'password', {"title":"Укажите ваш пароль", "maxlength":"50", "size":"50"}) }}
+    {{ CHtml.activePasswordField(form, 'password', {"title":"Укажите ваш пароль", "maxlength":"50", "size":"50"}) }}
 </p>
 {{ CHtml.error(form, 'password') }}
 <br>

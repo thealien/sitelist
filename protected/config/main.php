@@ -89,7 +89,9 @@ return array(
             'class' => 'application.components.CutyCapt',
             'path' => '/PATH/TO/CutyCapt',
             'user_xvfb' => true,
-            'filetype' => 'jpg'
+            'filetype' => 'jpg',
+			'user_agent' => 'Mozilla/5.0 (Windows; I; Windows NT 5.1; ru; rv:1.9.2.13) Gecko/20100101 Firefox/4.0'
+			
         ),
         'cache'=>array(
             'class'=>'system.caching.CMemCache',
