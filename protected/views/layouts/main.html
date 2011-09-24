@@ -113,9 +113,6 @@
 					{% endif %}
                     </div>
                     <br>
-					<!-- RotaBan.ru Zone Code -->
-                    <div id="rotaban_203513" class="rbrocks rotaban_d2b2d9b7a02f4535a0ade8f4b6a7179c"></div>
-                    <!-- END RotaBan.ru Zone Code -->
 					{% block bookmarklet %}
 					<!-- Букмарклет -->
 					<div id='bm-block'>
@@ -173,23 +170,6 @@
         {% block add_js %}
         {% endblock %}
         <script type='text/javascript' extsrc='{{ Yii.getBaseUrl(true) }}/js/func.js?20110921'></script>
-        
-		<!-- RotaBan.ru Ad Code -->
-        <script type="text/javascript">
-        (function(){
-            var rb = document.createElement('script');
-                d = new Date();
-            d.setHours(0);
-            d.setMinutes(0);
-            d.setSeconds(0);
-            d.setMilliseconds(0);
-		    rb.type = 'text/javascript';
-		    rb.async = true;
-		    rb.src = '//s1.rotaban.ru/rotaban.js?v=' + d.getTime();
-		    (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(rb);
-		})();
-        </script>
-        <!-- END RotaBan.ru Ad Code -->
 		
         <!-- Yandex.Metrika counter -->
 		<div style="display:none;"><script type="text/javascript">
