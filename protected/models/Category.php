@@ -5,9 +5,7 @@
  *
  * The followings are the available columns in table 'category':
  * @property integer $id
- * @property integer $parentid
  * @property string $catname
- * @property string $ip
  * @property string $icon
  */
 class Category extends CActiveRecord
@@ -35,22 +33,16 @@ class Category extends CActiveRecord
 		// Правила валидации
 		return array(
             // Общие
-			array('parentid, catname', 'required'),
+			array('parentid, catname, alias', 'required'),
             array('catname', 'match', 'pattern' => '/^[a-zA-Zа-яА-Я0-9\s-.,]+/i','message' => 'Название категории содержит недопустимые символы'),
-            array('parentid', 'numerical', 'integerOnly'=>true),
-			
-			array('id, parentid, catname, ip', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations()
     {
         return array(
-            'parent'         =>array(self::BELONGS_TO, 'Category', 'parentid'),
 			'linksCount'     =>array(self::STAT, 'Links', 'catid', 'condition' => 'visible=1'),
             'newLinksCount'  =>array(self::STAT, 'Links', 'catid', 'condition' => 'visible=1 AND (DATE_SUB(NOW(), INTERVAL 3 DAY)<date)'),
-			/*'subcatsCount'   =>array(self::STAT, 'Category', 'parentid'),
-			'subcats'        =>array(self::HAS_MANY, 'Category', 'parentid', 'order' => 'subcats.id'),*/
 			'links'          =>array(self::HAS_MANY, 'Links', 'catid', 'condition' => 'visible=1', 'order' => 'links.id DESC'),
         );
     }
@@ -59,34 +51,15 @@ class Category extends CActiveRecord
 	{
 		return array(
 			'id'         => 'ID категории',
-			'parentid'   => 'ID родительской категории',
 			'catname'    => 'Название категории',
-			'ip'         => 'IP',
+			'alias'      => 'Алиас'
 		);
 	}
 
-	public function search()
-	{
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id);
-
-		$criteria->compare('parentid',$this->parentid);
-
-		$criteria->compare('catname',$this->catname,true);
-
-		$criteria->compare('ip',$this->ip,true);
-
-		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
-		));
-	}
-	
 	public static function getRootCats($full = true){
 		$cats = self::model()->cache(60, null, 3)->findAll(array(
-            'condition' =>'t.parentid=:id', 'params'    =>array(':id'=>0),
-			'order'      =>'t.parentid, t.catname ASC',
-			'with' => $full ? array('linksCount', 'newLinksCount'/*, 'subcatsCount', 'subcats', 'subcats.linksCount'*/) : array()
+			'order'      =>'t.catname ASC',
+			'with' => $full ? array('linksCount', 'newLinksCount') : array()
         ));
 		return $cats;
 	}
