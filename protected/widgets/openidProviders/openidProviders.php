@@ -14,9 +14,9 @@ class openidProviders extends CWidget {
 	$clientScript = Yii::app()->getClientScript();
 	$clientScript->registerCoreScript('jquery');
 	$clientScript->registerCssFile($baseUrl . '/css/openid.css');
-	$clientScript->registerScriptFile($baseUrl . '/js/openid-jquery.js', CClientScript::POS_HEAD);
+	$clientScript->registerScriptFile($baseUrl . '/js/openid-jquery.js', CClientScript::POS_END);
 	if (isset($this->options['lang']))
-	    $clientScript->registerScriptFile($baseUrl . '/js/openid-jquery-' . $this->options['lang'] . '.js', CClientScript::POS_HEAD);
+	    $clientScript->registerScriptFile($baseUrl . '/js/openid-jquery-' . $this->options['lang'] . '.js', CClientScript::POS_END);
 
 	$js = "$(document).ready(function(){".PHP_EOL;;
 	if(empty($this->options['img_path']))
@@ -31,7 +31,7 @@ class openidProviders extends CWidget {
 	$js.="	openid.init('openid_identifier');".PHP_EOL;;
 	$js.="})";
 
-	$cs->registerScript('openidProviders', $js, CClientScript::POS_HEAD);
+	$cs->registerScript('openidProviders', $js, CClientScript::POS_END);
 
 	echo $this->render('main-'.$this->options['lang']);
 

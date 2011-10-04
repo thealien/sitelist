@@ -53,21 +53,17 @@ class Links extends CActiveRecord
 		// Правила валидации
 		return array(
             // Общие
-			array('url, catid, title, desc', 'required'/*, 'message' => 'Поле {attribute} обязательно для заполнения'*/),
-			array('url', 'url', 'message' => 'Адрес сайта имеет неверный формат'),
+			array('url, catid, title, desc', 'required'),
+			array('url', 'url'),
 			array('catid, userid,broken', 'numerical', 'integerOnly'=>true),
-			array('catid','exist','allowEmpty' => false, 'attributeName' => 'id', 'className' => 'Category', 'message' => '{attribute} не выбрана'),
+			array('catid','exist','allowEmpty' => false, 'attributeName' => 'id', 'className' => 'Category'),
 			array('catid, userid, visible, rate, votes, pr, ci, pr_lastdate, ci_lastdate', 'numerical', 'integerOnly'=>true),
             // Добавление
-			array('captcha', 'captcha', 'allowEmpty'=>(!extension_loaded('gd') || (!Yii::app()->user->isGuest)), 'on' => 'add', 'message' => 'Неверный код подтверждения'),
-			array('url', 'unique', 'className'=>'Links', 'attributeName'=>'url', 'message' => 'Сайт с указанным адресом уже существует в базе данных', 'on' => 'add'),
+			array('captcha', 'captcha', 'allowEmpty'=>(!extension_loaded('gd') || (!Yii::app()->user->isGuest)), 'on' => 'add'),
+			array('url', 'unique', 'className'=>'Links', 'attributeName'=>'url', 'message' => 'Сайт с указанным адресом уже присутствует на сайте', 'on' => 'add'),
 			// Редактирование
 			array('visible', 'required' , 'on' => 'edit'),
 			array('visible', 'boolean' , 'on' => 'edit'),
-			
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, url, catid, title, desc, foto, userid, visible, ip, rate, votes, date, pr, ci, pr_lastdate, ci_lastdate', 'safe', 'on'=>'search'),
 		);
 	}
 	protected function afterFind(){

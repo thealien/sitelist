@@ -21,6 +21,14 @@ class Category extends CActiveRecord
 	{
 		return 'category';
 	}
+	
+	public function getList(){
+		$result = array();
+		foreach(self::model()->findAll(array('order'=>'catname ASC')) as $c){
+			$result[$c->id] = $c->catname;
+		}
+		return $result;
+	}
 
 	public function rules()
 	{

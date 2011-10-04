@@ -160,13 +160,30 @@ return array(
                     'lastPageLabel' => 'в конец',
                     'header' => '',
                     'cssFile' =>false
-				) 
+				),
+				'CCaptcha' => array(
+                    'showRefreshButton'=>false,
+                    'clickableImage'=>true,
+                    'imageOptions'=>array(
+                        'class' => 'captha',
+		                'alt'=>'проверочный код',
+		                'title'=>'Кликни по картинке, чтобы сменить код',
+		                'border'=>1,
+		                'width'=>'100px',
+		                'height'=>'40px'
+		            )
+				)
+			)
+		),
+		'clientScript' => array(
+            'scriptMap' => array(
+                // TODO
+                'jquery.js' => false,
+			    'jquery.min,js' => false,
 			)
 		),
     ),
     
-    // application-level parameters that can be accessed
-    // using Yii::app()->params['paramName']
     'params'=>array(
         'adminEmail' => 'your@mail.com',
 		'system_mail' => 'mail@' . $_SERVER['SERVER_NAME'], 

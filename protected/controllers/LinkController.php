@@ -9,18 +9,9 @@ class LinkController extends Controller
                 'class'=>'CCaptchaAction',
 				'minLength' =>7,
                 'testLimit' => 2
-				//'fontFile'=> Yii::app()->basePath . '/fonts/TRITTO__.TTF'
             ),
         );
     }
-    /**
-     * Действие по умолчанию
-     * @return 
-     */
-    public function actionIndex(){
-        throw new CHttpException(404);
-    }
-
     /**
      * Удаление сайта
      * @param int $id [optional] ID сайта
@@ -71,7 +62,7 @@ class LinkController extends Controller
                     $link->foto = '';
                 }
 				$link->save(false);
-				$this->redirect('/link/' . $link->id, true, 302);
+				$this->redirect(array('link/view', 'id' => $link->id));
 			}
 			else{
                 if($link->hasErrors())
@@ -108,42 +99,13 @@ class LinkController extends Controller
         if(!$link){
             throw new CHttpException(404);
         }
-        $errors = array();
         $pr_is_old = $ci_is_old = $captcha = false;
 		if($link->visible || $admin){
 		    
-		$comment = new Comments('add');
-		// Добавление комментария
-		if(isset($_POST['Comment'])){
-		    $comment->attributes = $_POST['Comment'];
-            $comment->linkid = $link->id;
-            $comment->userid = 0;
-            $comment->datetime = new CDbExpression('NOW()');
-            $comment->ip = $_SERVER['REMOTE_ADDR'];
-            if(!Yii::app()->user->isGuest){
-                $comment->userid = Yii::app()->user->id;
-                $comment->user = Yii::app()->user->name;
-            }
-            if($comment->save()){
-                $this->redirect('/link/' . $link->id, true, 302);
-            }
-            else{
-                if($comment->hasErrors())
-                foreach($comment->getErrors() as $er)
-                    foreach($er as $error){
-                        $errors[] = $error;
-                    }
-            }
-        }
 		$t = time();
 		$pr_is_old = ($t - $link->pr_lastdate)>Yii::app()->params['SITE_RATE_DATE_EXP'];
 		$ci_is_old = ($t - $link->ci_lastdate)>Yii::app()->params['SITE_RATE_DATE_EXP'];
 		$link->voted = !Votes::canVote($link->id);
-        if(Yii::app()->user->isGuest){
-            $captcha = $this->getCaptcha('ajax/captcha');
-            Yii::app()->clientScript->scriptMap=array('jquery.min.js'=>false, 'jquery.js'=>false);
-        }
-        
         }
         
         $lastLinks = Links::getLastLinks(3);
@@ -154,11 +116,6 @@ class LinkController extends Controller
             'pr_is_old' => $pr_is_old,
             'ci_is_old' => $ci_is_old,
             'lastLinks' => $lastLinks,
-            //'admin'     => $admin,
-            'captcha'   => $captcha,
-            'comment'   => isset($comment->attributes) ? $comment->attributes : false,
-            'errors'    => $errors,
-			'user' => (Yii::app()->user->isGuest) ? false : Users::model()->findByPk(Yii::app()->user->id)
         ));
     }
 	/**
@@ -166,10 +123,9 @@ class LinkController extends Controller
 	 * @return 
 	 */
 	public function actionAdd(){
-    	$errors = array();
 		$form = new Links('add');
-		if(isset($_POST['Link'])){
-			$form->attributes = $_POST['Link'];
+		if(isset($_POST['Links'])){
+			$form->attributes = $_POST['Links'];
 			$form->ip = $_SERVER['REMOTE_ADDR'];
 			$form->date_ts = time();
             $form->date = new CDbExpression('NOW()');
@@ -178,25 +134,8 @@ class LinkController extends Controller
                 Yii::app()->session['added'] = true;
                 Yii::app()->session['added_id'] = $form->id;
                 MailHelper::sendNewSiteNotify($form->title, $form->url);
-                $this->redirect('/add/', true, 302);
+                $this->refresh();
             }
-            else{
-            	if($form->hasErrors())
-            	foreach($form->getErrors() as $k=>$er){
-            		foreach($er as $error){
-                        $errors[] = $error;
-                    }
-					if($k=='url' && !(empty($form->url))){
-						$l = Links::model()->findByAttributes(array('url'=>$form->url));
-						if($l){
-							// TODO bad code :(
-							$errors[] = $l->title . ' <a href="/link/'.$l->id.'">уже есть на сайте</a>';
-						}
-					}
-            	}
-				    
-            } 
-
 		}
 		// Заполнение полей через букмарклет
 		elseif(isset($_GET['source']) && $_GET['source']=='bookmarklet'){
@@ -209,11 +148,6 @@ class LinkController extends Controller
         }
 		
 		// конец добавления
-		$captcha = false;
-        if(Yii::app()->user->isGuest){
-            $captcha = $this->getCaptcha();
-			Yii::app()->clientScript->scriptMap=array('jquery.min.js'=>false, 'jquery.js'=>false);
-        }
         
         $added = isset(Yii::app()->session['added']) ? true : false;
         $added_id = isset(Yii::app()->session['added_id']) ? Yii::app()->session['added_id'] : false;
@@ -222,15 +156,12 @@ class LinkController extends Controller
 		
 		Yii::app()->params['title'] = 'Добавление сайта в каталог — ' . Yii::app()->params['title'];
         $lastLinks = Links::getLastLinks(3);
-        $categories = Category::getRootCats();
         $this->render('add', array(
             'lastLinks'     => $lastLinks,
-            'categories'    => $categories,
+            'categories'    => Category::getList(),
             'added'         => $added,
             'added_id'      => $added_id,
-            'errors'        => $errors,
-            'captcha'       => $captcha,
-            'form'          => $form->attributes
+            'form'          => $form
         ));
     }
 	

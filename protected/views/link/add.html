@@ -2,39 +2,49 @@
 
 {% block content %}
 <div id='add-site' class='forms'>
-	{% include "views/layouts/messages.html" %}
-	{% if added == false %}
-	<form id='addform' action="" method=POST>
-	<h2 class='title'>Добавление сайта в каталог</h2>
-	<br>
-	<br>
-	<p class='label'>Категория</p>
-	<p>{% include "views/layouts/catbox.html" with {'cats':categories, 'curr':form.catid} %}</p>
-	<br>
+    {% if added == false %}	
+	{{ CHtml.form('', 'post', {"id":"addform"}) }}
+    <h2 class='title'>Добавление сайта в каталог</h2>
+    <br>
+    <br>
+    <p class='label'>Категория</p>
+    <p>
+    	{{ CHtml.activeDropDownList(form, 'catid', categories, {"prompt": "-- Не выбрана --"}) }}
+    </p>
+	{{ CHtml.error(form, 'catid') }}
+    <br>
     <p class='label'>Адрес</p>
-    <p><input title='Укажите адрес сайта, начинающийся c http://' name="Link[url]" value='{{ form.url|e }}'></p>
+    <p>{{ CHtml.activeTextField(form, 'url', {"title":"Укажите адрес сайта, начинающийся c http://"}) }}</p>
+	{{ CHtml.error(form, 'url') }}
 	<br>
     <p class='label'>Название</p>
-    <p><input size='256' maxlength='256' title='Укажите название сайта. Кол-во символов не должно превышать 256' name="Link[title]" value='{{ form.title|e }}'></p>
+    <p>
+		{{ CHtml.activeTextField(form, 'title', {"title":"Укажите название сайта. Кол-во символов не должно превышать 256", "size":'256', "maxlength":'256'}) }}
+	</p>
+	{{ CHtml.error(form, 'title') }}
 	<br>
     <p class='label'>Описание</p>
-    <p><textarea cols="78" name="Link[desc]" rows="5" title="Описание сайта. Не более 4000 символов">{{ form.desc|e }}</textarea></p>
-	<br>
+    <p>{{ CHtml.activeTextArea(form, 'desc', {"title":"Описание сайта. Не более 4000 символов", "cols":'78', "rows":'5'}) }}</p>
+	{{ CHtml.error(form, 'desc') }}
+    <br>
 	<div>
-		<ul class='line'>
-		{% if  Yii.user.isGuest %}
-		<li class='line-item'>{{ captcha }}</li>
-		<li class='line-item'>
-			<input class='icaptcha' maxlength='10' size='10' title='Введите код с картинки левее. Это нужно для того, чтобы подтвердить, что вы не робот ;)' type=text name="Link[captcha]">
+        <ul class='line'>
+        {% if  Yii.user.isGuest %}
+        <li class='line-item'>
+        	{{ this.widget('CCaptcha', {}, true) }}
 		</li>
+        <li class='line-item'>
+			{{ CHtml.activeTextField(form, 'captcha', {"title":"Введите код с картинки левее. Это нужно для того, чтобы подтвердить, что вы не робот ;)", "class":'icaptcha', "maxlength":'10', 'size':10}) }}
+        </li>
         {% endif %}
-		<li class='line-item'>
-			<input class='add-btn' type="submit" name="addbtn" value=''>
-		</li>
-		</ul>
-	</div>
+        <li class='line-item'>
+			{{ CHtml.submitButton('submitButton', {"class":'add-btn', 'value':''}) }}
+        </li>
+        </ul>
+    </div>
 	<div class='clear'></div>
-	</form>
+	{{ CHtml.error(form, 'captcha') }}
+	{{ CHtml.endForm() }}
 	<br><br>
 	<p>
 		В каталог допускаются только качественные интернет-сервисы.<br>

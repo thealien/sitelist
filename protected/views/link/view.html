@@ -166,25 +166,24 @@
 	</div>
     <p class='title'>Добавить комментарий:</p>
     <br>
-	<div id='errors'>
-    {% include "views/layouts/messages.html" %}
-    </div>
+	<div id='errors'></div>
 	{% if Yii.user.isGuest %}
-    
     <p>
     	<b>Ваше имя</b><br>
-    	<input maxlength="32" type="text" name="Comment[user]" size='32' value='{{ comment.user|e }}'>
+    	<input maxlength="32" type="text" name="Comment[user]" size='32' value=''>
     </p>
 	{% endif %}
     <p>
     	<b>Текст сообщения</b>
-    	<textarea class='desc' cols="5" name="Comment[text]" rows="5">{{ comment.text|e }}</textarea>
+    	<textarea class='desc' cols="5" name="Comment[text]" rows="5"></textarea>
 	</p>
     <br>
     <div>
         <ul class='line right'>
         {% if Yii.user.isGuest %}
-        <li class='line-item'>{{ captcha }}</li>
+        <li class='line-item'>
+        	{{ this.widget('CCaptcha', {'captchaAction':"ajax/captcha"}, true) }}
+		</li>
         <li class='line-item'>
             <input class='icaptcha' maxlength='10' size='10' title='Введите код с картинки левее. Это нужно для того, чтобы подтвердить, что вы не робот ;)' name="Comment[captcha]">
         </li>
