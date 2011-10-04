@@ -1,0 +1,27 @@
+{% extends "views/admin/index.html" %}
+
+{% block admin_content %}
+    {{ this.widget('zii.widgets.grid.CGridView', 
+        {
+            "dataProvider": data,
+			"columns" : {
+                0: "title",
+				1: {
+				    "name":"category.catname",
+					"value": "CHtml::link($data->category->catname, array('category/view', 'id' => $data->category->id))",
+                    "type": "html"
+				},
+				2: {
+                    "name":"ip",
+					"value": "CHtml::link($data->ip, 'http://nic.ru/whois/?query='.$data->ip)",
+					"type": "html"
+				},
+				3: {
+					"value": "CHtml::link('Редактировать', array('link/edit', 'id' => $data->id))",
+                    "type": "html"
+				}
+			},
+		}
+		,true)
+    }}
+{% endblock %}

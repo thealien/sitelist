@@ -1,0 +1,16 @@
+{% extends "views/admin/index.html" %}
+
+{% block admin_content %}
+{{ CHtml.form('', 'post', {"class":"forms"}) }}
+    <p class='label'>Название категории</p>
+    <p>{{ CHtml.activeTextField(category, 'catname', {"size":50}) }}</p>
+	{{ CHtml.error(category, 'catname') }}
+    <br>
+    <p class='label'>Алиас</p>
+    <p>{{ CHtml.activeTextField(category, 'alias', {"size":50}) }}</p>
+	{{ CHtml.error(category, 'alias') }}
+    <br>
+    <p>{{ CHtml.submitButton('Добавить') }}</p>
+    <br>
+{{ CHtml.endForm() }}
+{% endblock %}

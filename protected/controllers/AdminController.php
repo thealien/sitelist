@@ -14,6 +14,7 @@ class AdminController extends Controller
         }
         return true;
     }
+	
     /**
      * Главная страница
      * @return 
@@ -23,16 +24,26 @@ class AdminController extends Controller
 	    Yii::app()->params['title'] = 'Добро пожаловать в админку — ' . Yii::app()->params['title'];
 		$this->render('index');
 	}
+	
     /**
      * Просмотр новых сайтов
      * @return 
      */
     public function actionNew(){
+    	$data = new CActiveDataProvider(
+        'Links',
+		array(
+		'criteria'=>array(
+            'condition'=>'visible = :visible',
+			'params' => array(':visible' => 0),
+            'order'=>'t.id ASC',
+			'with' => 'category'
+        )));
+		
         Yii::app()->params['title'] = 'Управление новыми сайтами — ' . Yii::app()->params['title'];
-        $this->render('new', array(
-            'links' => Links::model()->getNoapprovedLinks(20)
-        ));
+        $this->render('new_links', array('data' => $data));
     }
+	
     /**
      * Просмотр всех категорий
      * @return 
@@ -40,38 +51,28 @@ class AdminController extends Controller
     public function actionAll(){
         Yii::app()->params['title'] = 'Управление категориями — ' . Yii::app()->params['title'];
         $this->render('cats', array(
-          'categories'    =>Category::getRootCats()
+          'categories'  => Category::model()->with('linksCount')->findAll(array('order' =>'catname ASC'))
         ));
     }
+	
     /**
      * Добавление категории
      * @return 
      */
     public function actionCatadd(){
-    	$errors = array();
 		$form = new Category('add');
 		if(isset($_POST['Category'])){
 			$form->attributes = $_POST['Category'];
-			if($form->save()){
-                $this->redirect('/admin/all');
-			}
-			else{
-                if($form->hasErrors())
-                foreach($form->getErrors() as $er)
-                    foreach($er as $error){
-                        $errors[] = $error;
-                    }
-			}
+			if($form->save()) 
+                $this->redirect(array('admin/all'));
         }
 
-        $categories = Category::getRootCats(false);
         Yii::app()->params['title'] = 'Добавление категории — ' . Yii::app()->params['title'];
-        $this->render('catadd', array(
-            'categories'    => $categories,
-			'category'      => $form->attributes,
-			'errors'        => $errors
+        $this->render('category_add', array(
+			'category'      => $form
         ));
     }
+	
 	/**
 	 * Удаление категории
 	 * @param int $id [optional] - id категории
@@ -83,21 +84,14 @@ class AdminController extends Controller
         }
 
 		$category = Category::model()->findByPk($id);
-		if($category){
-			$subcats = Category::model()->count('parentid=:id', array('id'=>$id));
-			if($subcats<1){
-				$links = Links::model()->count('catid=:id', array('id'=>$id));
-				if($links<1){
-					$category->delete();
-				}
-			}
+		if(!$category)
+            throw new CHttpException(404);
+		if($category->linksCountAll<1){
+			$category->delete();
 		}
-        $back = '/admin/';
-        if(Yii::app()->request->urlReferrer){
-            $back = Yii::app()->request->urlReferrer;
-        }
-        $this->redirect($back);
+        $this->redirect(array('admin/all'));
 	}
+	
 	/**
 	 * Редактирование категории
 	 * @param int $id [optional] - id категории
@@ -106,29 +100,18 @@ class AdminController extends Controller
 	public function actionCatedit($id = false){
 		$category = Category::model()->findByPk($id);
 		if(!$category){
-			$this->redirect('/admin/');
+			throw new CHttpException(404);
 		}
-        $errors = array();
 		if(isset($_POST['Category'])){
 		    $category->attributes = $_POST['Category'];
             if($category->save()){
-                $this->redirect('/admin/all');
-            }
-            else{
-                if($category->hasErrors())
-                foreach($category->getErrors() as $er)
-                    foreach($er as $error){
-                        $errors[] = $error;
-                    }
+                $this->redirect(array('admin/all'));
             }
 		}
 
-        $categories = Category::getRootCats(false);
         Yii::app()->params['title'] = 'Редактирование категории — ' . Yii::app()->params['title'];
-        $this->render('catedit', array(
-            'category'      => $category,
-            'categories'    => $categories,
-            'errors'        => $errors
+        $this->render('category_edit', array(
+            'category'      => $category
         ));
     }
     

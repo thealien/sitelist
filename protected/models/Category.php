@@ -33,7 +33,7 @@ class Category extends CActiveRecord
 		// Правила валидации
 		return array(
             // Общие
-			array('parentid, catname, alias', 'required'),
+			array(' catname, alias', 'required'),
             array('catname', 'match', 'pattern' => '/^[a-zA-Zа-яА-Я0-9\s-.,]+/i','message' => 'Название категории содержит недопустимые символы'),
 		);
 	}
@@ -41,6 +41,7 @@ class Category extends CActiveRecord
 	public function relations()
     {
         return array(
+            'linksCountAll'     =>array(self::STAT, 'Links', 'catid'),
 			'linksCount'     =>array(self::STAT, 'Links', 'catid', 'condition' => 'visible=1'),
             'newLinksCount'  =>array(self::STAT, 'Links', 'catid', 'condition' => 'visible=1 AND (DATE_SUB(NOW(), INTERVAL 3 DAY)<date)'),
 			'links'          =>array(self::HAS_MANY, 'Links', 'catid', 'condition' => 'visible=1', 'order' => 'links.id DESC'),
