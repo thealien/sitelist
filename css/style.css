@@ -773,7 +773,7 @@ ul.yiiPager .first a:hover, ul.yiiPager .last a:hover, ul.yiiPager .previous a:h
     background-position: 0 -42px;
 }
 
-img#yw0 {
+img.captha {
     border: solid 1px #ccc;
     cursor: pointer;
 }
