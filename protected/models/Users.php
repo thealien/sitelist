@@ -145,6 +145,7 @@ class Users extends CActiveRecord
 	
 	
 	public static function authenticateByEmail($email){
+		return false;
 		$user = self::model()->findByAttributes(array('email' => $email));
 		if(!$user) return false;
 		$identity= new UserIdentity($user->username, null);
