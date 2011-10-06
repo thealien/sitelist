@@ -5,7 +5,11 @@
         {
             "dataProvider": data,
 			"columns" : {
-                0: "title",
+                0: {
+                    "name":"title",
+					"value": "CHtml::link($data->title, array('link/view', 'id' => $data->id))",
+                    "type": "html"
+				},
 				1: {
 				    "name":"category.catname",
 					"value": "CHtml::link($data->category->catname, array('category/view', 'id' => $data->category->id))",
