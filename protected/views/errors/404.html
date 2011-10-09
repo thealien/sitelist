@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    {% block head %}
+    <head>
+        <title>
+        {{ Yii.params.title|e|default('SiteList :: Каталог Сайтов') }}
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta HTTP-EQUIV="Content-language" content ="ru">
+        <meta name="description" content="SiteList.in - каталог только качественных сайтов.">
+        <meta name="keywords" content="sitelist, сайтлист, каталог сайтов, web 2.0 сайты, подборка сайтов, добавить сайт, предложить сайт, белый каталог сайтов, рейтинг сайтов">
+        <link rel="alternate" type="application/atom+xml" title="Новые сайты в каталоге SiteList.in" href="{{ this.createUrl('main/rss') }}" >
+        {% block add_meta %}
+        {% endblock %}
+        <link href="{{ Yii.getBaseUrl(true) }}/favicon.ico" type="image/x-icon" rel="shortcut icon" >
+        <link href="{{ Yii.getBaseUrl(true) }}/images/opera_sd.png" rel="image_src" type="image/png">
+        <link href="{{ Yii.getBaseUrl(true) }}/css/404.css" rel="stylesheet" type="text/css">
+        {% block add_css %}
+        {% endblock %}
+        
+        {% block add_head %}
+        {% endblock %}
+    </head>
+    {% endblock %}
+    
+    {% block body %}
+    <body>
+        <div id='main'>
+            <div id='content'>
+                <div id='head-top'>
+                    <a id='head-top-logo' href='{% if Yii.user.getState("admin") %}{{ Yii.getBaseUrl(true) }}/admin/{% else %}/{% endif %}'></a>
+                </div>
+                <div id='logo-404-container'>
+                    <img src='{{ Yii.getBaseUrl(true) }}/images/404/logo_404.png' alt=''>
+                </div>
+                <div id='info'>
+                    <div id='search'>
+                        <div id='search-bg'>
+                        <form id='search-form' action='{{ this.createUrl("main/search") }}'>
+                        <input class='s-input left' placeholder='я ищу...' name='q' value=''>
+                        <input class='s-btn right' type='submit' value=''>
+                        </form>
+                        </div>
+                    </div>
+                    <div class='left'>
+                        <div class='title'>
+                            Такой страницы не существует
+                        </div>
+                        <div class='text'>
+                            Поищите получше<br> 
+                            или перейдите в другие разделы сайта.
+                        </div>
+                        <br>
+                        <ul id='menu'>
+                            <li class='menu-item'><a href='{{ Yii.getBaseUrl(true) }}'>Главная</a></li>
+                            <li class='menu-item'><a href='{{ this.createUrl("top/index") }}'>Рейтинг сайтов</a></li>
+                            <li class='menu-item'><a href='{{ this.createUrl("new/index") }}'>Новые сайты в каталоге</a></li>
+                            <li class='menu-item'><a href='{{ this.createUrl("main/users") }}'>Пользователи</a></li>
+                            <li class='menu-item'><a href='{{ this.createUrl("feedback/index") }}'>Обратная связь</a></li>
+                            <li class='menu-item'><a href='{{ this.createUrl("main/about") }}'>О проекте</a></li>
+                        </ul>
+                    </div>
+                    <div class='clear'></div>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        <div id='footer'>
+            <div class='info'>
+                <div class='copyright right'>
+                    <p><a target='_blank' href='{{ Yii.getBaseUrl(true) }}'>sitelist.in</a> &copy; 2008–2011</p>
+                    <p>powered by <a target='_blank' href='http://www.yiiframework.com/'>Yii Framework</a></p>
+                </div>
+            </div>
+        </div>
+       
+        <!-- Yandex.Metrika counter -->
+        <div style="display:none;"><script type="text/javascript">
+        (function(w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter488379 = new Ya.Metrika({id:488379,
+                            clickmap:true,
+                            trackLinks:true});
+                }
+                catch(e) { }
+            });
+        })(window, 'yandex_metrika_callbacks');
+        </script></div>
+        <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+        <noscript><div><img src="//mc.yandex.ru/watch/488379" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+    </body>
+    {% endblock %}
+</html>

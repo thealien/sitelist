@@ -1,20 +1,14 @@
-{% extends "views/layouts/main.html" %}
+{% extends "views/layouts/base.html" %}
 {% block menu %}
 <ul id='head-menu'>
-    <li class='menu-item'><a href='/admin/new/'>Новые</a></li>
-    <li class='menu-item'><a href='/admin/all/'>Категории</a></li>
-    <li class='menu-item'><a href='/admin/catadd/'>Доб.категорию</a></li>
-    <li class='menu-item'><a href='/admin/comments/'>Комментарии</a></li>
+	<li class='menu-item'><a href='{{ this.createUrl("admin/new") }}'>Новые</a></li>
+	<li class='menu-item'><a href='{{ this.createUrl("admin/all") }}'>Категории</a></li>
+	<li class='menu-item'><a href='{{ this.createUrl("admin/catadd") }}'>Доб.категорию</a></li>
+	<li class='menu-item'><a href='{{ this.createUrl("admin/comments") }}'>Комментарии</a></li>
 </ul>
 {% endblock %}
 
-{% block sidebar %}
-{% endblock %}
-
 {% block main_content %}
-        {% include "views/layouts/messages.html" %}
-        <br>
-        {% block admin_content %}
-
-        {% endblock %}
+    {% block admin_content %}
+    {% endblock %}
 {% endblock %}

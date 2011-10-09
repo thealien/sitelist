@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+    {% block head %}
+    <head>
+        <title>
+        {{ Yii.params.title|e|default('SiteList :: Каталог Сайтов') }}
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="SiteList.in - каталог только качественных сайтов.">
+        <meta name="keywords" content="sitelist, сайтлист, каталог сайтов, web 2.0 сайты, подборка сайтов, добавить сайт, предложить сайт, белый каталог сайтов, рейтинг сайтов">
+        <link rel="alternate" type="application/atom+xml" title="Новые сайты в каталоге SiteList.in" href="{{ this.createUrl('main/rss') }}" >
+        {% block add_meta %}{% endblock %}
+        <link href="{{ Yii.getBaseUrl(true) }}/favicon.ico" type="image/x-icon" rel="shortcut icon" >
+        <link href="{{ Yii.getBaseUrl(true) }}/images/opera_sd.png" rel="image_src" type="image/png">
+        <link href="{{ Yii.getBaseUrl(true) }}/css/style.css?20111004" rel="stylesheet" type="text/css">
+        {% block add_css %}{% endblock %}
+        <script type='text/javascript' src='{{ Yii.getBaseUrl(true) }}/js/extsrc.min.js?20110502'></script>
+        {% block add_head %}{% endblock %}
+    </head>
+    {% endblock %}
+    
+    {% block body %}
+    <body>
+        <div id='main'>
+            <div id='head'>
+                <div id='head-top'>
+                    <a id='head-top-logo' href='{% if Yii.user.getState("admin") %}{{ Yii.getBaseUrl(true) }}/admin/{% else %}/{% endif %}'></a>
+                </div>
+                <div id='head-middle'>
+                    <div style='float: left; padding-top: 30px;'>
+                        <div class='left'>
+                            <a href='{{ Yii.getBaseUrl(true) }}'><img width='461' height='82' alt='На главную' title='На главную' src='{{ Yii.getBaseUrl(true) }}/images/head/logo.png'></a>
+                        </div>
+                        <div class='left' id='head-desc'>
+                            <p style='font-size:18px; color: white;'>Белый каталог</p>
+                            <p>только хороших сайтов</p><br>
+                            <p>Все добавляемые ресурсы проходят модерацию. Можете быть уверены в качестве сайтов нашего каталога.</p>
+                        </div>
+                    </div>
+                    <div class='right' id='head-add-btn'>
+                        <a href='{{ this.createUrl("link/add") }}'><img width='126' height='126' src='{{ Yii.getBaseUrl(true) }}/images/head/add_site_t.png' alt='Добавить сайт' title='Добавить сайт'></a>
+                    </div>
+                    <div class='clear'></div>
+                </div>
+                <div id='head-bottom'>
+                	{% block head_bottom %}
+                    <div class='left'>
+                    	<nav>
+                        {% block menu %}
+                        {% endblock %}
+						</nav>
+                    </div>
+					{% endblock %}
+                    <div class='clear'></div>
+                </div>
+            </div>
+            <div id='content'>
+                {% block main_content %}
+				{% endblock %}
+            </div>
+            <br>
+            <div id='footer-padding'></div>
+        </div>
+		<!-- footer -->
+        <div id='footer'>
+        	{% block footer %}
+            <div class='info'>
+                <div class='copyright right'>
+                    <p><a href='{{ Yii.getBaseUrl(true) }}'>sitelist.in</a> &copy; 2008–2011</p>
+                    <p>powered by <a target='_blank' href='http://www.yiiframework.com/'>Yii Framework</a></p>
+                </div>
+            </div>
+			{% endblock %}
+        </div>
+		<!-- /footer -->
+		
+        <script type='text/javascript' src='{{ Yii.getBaseUrl(true) }}/js/jquery-1.6.4.min.js'></script>
+        {% block add_js %}{% endblock %}
+        <script type='text/javascript' extsrc='{{ Yii.getBaseUrl(true) }}/js/func.js?20110921'></script>
+        
+        <!-- Yandex.Metrika counter -->
+        <div style="display:none;"><script type="text/javascript">
+        (function(w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter488379 = new Ya.Metrika({id:488379,
+                            clickmap:true,
+                            trackLinks:true});
+                }
+                catch(e) { }
+            });
+        })(window, 'yandex_metrika_callbacks');
+        </script></div>
+        <script extsrc="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+        <noscript><div><img src="//mc.yandex.ru/watch/488379" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+    </body>
+    {% endblock %}
+</html>
