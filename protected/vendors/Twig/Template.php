@@ -23,6 +23,7 @@ abstract class Twig_Template implements Twig_TemplateInterface
     protected $parents;
     protected $env;
     protected $blocks;
+    protected $traits;
 
     /**
      * Constructor.
@@ -33,6 +34,7 @@ abstract class Twig_Template implements Twig_TemplateInterface
     {
         $this->env = $env;
         $this->blocks = array();
+        $this->traits = array();
     }
 
     /**
@@ -54,6 +56,9 @@ abstract class Twig_Template implements Twig_TemplateInterface
 
     /**
      * Returns the parent template.
+     *
+     * This method is for internal use only and should never be called
+     * directly.
      *
      * @return Twig_TemplateInterface|false The parent template or false if there is no parent
      */
@@ -78,21 +83,29 @@ abstract class Twig_Template implements Twig_TemplateInterface
     /**
      * Displays a parent block.
      *
+     * This method is for internal use only and should never be called
+     * directly.
+     *
      * @param string $name    The block name to display from the parent
      * @param array  $context The context
      * @param array  $blocks  The current set of blocks
      */
     public function displayParentBlock($name, array $context, array $blocks = array())
     {
-        if (false !== $parent = $this->getParent($context)) {
+        if (isset($this->traits[$name])) {
+            $this->traits[$name][0]->displayBlock($name, $context, $blocks);
+        } elseif (false !== $parent = $this->getParent($context)) {
             $parent->displayBlock($name, $context, $blocks);
         } else {
-            throw new Twig_Error_Runtime('This template has no parent', -1, $this->getTemplateName());
+            throw new Twig_Error_Runtime(sprintf('The template has no parent and no traits defining the "%s" block', $name), -1, $this->getTemplateName());
         }
     }
 
     /**
      * Displays a block.
+     *
+     * This method is for internal use only and should never be called
+     * directly.
      *
      * @param string $name    The block name to display
      * @param array  $context The context
@@ -114,6 +127,9 @@ abstract class Twig_Template implements Twig_TemplateInterface
     /**
      * Renders a parent block.
      *
+     * This method is for internal use only and should never be called
+     * directly.
+     *
      * @param string $name    The block name to render from the parent
      * @param array  $context The context
      * @param array  $blocks  The current set of blocks
@@ -130,6 +146,9 @@ abstract class Twig_Template implements Twig_TemplateInterface
 
     /**
      * Renders a block.
+     *
+     * This method is for internal use only and should never be called
+     * directly.
      *
      * @param string $name    The block name to render
      * @param array  $context The context
@@ -148,6 +167,16 @@ abstract class Twig_Template implements Twig_TemplateInterface
     /**
      * Returns whether a block exists or not.
      *
+     * This method is for internal use only and should never be called
+     * directly.
+     *
+     * This method does only return blocks defined in the current template
+     * or defined in "used" traits.
+     *
+     * It does not return blocks from parent templates as the parent
+     * template name can be dynamic, which is only known based on the
+     * current context.
+     *
      * @param string $name The block name
      *
      * @return Boolean true if the block exists, false otherwise
@@ -160,7 +189,12 @@ abstract class Twig_Template implements Twig_TemplateInterface
     /**
      * Returns all block names.
      *
+     * This method is for internal use only and should never be called
+     * directly.
+     *
      * @return array An array of block names
+     *
+     * @see hasBlock
      */
     public function getBlockNames()
     {
@@ -170,7 +204,12 @@ abstract class Twig_Template implements Twig_TemplateInterface
     /**
      * Returns all blocks.
      *
+     * This method is for internal use only and should never be called
+     * directly.
+     *
      * @return array An array of blocks
+     *
+     * @see hasBlock
      */
     public function getBlocks()
     {

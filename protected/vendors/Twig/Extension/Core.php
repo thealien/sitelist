@@ -221,7 +221,7 @@ function twig_cycle($values, $i)
  */
 function twig_date_format_filter($date, $format = 'F j, Y H:i', $timezone = null)
 {
-    if (!$date instanceof DateTime) {
+    if (!$date instanceof DateTime && !$date instanceof DateInterval) {
         if (ctype_digit((string) $date)) {
             $date = new DateTime('@'.$date);
             $date->setTimezone(new DateTimeZone(date_default_timezone_get()));
@@ -470,14 +470,15 @@ function twig_strtr($pattern, $replacements)
 /**
  * Escapes a string.
  *
- * @param Twig_Environment $env     A Twig_Environment instance
- * @param string           $string  The value to be escaped
- * @param string           $type    The escaping strategy
- * @param string           $charset The charset
+ * @param Twig_Environment $env        A Twig_Environment instance
+ * @param string           $string     The value to be escaped
+ * @param string           $type       The escaping strategy
+ * @param string           $charset    The charset
+ * @param Boolean          $autoescape Whether the function is called by the auto-escaping feature (true) or by the developer (false)
  */
-function twig_escape_filter(Twig_Environment $env, $string, $type = 'html', $charset = null)
+function twig_escape_filter(Twig_Environment $env, $string, $type = 'html', $charset = null, $autoescape = false)
 {
-    if (is_object($string) && $string instanceof Twig_Markup) {
+    if ($autoescape && is_object($string) && $string instanceof Twig_Markup) {
         return $string;
     }
 
