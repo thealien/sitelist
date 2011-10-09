@@ -50,7 +50,7 @@ class AdminController extends Controller
      */
     public function actionAll(){
         Yii::app()->params['title'] = 'Управление категориями — ' . Yii::app()->params['title'];
-        $this->render('cats', array(
+        $this->render('category_all', array(
           'categories'  => Category::model()->with('linksCount')->findAll(array('order' =>'catname ASC'))
         ));
     }
