@@ -1,7 +1,17 @@
--- MySQL Administrator dump 1.4
+-- phpMyAdmin SQL Dump
+-- version 3.4.4
+-- http://www.phpmyadmin.net
 --
--- ------------------------------------------------------
--- Server version	5.1.58-1~dotdeb.1-log
+-- Хост: localhost
+-- Время создания: Окт 09 2011 г., 11:11
+-- Версия сервера: 5.1.58
+-- Версия PHP: 5.3.8-1~dotdeb.2
+
+SET FOREIGN_KEY_CHECKS=0;
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT=0;
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -9,36 +19,34 @@
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
-
 --
--- Create schema catalog
+-- База данных: `catalog`
 --
 
-CREATE DATABASE IF NOT EXISTS catalog;
-USE catalog;
+-- --------------------------------------------------------
 
 --
--- Definition of table `category`
+-- Структура таблицы `category`
 --
-CREATE TABLE `category` (
+
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parentid` int(11) NOT NULL,
   `catname` text NOT NULL,
   `alias` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `parentid_IDX` (`parentid`),
   KEY `catname_IDX` (`catname`(16)),
   KEY `alias_IDX` (`alias`)
-) ENGINE=MyISAM AUTO_INCREMENT=311 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 PACK_KEYS=0 AUTO_INCREMENT=311 ;
+
+-- --------------------------------------------------------
 
 --
--- Definition of table `comments`
+-- Структура таблицы `comments`
 --
-CREATE TABLE `comments` (
+
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `linkid` int(11) DEFAULT NULL,
   `text` mediumtext NOT NULL,
@@ -48,13 +56,16 @@ CREATE TABLE `comments` (
   `datetime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `linkid_IDX` (`linkid`)
-) ENGINE=MyISAM AUTO_INCREMENT=592 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 PACK_KEYS=0 AUTO_INCREMENT=608 ;
 
+-- --------------------------------------------------------
 
 --
--- Definition of table `email_change`
+-- Структура таблицы `email_change`
 --
-CREATE TABLE `email_change` (
+
+DROP TABLE IF EXISTS `email_change`;
+CREATE TABLE IF NOT EXISTS `email_change` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -64,28 +75,32 @@ CREATE TABLE `email_change` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `hash_IDX` (`hash`),
   KEY `user_IDX` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-/*!40000 ALTER TABLE `email_change` DISABLE KEYS */;
-/*!40000 ALTER TABLE `email_change` ENABLE KEYS */;
-
+-- --------------------------------------------------------
 
 --
--- Definition of table `favs`
+-- Структура таблицы `favs`
 --
-CREATE TABLE `favs` (
+
+DROP TABLE IF EXISTS `favs`;
+CREATE TABLE IF NOT EXISTS `favs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `desc` mediumtext NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_IDX` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+
+-- --------------------------------------------------------
 
 --
--- Definition of table `links`
+-- Структура таблицы `links`
 --
-CREATE TABLE `links` (
+
+DROP TABLE IF EXISTS `links`;
+CREATE TABLE IF NOT EXISTS `links` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url` varchar(255) NOT NULL,
   `catid` int(11) NOT NULL,
@@ -111,12 +126,16 @@ CREATE TABLE `links` (
   KEY `url_IDX` (`url`(16)),
   KEY `domain_IDX` (`domain`),
   KEY `broken_IDX` (`broken`)
-) ENGINE=MyISAM AUTO_INCREMENT=5869 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 PACK_KEYS=0 AUTO_INCREMENT=6306 ;
+
+-- --------------------------------------------------------
 
 --
--- Definition of table `links_favs`
+-- Структура таблицы `links_favs`
 --
-CREATE TABLE `links_favs` (
+
+DROP TABLE IF EXISTS `links_favs`;
+CREATE TABLE IF NOT EXISTS `links_favs` (
   `fav_id` int(10) unsigned NOT NULL,
   `link_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
@@ -124,10 +143,14 @@ CREATE TABLE `links_favs` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Definition of table `profile`
+-- Структура таблицы `profile`
 --
-CREATE TABLE `profile` (
+
+DROP TABLE IF EXISTS `profile`;
+CREATE TABLE IF NOT EXISTS `profile` (
   `user_id` int(10) unsigned NOT NULL,
   `birthday` varchar(10) NOT NULL,
   `site` varchar(255) NOT NULL,
@@ -138,10 +161,14 @@ CREATE TABLE `profile` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Definition of table `users`
+-- Структура таблицы `users`
 --
-CREATE TABLE `users` (
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `userID` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
@@ -150,25 +177,39 @@ CREATE TABLE `users` (
   PRIMARY KEY (`userID`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=98 ;
+
+-- --------------------------------------------------------
 
 --
--- Definition of table `votes`
+-- Структура таблицы `users_openid`
 --
-CREATE TABLE `votes` (
+
+DROP TABLE IF EXISTS `users_openid`;
+CREATE TABLE IF NOT EXISTS `users_openid` (
+  `identity` varchar(255) NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`identity`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `votes`
+--
+
+DROP TABLE IF EXISTS `votes`;
+CREATE TABLE IF NOT EXISTS `votes` (
   `link_id` int(11) NOT NULL,
   `ip` varchar(15) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `vote` enum('1','-1') NOT NULL,
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0',
   KEY `linkid_IDX` (`link_id`,`ip`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
 
-
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
