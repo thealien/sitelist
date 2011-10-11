@@ -31,6 +31,7 @@ class Collection extends CActiveRecord
             'links'=>array(self::MANY_MANY, 'Links',
                 'links_favs(fav_id, link_id)', 'order'=> 'link_id DESC'),
 			'linksCount' =>array(self::STAT, 'Links', 'links_favs(fav_id, link_id)'),
+			'user' => array(self::BELONGS_TO, 'Users', 'user_id')
         );
     }
 

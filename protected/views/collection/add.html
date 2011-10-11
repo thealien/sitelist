@@ -12,23 +12,20 @@
     <div class='clear'></div>
 </div>
 <br>
-{% include "views/layouts/messages.html" %}
-<form class='forms' action="" method="POST">
+
+{{ CHtml.form('', 'post', {"class":"forms"}) }}
     <p class='label'>Название</p>
-    <p>
-        <input maxlength='50' size='50' name="Collection[title]" value='{{ collection.attributes.title|e }}'>
-    </p>
+    <p>{{ CHtml.activeTextField(collection, 'title', {"size":50}) }}</p>
+	{{ CHtml.error(collection, 'title') }}
     <br>
     
     <p class='label'>Описание</p>
-    <p>
-        <textarea cols="78" name="Collection[desc]" rows="5">{{ collection.attributes.desc|e }}</textarea>
-    </p>
+    <p>{{ CHtml.activeTextArea(collection, 'desc', {"cols":'78', "rows":'5'}) }}</p>
+	{{ CHtml.error(collection, 'desc') }}
     <br>
     
     <div>
-        <input class='submit' type="submit" name="fav_add" value="Создать">
+    	{{ CHtml.submitButton('Создать') }}
     </div>
-    <div class='clear'></div>
-</form>
+{{ CHtml.endForm() }}
 {% endblock %}

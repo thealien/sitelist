@@ -1,7 +1,7 @@
 {% extends "views/layouts/main.html" %}
 
 {% block add_meta %}
-<link rel="alternate" type="application/atom+xml" title="Подборка сайтов &laquo;{{ collection.title|e }}&raquo; пользователя {{ user.username|e}}" href="{{ this.createUrl('collection/index', {"id":collection.id}) }}" >
+<link rel="alternate" type="application/atom+xml" title="Подборка сайтов &laquo;{{ collection.title|e }}&raquo; пользователя {{ collection.user.username|e}}" href="{{ this.createUrl('collection/index', {"id":collection.id}) }}" >
 {% endblock %}
 
 {% block add_css %}
@@ -20,10 +20,10 @@
         <b>Просмотр подборки сайтов</b>
     </div>
     <div class='pref-links right'>
-    	{% if Yii.user.id == user.userID %}
-		<a href='{{ this.createUrl("user/index", {"user" : user.username}) }}'>Вернуться в профиль</a>
+    	{% if Yii.user.id == collection.user_id %}
+		<a href='{{ this.createUrl("user/index", {"user" : collection.user.username}) }}'>Вернуться в профиль</a>
 		{% else %}
-        <a href='{{ this.createUrl("user/index", {"user" : user.username}) }}'>автор &mdash; {{ user.username|e }}</a> 
+        <a href='{{ this.createUrl("user/index", {"user" : collection.user.username}) }}'>автор &mdash; {{ collection.user.username|e }}</a> 
 		{% endif %}
     </div>
     <div class='clear'></div>

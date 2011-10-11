@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
 <atom:link href="{{ Yii.getBaseUrl(true) }}{{ this.createUrl('collection/index', {"id":collection.id}) }}" rel="self" type="application/rss+xml" />
-<title>Подборка сайтов "{{ collection.title|e }}" пользователя {{ user.username|e }} - Каталог сайтов SiteList</title>
+<title>Подборка сайтов "{{ collection.title|e }}" пользователя {{ collection.user.username|e }} - Каталог сайтов SiteList</title>
 <link>{{ Yii.getBaseUrl(true) }}{{ this.createUrl('collection/index', {"id":collection.id}) }}</link>
 <description>Каталог сайтов SiteList</description>
 <language>ru</language>
@@ -15,7 +15,7 @@
 		  <div>{{ link.desc|e }}
 		  <br>
           <i>Подборка сайтов <a href='{{ Yii.getBaseUrl(true) }}{{ this.createUrl('collection/index', {"id":collection.id}) }}'>"{{ collection.title|e }}"</a> 
-		  пользователя <a href='{{ this.createUrl("user/index", {"user" : user.username}) }}'>{{ user.username|e}}</a></i>.
+		  пользователя <a href='{{ this.createUrl("user/index", {"user" : collection.user.username}) }}'>{{ collection.user.username|e}}</a></i>.
 		  </div>
 		  {% if link.foto=='' %}{% else %}<div>
 		  <a href='{{ this.createUrl("link/view", {"id" : link.id }) }}/{{ link.domain|e}}'><img src="http://f.sitelist.in/t_{{ link.foto }}" border="0"></a></div>{% endif %}
