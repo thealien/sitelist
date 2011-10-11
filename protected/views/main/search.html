@@ -46,7 +46,7 @@
 {% endfor %}
 <div class="paginator">
     <p class='right'>Результаты: {{ pages.offset+1 }} &mdash; {{ pages.offset+links|length }} из {{ pages.itemCount }}</p>
-    {{ search_paginator }}
+    {{ this.widget("CLinkPager", {"pages":pages}, true) }}
 </div>
 {% endif %}
 {% endblock %}

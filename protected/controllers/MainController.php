@@ -73,11 +73,6 @@ class MainController extends Controller
         while(false);
 		$pages = new CPagination($total_found);
         $pages->pageSize = $psize;
-		$search_paginator = $this->widget(
-            'CLinkPager', 
-            array_merge(Yii::app()->params['link_pager'], array('pages' => $pages)),
-            true
-         );
 
         $lastLinks = Links::getLastLinks(3, true);
         Yii::app()->params['title'] = 'Поиск'.($q?' "'.$q.'"':'').' — ' . Yii::app()->params['title'];
@@ -86,7 +81,6 @@ class MainController extends Controller
             'q'                 => $q,
             'links'             => $links,
             'error'             => $error,
-            'search_paginator'  => $search_paginator,
             'pages'             => $pages
         ));
     }
@@ -105,7 +99,7 @@ class MainController extends Controller
 		));
 	}
     /*
-     * Просмотр страчки "О сайте"
+     * Просмотр странички "О сайте"
      * @return 
      */
     public function actionAbout()
