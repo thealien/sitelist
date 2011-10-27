@@ -12,7 +12,7 @@
         {% block add_meta %}{% endblock %}
         <link href="{{ Yii.getBaseUrl(true) }}/favicon.ico" type="image/x-icon" rel="shortcut icon" >
         <link href="{{ Yii.getBaseUrl(true) }}/images/opera_sd.png" rel="image_src" type="image/png">
-        <link href="{{ Yii.getBaseUrl(true) }}/css/style.css?20111004" rel="stylesheet" type="text/css">
+        <link href="{{ Yii.getBaseUrl(true) }}/css/style.css?20111027" rel="stylesheet" type="text/css">
         {% block add_css %}{% endblock %}
         <script type='text/javascript' src='{{ Yii.getBaseUrl(true) }}/js/extsrc.min.js?20110502'></script>
         {% block add_head %}{% endblock %}
@@ -31,10 +31,10 @@
                         <div class='left'>
                             <a href='{{ Yii.getBaseUrl(true) }}'><img width='461' height='82' alt='На главную' title='На главную' src='{{ Yii.getBaseUrl(true) }}/images/head/logo.png'></a>
                         </div>
-                        <div class='left' id='head-desc'>
-                            <p style='font-size:18px; color: white;'>Белый каталог</p>
-                            <p>только хороших сайтов</p><br>
-                            <p>Все добавляемые ресурсы проходят модерацию. Можете быть уверены в качестве сайтов нашего каталога.</p>
+                        <div class='left' id='head-desc' style='margin-top: 5px;'>
+                            <p style='font-size:18px; color: white;'>Каталог сайтов</p>
+                            <p></p><br>
+                            <p>Все добавляемые ресурсы проходят строгую модерацию. Здесь только интересные и качественные сервисы.</p>
                         </div>
                     </div>
                     <div class='right' id='head-add-btn'>
@@ -65,6 +65,15 @@
         <div id='footer'>
         	{% block footer %}
             <div class='info'>
+            	<div class='left desc'>
+            		<p style='color:gray; font-size:10px'>
+            			<b>SiteList</b> — это <strong>каталог современных и качественных сайтов</strong>. 
+						Здесь вы не найдете унылых сайтов-визиток,<br>
+						кривых интернет-магазинов, сайтов-однодневок и других жалких подобий интернет-страничек. У нас только лучшее! 
+						<br>
+                        Ретинги сайтов, описание новинок, отзывы - <strong>все это в каталоге сайтов Рунета и не только</strong>.
+            		</p>
+            	</div>
                 <div class='copyright right'>
                     <p><a href='{{ Yii.getBaseUrl(true) }}'>sitelist.in</a> &copy; 2008–2011</p>
                     <p>powered by <a target='_blank' href='http://www.yiiframework.com/'>Yii Framework</a></p>
