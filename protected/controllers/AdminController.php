@@ -37,7 +37,7 @@ class AdminController extends Controller
             'condition'=>'visible = :visible',
 			'params' => array(':visible' => 0),
             'order'=>'t.id ASC',
-			'with' => 'category'
+			'with' => array('category', 'user')
         )));
 		
         Yii::app()->params['title'] = 'Управление новыми сайтами — ' . Yii::app()->params['title'];

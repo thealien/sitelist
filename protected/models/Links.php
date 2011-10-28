@@ -193,6 +193,7 @@ class Links extends CActiveRecord
 	public function relations()
     {
         return array(
+            'user' => array(self::BELONGS_TO, 'Users', 'userid'),
             'comments'=>array(self::HAS_MANY, 'Comments', 'linkid', 'order'=>'id DESC'),
 			'comments_users'=>array(self::HAS_MANY, 'Comments', 'linkid', 'order'=>'id DESC', 'with'=>'user_profile'),
 			'category'=>array(self::BELONGS_TO, 'Category', 'catid'),

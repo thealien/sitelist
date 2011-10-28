@@ -15,12 +15,20 @@
 					"value": "CHtml::link($data->category->catname, array('category/view', 'id' => $data->category->id))",
                     "type": "html"
 				},
-				2: {
+				3: {
+                    "value": "
+					($data->userid)?
+					CHtml::link($data->user->username, array('user/index', 'user'=> $data->user->username)):
+					'Гость'
+					",
+                    "type": "html"
+                },
+				4: {
                     "name":"ip",
 					"value": "CHtml::link($data->ip, 'http://nic.ru/whois/?query='.$data->ip)",
 					"type": "html"
 				},
-				3: {
+				5: {
 					"value": "CHtml::link('Редактировать', array('link/edit', 'id' => $data->id))",
                     "type": "html"
 				}
