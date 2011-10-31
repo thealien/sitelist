@@ -1,0 +1,27 @@
+{% extends "views/admin/index.html" %}
+
+{% block admin_content %}
+    <h3>Нерабочие сайты</h3>
+    {{ this.widget('zii.widgets.grid.CGridView', 
+        {
+            "dataProvider": data,
+            "columns" : {
+                0: {
+                    "name":"title",
+                    "value": "CHtml::link($data->title, array('link/view', 'id' => $data->id))",
+                    "type": "html"
+                },
+                1: {
+                    "name":"category.catname",
+                    "value": "CHtml::link($data->category->catname, array('category/view', 'id' => $data->category->id))",
+                    "type": "html"
+                },
+                2: {
+                    "value": "CHtml::link('Редактировать', array('link/edit', 'id' => $data->id))",
+                    "type": "html"
+                }
+            },
+        }
+        ,true)
+    }}
+{% endblock %}

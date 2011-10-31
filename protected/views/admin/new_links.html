@@ -1,6 +1,7 @@
 {% extends "views/admin/index.html" %}
 
 {% block admin_content %}
+    <h3>Новые сайты</h3>
     {{ this.widget('zii.widgets.grid.CGridView', 
         {
             "dataProvider": data,
@@ -16,6 +17,7 @@
                     "type": "html"
 				},
 				3: {
+				    "name":"Добавил",
                     "value": "
 					($data->userid)?
 					CHtml::link($data->user->username, array('user/index', 'user'=> $data->user->username)):
