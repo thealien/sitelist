@@ -44,6 +44,23 @@ class AdminController extends Controller
         $this->render('new_links', array('data' => $data));
     }
 	
+	/**
+	 * Просмотр нерабочих сайтов
+	 * @return 
+	 */
+	public function actionBroken(){
+        $data = new CActiveDataProvider(
+        'Links',
+        array(
+        'criteria'=>array(
+            'condition'=>'broken = :broken',
+            'params' => array(':broken' => 1)
+        )));
+        
+        Yii::app()->params['title'] = 'Нерабочие сайты — ' . Yii::app()->params['title'];
+        $this->render('broken_links', array('data' => $data));
+    }
+	
     /**
      * Просмотр всех категорий
      * @return 
