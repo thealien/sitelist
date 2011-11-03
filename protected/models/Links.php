@@ -26,7 +26,7 @@ class Links extends CActiveRecord
     public $voted = false; 
 	public $captcha = null;
 	public $isnew = false;
-	public $tags = '';
+	public $tags = null;
 	
 	/**
 	 * Returns the static model of the specified AR class.
