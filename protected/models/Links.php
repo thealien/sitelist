@@ -130,11 +130,11 @@ class Links extends CActiveRecord
 	 */
 	protected function updateTags(){
 		if(!is_string($this->tags)) return false;
+		if(empty($this->tags)){
+            $this->removeAllTags();
+            return true;
+        }
 		$tags = explode(',',$this->tags);
-		if(empty($tags)){
-			$this->removeAllTags();
-			return true;
-		}
 		$tags = array_slice($tags, 0, 10);
 		$this->setTags(implode(',', $tags));
 		return true;
