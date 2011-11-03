@@ -50,7 +50,7 @@ class GooglePageRank {
         $url = $url['host'];
 
         $ch = self::GPR_awesomeHash($url);
-        $file = "http://toolbarqueries.google.com/search?client=navclient-auto&features=Rank&ch=$ch&q=info:$url";
+		$file = sprintf('http://toolbarqueries.google.com/tbr?client=navclient-auto&ch=%s&features=Rank&q=info:%s&num=100&filter=0', $ch,$url);
         $data = file($file);
         if(!$data || !isset($data[0])){
             return false;
