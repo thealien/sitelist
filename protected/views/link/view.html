@@ -115,6 +115,13 @@
 		
 		<div class='clear'></div>
 		<br>
+		<div class="tagslist">
+		{% for tag in link.getTags %}
+		{{ CHtml.link(tag, {0:'tag/view', "tag":tag}, {"class":"tag"}) }}
+		{# % if not loop.last %},{% endif % #}
+		{% endfor %}
+		</div>
+		<div class='clear'></div>
 		{% if not Yii.user.isGuest %}
 		  <!-- коллекции -->
             <div class='collect-info'>
@@ -126,8 +133,7 @@
     </div>
 
 
-	<div class='clear'></div>
-	
+
 	
 	<div class='clear'></div>
 	

@@ -1,0 +1,50 @@
+{% extends "views/layouts/main.html" %}
+
+{% block add_css %}
+{% if links %}
+<style type="text/css">
+.faviconed {background: url(http://favicon.yandex.ru/favicon/{% for l in links %}{{ l.domain }}/{% endfor %}) 0 0 no-repeat; width:16px; height:16px;}
+{% for l in links %}.fav_{{ loop.index }} {background-position: 0 -{{ loop.index0*16 }}px;}{% endfor %}
+</style>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if links %}
+<p class='tag-title'>
+	Сайты с тегом <span class='tag'>{{ tag|e }}</span>
+</p>
+<br>
+<div class="forms linksgroup">
+{% for l in links %}
+<div class='new-site' id='site_{{ l.id }}'>
+    <div class='photo left'>
+        <a target='_blank' href='{{ this.createUrl("link/view", {"id" : l.id }) }}/{{ l.domain|e }}'>
+            <img class='photo' width='100' src='http://f.sitelist.in/t_{{ l.foto }}' alt='{{ l.title|e }}'>
+        </a>
+    </div>
+    <div class='favicon left'>
+        {% if l.domain!=false %}
+            <div class='faviconed fav_{{ loop.index }}'></div>
+        {% endif %}
+    </div>
+    <div class='right site'>
+        <p class='name'>
+            <a target='_blank' title='{{ l.title|e }}' href='{{ this.createUrl("link/view", {"id" : l.id }) }}/{{ l.domain|e }}'>
+                {{ l.title|e }}
+            </a>
+        </p>
+        <p class='desc'>{{ l.desc|cut(240)|e }}</p>
+    </div>
+    <div class='clear'></div>
+</div>
+{% endfor %}
+</div>
+<br>
+{% else %}
+<h4>
+    Сайтов с тегом &laquo;{{ tag|e}} &raquo; не найдено...
+</h4>
+
+{% endif %}
+{% endblock %}

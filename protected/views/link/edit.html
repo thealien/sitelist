@@ -5,43 +5,82 @@
 
 {% block content %}
 {% include "views/layouts/messages.html" %}
-<form action="" method="POST" class='forms'>
-    <input type="hidden" name="id" value="{{ link.id }}"/>
-    <p class='label'>Адрес</p>
-    <p><input size="50" name="Link[url]" value='{{ link.url|e }}'></p>
+{{ CHtml.form('', 'post', {"class":"forms"}) }}
+    <p class='label'>Категория</p>
+    <p>
+        {{ CHtml.activeDropDownList(form, 'catid', categories, {"prompt": "-- Не выбрана --"}) }}
+    </p>
+    {{ CHtml.error(form, 'catid') }}
+    <br>
+	<p class='label'>Адрес</p>
+    <p>{{ CHtml.activeTextField(form, 'url', {"size":50}) }}</p>
+    {{ CHtml.error(form, 'url') }}
     <br>
     <p class='label'>Название</p>
-    <p><input size="50" type=text name="Link[title]" value='{{ link.title|e }}'></p>
+    <p>
+        {{ CHtml.activeTextField(form, 'title', {"size":'50', "maxlength":'256'}) }}
+    </p>
+    {{ CHtml.error(form, 'title') }}
     <br>
     <p class='label'>Описание</p>
-    <p><textarea rows="10" cols="78" name="Link[desc]">{{ link.desc|e }}</textarea></p>
+    <p>{{ CHtml.activeTextArea(form, 'desc', {"cols":'78', "rows":'10'}) }}</p>
+    {{ CHtml.error(form, 'desc') }}
     <br>
-    <p class='label'>Категория</p>
-    <p>{% include "views/layouts/catbox.html" with {'cats':categories, 'curr':link.catid} %}</p>
+    <p class='label'>Теги</p>{{ link.tags|e }}
+    <p>
+    	{{ CHtml.activeTextField(form, 'tags', {"id":"tags"}) }}
+	</p>
     <br>
-    <p class='label'>Одобрено</p>
+	<p class='label'>Одобрено</p>
     <p>
-        <select title="Ссылка одобрена?" name="Link[visible]">
-            <option {%  if link.visible==0 %}SELECTED{%  endif %} value="0">НЕТ</option>
-            <option {%  if link.visible==1 %}SELECTED{%  endif %} value="1">ДА</option>
-        </select>
-    </p>
-	<br>
-    <p class='label'>Сайт не работает</p>
-    <p>
-        <input type='hidden' name='Link[broken]' value="0">
-        <input {% if link.broken %}checked="checked"{% endif %} type='checkbox' name='Link[broken]' value="1">
+    	{{ CHtml.activeDropDownList(form, 'visible', {"0": "НЕТ", "1": "ДА"}) }}
     </p>
     <br>
-    <p class='label'>Удалить фото</p>
+	<p class='label'>Сайт не работает</p>
     <p>
-        <input type='hidden' name='deleteFoto' value="0">
-        <input type='checkbox' name='deleteFoto' value="1">
+    	{{ CHtml.activeCheckBox(form, 'broken') }}
     </p>
     <br>
+	<p class='label'>Удалить фото</p>
     <p>
-        <input type="submit" name="editbtn" value='Применить'>
+        {{ CHtml.checkBox('deleteFoto', false) }}
     </p>
-</form>
+    <br>
+	<p>
+		{{ CHtml.submitButton('Применить') }}
+    </p>
+	
+	
+{{ CHtml.endForm() }}
 <br>
+{% endblock %}
+
+{% block add_css %}
+<link rel="stylesheet" type="text/css" href="{{ Yii.getBaseUrl(true) }}/js/jquery.tags/jquery.tagsinput.css" />
+<link rel="stylesheet" type="text/css" href="{{ Yii.getBaseUrl(true) }}/js/jquery.autocomplete/jquery.autocomplete.css" />
+{% endblock %}
+
+{% block add_js %}
+<script type='text/javascript' src='{{ Yii.getBaseUrl(true) }}/js/jquery.tags/jquery.tagsinput.min.js'></script>
+<script type='text/javascript' src='{{ Yii.getBaseUrl(true) }}/js/jquery.autocomplete/jquery.autocomplete.min.js'></script>
+    
+<script>
+$(function(){
+	$('#tags').tagsInput({
+		autocomplete_url : '{{ this.createUrl("ajax/TagsAutocomplete") }}',
+        autocomplete : {
+			selectFirst:true, 
+			width : '80px', 
+			autoFill:true,
+			minChars : 3
+		},
+		height :'auto',
+        width :'100%',
+        unique :true,
+		minChars : 3,
+		defaultText:'добавить тег',
+		removeWithBackspace: false
+	});
+});
+</script>
 {% endblock %}
