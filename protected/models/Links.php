@@ -26,6 +26,7 @@ class Links extends CActiveRecord
     public $voted = false; 
 	public $captcha = null;
 	public $isnew = false;
+	public $tags = '';
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -43,6 +44,23 @@ class Links extends CActiveRecord
 	public function tableName()
 	{
 		return 'links';
+	}
+	
+	function behaviors() {
+	    return array(
+	        'taggable' => array(
+	            'class' => 'ext.yiiext.behaviors.model.taggable.EARTaggableBehavior',
+	            'tagTable' => 'tags',
+				'tagTableName' => 'name',
+	            'tagModel' => 'Tag',
+				'tagTablePk' => 'id',
+	            'tagBindingTable' => 'links_tags',
+				'tagBindingTableTagId' => 'tag_id',
+				'modelTableFk' => 'link_id',
+				'cacheID' => 'cache',
+				'createTagsAutomatically' => true,
+	        )
+	    );
 	}
 
 	/**
@@ -64,6 +82,7 @@ class Links extends CActiveRecord
 			// Редактирование
 			array('visible', 'required' , 'on' => 'edit'),
 			array('visible', 'boolean' , 'on' => 'edit'),
+			array('tags', 'safe', 'on' => 'edit')
 		);
 	}
 	protected function afterFind(){
@@ -71,6 +90,13 @@ class Links extends CActiveRecord
             $this->rate = '+' . $this->rate;
         }
 		$this->isnew = (time()-$this->date_ts)<(259200); // 3 дня
+		
+		/*var_dump($this->scenario);
+		if($this->scenario == 'update'){
+			//$this->tags = $this->taggable->toString();
+			//var_dump($this->tags);
+		}*/
+
         return true;   
 	}
 	/**
@@ -79,16 +105,17 @@ class Links extends CActiveRecord
 	 */
 	protected function beforeSave(){
         if(parent::beforeSave()){
-            //$this->url = trim($this->url, '/ ');
 		    $domain = array();
             preg_match('/(https?\:\/\/)?([a-z0-9-_.]+)/i', $this->url, $domain);
             if(isset($domain[2])){
                 $this->domain = trim($domain[2],'/ ');
             }
+			$this->updateTags();
 		    return true;   
         }
         return false;
     }
+	
 	protected function beforeValidate(){
         if(parent::beforeValidate()){
             $this->url = trim($this->url, '/ ');
@@ -96,6 +123,23 @@ class Links extends CActiveRecord
         }
         return false;
     }
+	
+	/**
+	 * Сохранение тегов
+	 * @return 
+	 */
+	protected function updateTags(){
+		if(!is_string($this->tags)) return false;
+		$tags = explode(',',$this->tags);
+		if(empty($tags)){
+			$this->removeAllTags();
+			return true;
+		}
+		$tags = array_slice($tags, 0, 10);
+		$this->setTags(implode(',', $tags));
+		return true;
+	}
+	
     /**
      * Зачистка перед удалением сайта
      * @return bool 
