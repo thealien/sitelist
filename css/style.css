@@ -545,7 +545,7 @@ div.new-site div.site {
 
 /* название */
 div.new-site .name {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     margin-bottom: 3px;
 }
@@ -1502,6 +1502,49 @@ div.linksgroup div.site.hover a.del-site-btn{
 }
 
 
+/* Теги */
+.tagslist {
+	margin-left: -2px;
+}
+.tagslist a.tag {
+    background-color: transparent;
+    background-image:
+    url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAStJREFUeNpi/P//PwMlgImBQkCxASzInKSuLgZOLi4GDg4OMGZlZVVhYGR0giv4//95Q3j4ZpwGIANg2Kj+/v3bqTkmZgYjkA/C1UuWZBDlBaBm3Z8/fzo3ADX//vuXwSgiohgU1D9+/GAkaABQsx5Qs21rSsr0z9++MYAMOLF0aS/UACa8BoA0//j+3bYrJ2fq+0+fGP7++8fw688fBiZmZoaUrq4coNwevAZ8+/7dbkJZ2ZTXb98y/AHa/AdoABcwUGMaGnK/f/++G2jBLbwGfP/2bXd0SUm+kLAw2HY+Pj6GUCAfKH74HxbNmF749+/mly9fdnmnpBSCDPEA0kD+YaD4RaLSAQj8+fPnxv379xnV7OzKWFhZDysqKp7Hl5AYh35eoNgAgAADAPKll5+AoGFWAAAAAElFTkSuQmCC");
+    background-position: 0% 70%;
+    background-repeat: no-repeat;
+	padding: 4px 10px 4px 16px;
+	margin: 0 3px 3px 0;
+    text-decoration: none;
+    white-space: nowrap;
+	display: block;
+	float: left;
+	line-height: 1.3em;
+}
+.tagslist a.tag:hover {
+	background-color: #EBEAEA;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	color: #0384E8;
+}
+
+.tag-title {
+	font-size: 18px;
+}
+
+.tag-title .tag {
+	background-color: #eee;
+    background-image: url("../images/tag/tag_blue.png");
+	background-position: 5px 50%;
+    background-repeat: no-repeat;
+	padding: 6px 12px 8px 32px;
+	
+	font-size: 16px;
+	border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+	color: #0384E8;
+}
 
 
 
