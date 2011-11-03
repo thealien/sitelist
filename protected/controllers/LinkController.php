@@ -47,13 +47,15 @@ class LinkController extends Controller
         if(!$admin){
             throw new CHttpException(404);
         }
-		$link = Links::getLink($id, false );
+		$linkModel = Links::model();
+		$linkModel->setScenario('edit');
+		$link = $linkModel->findByPk($id);
         if(!$link){
             throw new CHttpException(404);
         }
-		$errors = array();
-		if(isset($_POST['Link'])){
-			$link->attributes = $_POST['Link'];
+		if(isset($_POST['Links'])){
+			$link->setScenario('edit');
+			$link->attributes = $_POST['Links'];
 			if($link->validate()){
 				// Если нужно удалить фото
 				if(isset($_POST['deleteFoto']) && ($_POST['deleteFoto']) && $link->foto!=''){
@@ -64,21 +66,14 @@ class LinkController extends Controller
 				$link->save(false);
 				$this->redirect(array('link/view', 'id' => $link->id));
 			}
-			else{
-                if($link->hasErrors())
-                foreach($link->getErrors() as $er)
-                    foreach($er as $error){
-                        $errors[] = $error;
-                    }	
-			}
+        }else{
+        	$link->tags = $link->taggable->toString();
         }
 		
-        $categories = Category::getRootCats();
         Yii::app()->params['title'] = 'Редактирование сайта — ' . Yii::app()->params['title'];
         $this->render('edit', array(
-            'link'      => $link->attributes,
-            'categories'=> $categories,
-            'errors'    => $errors
+            'form'          => $link,
+            'categories'    => Category::getList(),
         ));
     }
 	/**

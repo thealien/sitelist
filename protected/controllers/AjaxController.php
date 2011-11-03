@@ -19,7 +19,7 @@ class AjaxController extends Controller
 	    if(!(Yii::app()->request->isAjaxRequest)){
             exit();
         }
-        return true;
+        return parent::beforeAction($action);
     }
 	/**
 	 * Определение PR сайта
@@ -333,5 +333,24 @@ class AjaxController extends Controller
         }
 		header('Content-type: application/json;');
         exit(json_encode($result));
+	}
+	
+	public function actionTagsAutocomplete(){
+		if(empty($_GET)) die();
+		$limit = Yii::app()->request->getQuery('limit', 10);
+		$query = Yii::app()->request->getQuery('q', null);
+		if(is_null($query)) exit();
+		$query = trim(strval($query));
+		if(strlen($query) < 3) exit();
+		$criteria = new CDbCriteria();
+        $criteria->addSearchCondition('name', $query);
+		$criteria->limit = 10;
+		$tags = Tag::model()->findAll($criteria);
+		$result = array();
+		if($tags){
+			foreach($tags as $tag)
+                $result[] = $tag->name;
+		}
+		exit(implode("\n", $result));
 	}
 }
