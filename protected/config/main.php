@@ -3,8 +3,6 @@
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
-// This is the main Web application configuration. Any writable
-// CWebApplication properties can be configured here.
 return array(
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name'=>'sitelist',
@@ -18,6 +16,7 @@ return array(
 		'application.models.forms.*',
         'application.components.*',
         'application.extensions.yii-mail.*',
+		'ext.yiiext.behaviors.model.taggable.*',
     ),
 
     // application components
@@ -55,6 +54,9 @@ return array(
 				
                 'rss/<category:\w*>/'=>'main/rss',
 				'rss'=>'main/rss',
+				
+				'tags' => 'tag/index',
+				'tag/<tag:[\w\s]+>'=>'tag/view',
 				
                 'login'=>'user/login',
                 'logout'=>'user/logout',
