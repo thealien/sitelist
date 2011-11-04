@@ -95,7 +95,7 @@
         <br>
         <p class='image'>
             <a class='name' href='{{ this.createUrl("link/view", {"id" : lastlink.id }) }}/{{ lastlink.domain|e }}'>
-                <img class='image' width='200' src='http://f.sitelist.in/t_{{ lastlink.foto }}' alt='{{ lastlink.title|e }}'>
+                <img class='image' width='200' src='{{ Yii.getBaseUrl(true) }}/foto/t_{{ lastlink.foto }}' alt='{{ lastlink.title|e }}'>
             </a>                            
         </p>
         {% endfor %}

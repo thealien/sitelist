@@ -19,7 +19,7 @@
 <div class='new-site'>
 	<div class='photo left'>
         <a href='{{ this.createUrl("link/view", {"id" : l.id }) }}/{{ l.domain|e }}'>
-            <img class='photo' width='200' src='http://f.sitelist.in/t_{{ l.foto }}' alt='{{ l.title|e }}'>
+            <img class='photo' width='200' src='{{ Yii.getBaseUrl(true) }}/foto/t_{{ l.foto }}' alt='{{ l.title|e }}'>
         </a>
 	</div>
 	<div class='favicon left'>
