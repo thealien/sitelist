@@ -28,7 +28,7 @@
         <div id='main'>
             <div id='content'>
             	<div id='head-top'>
-                    <a id='head-top-logo' href='{% if Yii.user.getState("admin") %}{{ Yii.getBaseUrl(true) }}/admin/{% else %}/{% endif %}'></a>
+                    <a id='head-top-logo' href='{% if Yii.user.isAdmin %}{{ this.createUrl("admin/index") }}{% else %}/{% endif %}'></a>
                 </div>
 				<div id='logo-404-container'>
 					<img src='{{ Yii.getBaseUrl(true) }}/images/404/logo_404.png' alt=''>

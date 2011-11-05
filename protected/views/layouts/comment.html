@@ -34,13 +34,13 @@
     </div>
 	{% endblock %}
     <div class='right'>
-        {% if ((Yii.user.id>0) and Yii.user.id==c.userid) or Yii.user.getState("admin") %}
+        {% if ((Yii.user.id>0) and Yii.user.id==c.userid) or Yii.user.isAdmin %}
         <form action='{{ this.createUrl("comment/edit", {"id" : c.id}) }}' method='post' class='right'>
             <input class='adm' type='submit' name='d' value='редактировать'>
         </form>
         {% endif %}
 		
-        {% if Yii.user.getState("admin") %}
+        {% if Yii.user.isAdmin %}
         <form action='{{ this.createUrl("comment/delete", {"id" : c.id}) }}' method='post' class='right'>
             <input class='adm' type='submit' name='d' value='удалить' onclick='return confirm("Удалить?")'>
         </form>

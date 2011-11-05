@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block content %}
-{% if link.visible or Yii.user.getState("admin") %}
+{% if link.visible or Yii.user.isAdmin %}
 <input type='hidden' id='linkId' value='{{ link.id }}'>
 <div id='site-info'>
     
@@ -80,7 +80,7 @@
             <img title='Кликните для просмотра в полный размер' class='photo' width='200' src='{{ Yii.getBaseUrl(true) }}/foto/t_{{ link.foto }}' alt='{{ link.title|e }}'>
         </a>
         {% endif %}
-		{% if Yii.user.getState("admin") %}
+		{% if Yii.user.isAdmin %}
             <span title='Сгененировать скриншот' class='genScreenBtn'>Сгенерить&nbsp;скрин</span><br>
             <img width='16' height='16' src='{{ Yii.getBaseUrl(true) }}/images/ajax.gif' class='ajaxProgress' alt=''>
         {% endif %}
@@ -138,7 +138,7 @@
 	
 	<div class='clear'></div>
 	
-	{% if Yii.user.getState("admin") %}
+	{% if Yii.user.isAdmin %}
     <div>
         <form class='right' action='{{ this.createUrl("link/delete", {"id":link.id}) }}' method="post">
             <input style='color: red;border:none; background: none;' type="submit" value="удалить" onclick="return confirm('Удалить?');" >

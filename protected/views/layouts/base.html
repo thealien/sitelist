@@ -24,7 +24,7 @@
         <div id='main'>
             <div id='head'>
                 <div id='head-top'>
-                    <a id='head-top-logo' href='{% if Yii.user.getState("admin") %}{{ Yii.getBaseUrl(true) }}/admin/{% else %}/{% endif %}'></a>
+                    <a id='head-top-logo' href='{% if Yii.user.isAdmin %}{{ this.createUrl("admin/index") }}{% else %}/{% endif %}'></a>
                 </div>
                 <div id='head-middle'>
                     <div style='float: left; padding-top: 30px;'>
