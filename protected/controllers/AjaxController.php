@@ -86,7 +86,7 @@ class AjaxController extends Controller
     public function actionScreenshot($id = false){
         $res = array('result'=>false);
 		
-        if(!$id || !Yii::app()->user->idAdmin())
+        if(!$id || !Yii::app()->user->isAdmin())
             exit();
         $link = Links::getLink($id, false);
         if(!$link){
