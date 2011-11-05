@@ -3,7 +3,6 @@
 class UserIdentity extends CUserIdentity
 {
 	private $_id;
-	private $_admin = false;
 	
     public function authenticate()
     {
@@ -14,7 +13,6 @@ class UserIdentity extends CUserIdentity
             $this->errorCode=self::ERROR_PASSWORD_INVALID;
         else
         {
-            $this->setState('admin', $this->_admin = ($record->role==='admin'));
             $this->_id = $record->userID;
             $this->errorCode=self::ERROR_NONE;
         }
@@ -28,7 +26,6 @@ class UserIdentity extends CUserIdentity
             $this->errorCode=self::ERROR_USERNAME_INVALID;
         else
         {
-            $this->setState('admin', $this->_admin = ($record->role==='admin'));
 			$this->username = $record->username;
             $this->_id = $record->userID;
             $this->errorCode=self::ERROR_NONE;
