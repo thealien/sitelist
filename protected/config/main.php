@@ -22,6 +22,7 @@ return array(
     // application components
     'components'=>array(
         'user'=>array(
+            'class' => 'EWebUser',					  
             'allowAutoLogin' => true,
             'identityCookie' => array(
                 'domain' => $_SERVER['SERVER_NAME']
