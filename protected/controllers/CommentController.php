@@ -9,8 +9,7 @@ class CommentController extends Controller
 	 */
 	public function actionDelete($id = false)
 	{
-		$admin = Yii::app()->user->getState('admin') ? true : false;
-        if(!Yii::app()->request->isPostRequest || !$id || !$admin){
+        if(!Yii::app()->request->isPostRequest || !$id || !Yii::app()->user->isAdmin()){
             throw new CHttpException(404);  
         }
 		Comments::model()->deleteByPk($id);
@@ -25,7 +24,7 @@ class CommentController extends Controller
 	public function actionEdit($id){
 		if(Yii::app()->user->isGuest)
             throw new CHttpException(404);
-		$admin = Yii::app()->user->getState('admin') ? true : false;
+
         if(!$id){
             throw new CHttpException(404);    
         }
@@ -34,7 +33,7 @@ class CommentController extends Controller
 		if(!$comment){
 			throw new CHttpException(404);
 		}
-		if($comment->userid!=Yii::app()->user->id && !$admin)
+		if($comment->userid!=Yii::app()->user->id && !Yii::app()->user->isAdmin())
             throw new CHttpException(404);
         
 		$errors = array();

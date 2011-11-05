@@ -3,16 +3,9 @@
 class AdminController extends Controller
 {
     protected function beforeAction(CAction $action){
-        if(Yii::app()->user->isGuest){
+        if(!Yii::app()->user->isAdmin())
         	throw new CHttpException(404);
-        }
-		
-        $is_admin = Users::model()->findByPk(Yii::app()->user->id, "role=:role", array('role'=>'admin'));
-        $is_admin = Yii::app()->user->getState('admin');
-        if(!$is_admin){
-            throw new CHttpException(404);
-        }
-        return true;
+        return parent::beforeAction($action);
     }
 	
     /**

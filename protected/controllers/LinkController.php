@@ -21,8 +21,7 @@ class LinkController extends Controller
 	    if(!Yii::app()->request->isPostRequest){
 	        throw new CHttpException(404);
 	    }
-		$admin = Yii::app()->user->getState('admin') ? true : false;
-		if(!$id || !$admin){
+		if(!$id || !Yii::app()->user->isAdmin()){
             throw new CHttpException(404);
         }
         $link = Links::getLink($id, false);
@@ -43,8 +42,7 @@ class LinkController extends Controller
 		if(!$id){
             throw new CHttpException(404);
 		}
-        $admin = Yii::app()->user->getState('admin') ? true : false;
-        if(!$admin){
+        if(!Yii::app()->user->isAdmin()){
             throw new CHttpException(404);
         }
 		$linkModel = Links::model();
@@ -87,15 +85,13 @@ class LinkController extends Controller
         }
         $id = intval($id);
         
-		$admin = Yii::app()->user->getState('admin') ? true : false;
-        
 		$link = Links::getLink($id, false);
 		
         if(!$link){
             throw new CHttpException(404);
         }
         $pr_is_old = $ci_is_old = $captcha = false;
-		if($link->visible || $admin){
+		if($link->visible || Yii::app()->user->isAdmin()){
 		    
 		$t = time();
 		$pr_is_old = ($t - $link->pr_lastdate)>Yii::app()->params['SITE_RATE_DATE_EXP'];

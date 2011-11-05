@@ -85,10 +85,9 @@ class AjaxController extends Controller
 	 */
     public function actionScreenshot($id = false){
         $res = array('result'=>false);
-        $admin = Yii::app()->user->getState('admin') ? true : false;
-        if(!$id || !$admin){
+		
+        if(!$id || !Yii::app()->user->idAdmin())
             exit();
-        }
         $link = Links::getLink($id, false);
         if(!$link){
             exit();
@@ -125,8 +124,8 @@ class AjaxController extends Controller
     
 	public function actionScreenshotGD($id = false){
 		$res = array('result'=>false);
-		$admin = Yii::app()->user->getState('admin') ? true : false;
-        if(!$id || !$admin){
+
+        if(!$id || !Yii::app()->user->isAdmin()){
             exit();
         }
         $link = Links::getLink($id, false);
