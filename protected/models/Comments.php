@@ -47,7 +47,7 @@ class Comments extends CActiveRecord
             array('text, user', 'required','message' => '{attribute} не может быть пустым'),
             array('text', 'length', 'min' => 3, 'max' => 512, 'message' => 'Длина комментария должна быть от 3 до 512 символов'),
             array('user', 'length', 'min' => 3, 'max' => 32, 'message' => 'Длина ника должна быть от 3 до 32 символов'),
-            array('user', 'match', 'pattern' => '/^[A-Za-z0-9А-Яа-яы\s]+$/i','message' => 'Ник содержит недопустимые символы'),
+            array('user', 'match', 'pattern' => '/^[A-Za-z0-9А-Яа-яёЁ\s]+$/u','message' => 'Ник содержит недопустимые символы'),
             array('linkid','exist','allowEmpty' => false, 'attributeName' => 'id', 'className' => 'Links', 'message' => '{attribute} не существует'),
             array('captcha', 'captcha', 'allowEmpty'=>(!extension_loaded('gd') || (!Yii::app()->user->isGuest)), 'on' => 'add', 'message' => 'Неверный код подтверждения'),
            

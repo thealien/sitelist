@@ -19,7 +19,7 @@ class Profile extends CActiveRecord
             // user_id
 			array('user_id','exist','allowEmpty' => false, 'attributeName' => 'userID', 'className' => 'Users', 'message' => '{attribute} не существует'),
 			// icq
-            array('icq', 'match', 'allowEmpty' => true, 'pattern' => '/^[0-9-]+$/i','message' => 'Номер ICQ имеет неверный формат'),
+            array('icq', 'match', 'allowEmpty' => true, 'pattern' => '/^[0-9-]+$/','message' => 'Номер ICQ имеет неверный формат'),
 			// from
 			array('from', 'length', 'max'=>150, 'allowEmpty' => true),
 			// birthday
@@ -27,7 +27,7 @@ class Profile extends CActiveRecord
 			// site
 			array('site', 'url', 'allowEmpty' => true, 'message' => 'Неверный формат адреса сайта'),
 			// skype
-			array('skype', 'match', 'allowEmpty' => true, 'pattern' => '/^[a-zA-Z]+[a-zA-Z0-9-\.]+$/i','message' => 'Skype имеет неверный формат'),
+			array('skype', 'match', 'allowEmpty' => true, 'pattern' => '/^[a-zA-Z]+[a-zA-Z0-9-\.]+$/u','message' => 'Skype имеет неверный формат'),
 			// avatar
 			array('_avatar', 'file', 'allowEmpty' => true, 'types'=>'jpg, gif, png', 'wrongType'=> 'Запрещенный тип файла', 'maxSize' => 1024*1024),
 			

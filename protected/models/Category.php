@@ -34,7 +34,7 @@ class Category extends CActiveRecord
 		return array(
             // Общие
 			array(' catname, alias', 'required'),
-            array('catname', 'match', 'pattern' => '/^[a-zA-Zа-яА-Яы0-9\s-.,]+/i','message' => 'Название категории содержит недопустимые символы'),
+            array('catname', 'match', 'pattern' => '/^[a-zA-Zа-яА-ЯёЁ0-9\s-.,]+$/u','message' => 'Название категории содержит недопустимые символы'),
 		);
 	}
 

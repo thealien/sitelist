@@ -49,7 +49,7 @@ class Users extends CActiveRecord
 		return array(
             // Общие
             array('username, password', 'required', 'message' => '{attribute} не может быть пустым'),
-            array('username', 'match', 'pattern' => '/^[A-Za-z0-9А-Яа-яы\s-_]+$/i','message' => 'Логин содержит недопустимые символы'),
+            array('username', 'match', 'pattern' => '/^[A-Za-z0-9А-Яа-яёЁ\s-_]+$/u','message' => 'Логин содержит недопустимые символы'),
             array('email', 'email', 'message' => '{attribute} имеет недопустимый формат'),
             array('username', 'length', 'max'=>32, 'min'=>3, 'message' => 'Длина логина - от 3 до 32 символов'),
             array('password', 'length', 'max'=>32, 'min'=>3, 'message' => 'Длина пароля - от 3 до 32 символов'),
