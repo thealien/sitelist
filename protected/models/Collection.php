@@ -18,7 +18,7 @@ class Collection extends CActiveRecord
         return array(
             // Название
 			array('title', 'required', 'message'=>'Вы не указали название'),
-            array('title', 'match', 'pattern' => '/^[A-Za-z0-9А-Яа-я\s-\.,]+$/i','message' => 'Название содержит недопустимые символы'),
+            array('title', 'match', 'pattern' => '/^[A-Za-z0-9А-Яа-яы\s-\.,]+$/i','message' => 'Название содержит недопустимые символы'),
 			array('title', 'length', 'max'=>255),
 			// Описание
 			array('desc', 'length', 'max'=>1024, 'allowEmpty' => true),
