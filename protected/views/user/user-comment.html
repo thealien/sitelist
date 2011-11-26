@@ -5,7 +5,7 @@
     {% if user.profile.avatar=='' %}
     <img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/user/noavatar.gif' alt=''>
     {% else %}
-    <img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/avatars/{{ user.profile.avatar|e }}' alt=''>
+    <img class='avatar' src='{{ Yii.getBaseUrl(true) }}/images/avatars/t_{{ user.profile.avatar|e }}' alt=''>
     {% endif %}
     </a>
 {% endblock %}

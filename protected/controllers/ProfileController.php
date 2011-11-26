@@ -158,14 +158,17 @@ class ProfileController extends Controller
 				$filename = 'user' . $profile->user_id .'_'. time() . '.' . $profile->_avatar->extensionName;
 				$dir = Yii::app()->params->AVATARS_DIR;
 				if($profile->_avatar->saveAs($dir . $filename)){
-					/*
+					/**/
 					require_once Yii::app()->basePath . '/vendors/phmagick/phmagick.php';
                     $avatar = new phMagick($dir . $filename);
 					$avatar->setImageQuality(90);
                     $avatar->setDestination($dir . $filename);
-                    $avatar->resize(100)->crop(100,100);
+                    $avatar->resizeExactly(100,100);
+					//$avatar->crop(100,100); // need?
 					$avatar->setDestination($dir . 't_'. $filename);
-					$avatar->resize(50);*/
+					$avatar->resize(50);
+					/**/
+					/*
 					require_once Yii::app()->basePath . '/vendors/PhpThumb/ThumbLib.inc.php';
 					$thumb = PhpThumbFactory::create($dir . $filename);
                     $thumb->setOptions( array('jpegQuality' => 90) );
@@ -174,7 +177,7 @@ class ProfileController extends Controller
                     $thumb->save($dir . $filename);
                     $thumb->resize(50);
                     $thumb->save($dir . 't_'. $filename);
-					
+					*/
                     if ($profile->avatar && $filename!=$profile->avatar) {
                         @unlink($dir . $profile->avatar);
 						@unlink($dir . 't_'.$profile->avatar);
