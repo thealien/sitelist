@@ -6,6 +6,9 @@ class UserController extends Controller
         return array(
             'captcha'=>array(
                 'class'=>'CCaptchaAction',
+				'minLength' =>7,
+                'testLimit' => 2,
+                'fontFile'=> Yii::app()->basePath . '/fonts/TRITTO__.TTF'
             ),
         );
     }
