@@ -224,6 +224,14 @@ abstract class Twig_Template implements Twig_TemplateInterface
      */
     public function display(array $context, array $blocks = array())
     {
+        // we don't use array_merge as the context being generally
+        // bigger than globals, this code is faster.
+        foreach ($this->env->getGlobals() as $key => $value) {
+            if (!array_key_exists($key, $context)) {
+                $context[$key] = $value;
+            }
+        }
+
         try {
             $this->doDisplay($context, $blocks);
         } catch (Twig_Error $e) {
@@ -268,17 +276,18 @@ abstract class Twig_Template implements Twig_TemplateInterface
     /**
      * Returns a variable from the context.
      *
-     * @param array   $context The context
-     * @param string  $item    The variable to return from the context
+     * @param array   $context       The context
+     * @param string  $item          The variable to return from the context
+     * @param Boolean $isDefinedTest Whether to ignore the strict variable check or not
      *
      * @return The content of the context variable
      *
      * @throws Twig_Error_Runtime if the variable does not exist and Twig is running in strict mode
      */
-    protected function getContext($context, $item)
+    protected function getContext($context, $item, $ignoreStrictCheck = false)
     {
         if (!array_key_exists($item, $context)) {
-            if (!$this->env->isStrictVariables()) {
+            if ($ignoreStrictCheck || !$this->env->isStrictVariables()) {
                 return null;
             }
 
@@ -297,8 +306,10 @@ abstract class Twig_Template implements Twig_TemplateInterface
      * @param string  $type          The type of attribute (@see Twig_TemplateInterface)
      * @param Boolean $isDefinedTest Whether this is only a defined check
      */
-    protected function getAttribute($object, $item, array $arguments = array(), $type = Twig_TemplateInterface::ANY_CALL, $isDefinedTest = false)
+    protected function getAttribute($object, $item, array $arguments = array(), $type = Twig_TemplateInterface::ANY_CALL, $isDefinedTest = false, $ignoreStrictCheck = false)
     {
+        $item = (string) $item;
+
         // array
         if (Twig_TemplateInterface::METHOD_CALL !== $type) {
             if ((is_array($object) && array_key_exists($item, $object))
@@ -316,7 +327,7 @@ abstract class Twig_Template implements Twig_TemplateInterface
                     return false;
                 }
 
-                if (!$this->env->isStrictVariables()) {
+                if ($ignoreStrictCheck || !$this->env->isStrictVariables()) {
                     return null;
                 }
 
@@ -334,11 +345,11 @@ abstract class Twig_Template implements Twig_TemplateInterface
                 return false;
             }
 
-            if (!$this->env->isStrictVariables()) {
+            if ($ignoreStrictCheck || !$this->env->isStrictVariables()) {
                 return null;
             }
 
-            throw new Twig_Error_Runtime(sprintf('Item "%s" for "%s" does not exist', $item, $object));
+            throw new Twig_Error_Runtime(sprintf('Item "%s" for "%s" does not exist', $item, is_array($object) ? 'Array' : $object));
         }
 
         // get some information about the object
@@ -387,7 +398,7 @@ abstract class Twig_Template implements Twig_TemplateInterface
                 return false;
             }
 
-            if (!$this->env->isStrictVariables()) {
+            if ($ignoreStrictCheck || !$this->env->isStrictVariables()) {
                 return null;
             }
 
