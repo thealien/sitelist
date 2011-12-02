@@ -111,7 +111,7 @@ class ProfileController extends Controller
                 $user->password = $pass;
                 if($user->validate(array('password')) && $user->save(false, array('password'))){
                     Yii::app()->session['changed'] = true;
-                    $this->redirect(array('profile/pass'));
+                    $this->refresh();
                 }
                 else{
                     // Ошибка валидации
