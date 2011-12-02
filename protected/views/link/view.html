@@ -64,7 +64,9 @@
 	<!-- QR -->
 	<div id='qr-code'>
 		<div class='img-wrapper'>
-		<img width='64' height='64' alt='QR-code' title='Это QR-код адреса сайта &laquo;{{ link.title|e }}&raquo;' src='http://api.qrserver.com/v1/create-qr-code/?data={{ link.domain }}&amp;size=64x64'>
+        <a target=_blank href='http://api.qrserver.com/v1/create-qr-code/?data={{ link.domain }}&amp;size=300x300&.jpg' class="thumbnail fancy" >
+		<img width='64' height='64' alt='QR-code' title='Это QR-код адреса сайта &laquo;{{ link.title|e }}&raquo; (кликните для увеличения)' src='http://api.qrserver.com/v1/create-qr-code/?data={{ link.domain }}&amp;size=64x64'>
+		</a>
         </div>
 	</div>
 	<div class='clear'></div>
