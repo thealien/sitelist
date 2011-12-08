@@ -62,6 +62,8 @@ return array(
                 'login'=>'user/login',
                 'logout'=>'user/logout',
                 'register'=>'user/register',
+				'reminder'=>'user/recoverPassRequest',
+				'reminder/<token:\w{32}>'=>'user/recoverPassForm',
 				
 				'users/<page:\d+>'=>'main/users',
 				'users'=>'main/users',
@@ -77,7 +79,7 @@ return array(
 				'user/oauth/facebook' => 'user/oauthfacebook',
 				'user/oauth/vkontakte' => 'user/oauthvkontakte',
 				'user/oauth/twitter' => 'user/oauthtwitter',
-                'user/<user:[\w\s]+>'=>'user/index',
+                'user/<user:[\w\s-]+>'=>'user/index',
 				
 				
 				'collection/<id:\d+>'=>'collection/index',
