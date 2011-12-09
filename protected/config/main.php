@@ -191,7 +191,7 @@ return array(
             'scriptMap' => array(
                 // TODO
                 'jquery.js' => false,
-			    'jquery.min,js' => false,
+			    'jquery.min.js' => false,
 			)
 		),
     ),
