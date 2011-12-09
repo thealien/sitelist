@@ -12,7 +12,7 @@
         {% block add_meta %}{% endblock %}
         <link href="{{ Yii.getBaseUrl(true) }}/favicon.ico" type="image/x-icon" rel="shortcut icon" >
         <link href="{{ Yii.getBaseUrl(true) }}/images/opera_sd.png" rel="image_src" type="image/png">
-        <link href="{{ Yii.getBaseUrl(true) }}/css/style.css?20111103" rel="stylesheet" type="text/css">
+        <link href="{{ Yii.getBaseUrl(true) }}/css/style.css?20111209" rel="stylesheet" type="text/css">
         {% block add_css %}{% endblock %}
         <script type='text/javascript' src='{{ Yii.getBaseUrl(true) }}/js/extsrc.min.js?20110502'></script>
         {% block add_head %}{% endblock %}
@@ -82,11 +82,19 @@
 			{% endblock %}
         </div>
 		<!-- /footer -->
+		<a title='У меня есть идея, предложение или вопрос! :)' href='javascript: void(0)' onclick='CopinyWidget.show(); return false;' class='idea-lamp'></a>
 		
         <script type='text/javascript' src='{{ Yii.getBaseUrl(true) }}/js/jquery-1.7.1.min.js'></script>
         {% block add_js %}{% endblock %}
-        <script type='text/javascript' extsrc='{{ Yii.getBaseUrl(true) }}/js/func.js?20110921'></script>
-        
+		<!-- copiny -->
+        <script type="text/javascript" charset="utf-8">
+        var proto = (document.location.protocol=='https:')?'https:':'http:';
+        var host = proto+'//widget.copiny.com';
+        document.write(unescape("%3Cscript extsrc='" + host + "/static/js/widget.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+		<!-- copiny -->
+        <script type='text/javascript' extsrc='{{ Yii.getBaseUrl(true) }}/js/func.js?20111209'></script>
+		
         <!-- Yandex.Metrika counter -->
         <div style="display:none;"><script type="text/javascript">
         (function(w, c) {
