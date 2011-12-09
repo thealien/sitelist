@@ -48,7 +48,7 @@ class Twig_Extension_Core extends Twig_Extension
             // formatting filters
             'date'    => new Twig_Filter_Function('twig_date_format_filter'),
             'format'  => new Twig_Filter_Function('sprintf'),
-            'replace' => new Twig_Filter_Function('twig_strtr'),
+            'replace' => new Twig_Filter_Function('strtr'),
 
             // encoding
             'url_encode'       => new Twig_Filter_Function('twig_urlencode_filter'),
@@ -237,7 +237,8 @@ function twig_cycle($values, $i)
 function twig_date_format_filter($date, $format = 'F j, Y H:i', $timezone = null)
 {
     if (!$date instanceof DateTime && !$date instanceof DateInterval) {
-        if (ctype_digit((string) $date)) {
+        $asString = (string) $date;
+        if (ctype_digit($asString) || (!empty($asString) && '-' === $asString[0] && ctype_digit(substr($asString, 1)))) {
             $date = new DateTime('@'.$date);
             $date->setTimezone(new DateTimeZone(date_default_timezone_get()));
         } else {
@@ -411,21 +412,22 @@ function twig_get_array_keys_filter($array)
 /**
  * Reverses an array.
  *
- * @param array|Traversable $array An array or a Traversable instance
+ * @param array|Traversable $array        An array or a Traversable instance
+ * @param Boolean           $preserveKeys Whether to preserve key or not
  *
  * return array The array reversed
  */
-function twig_reverse_filter($array)
+function twig_reverse_filter($array, $preserveKeys = false)
 {
     if (is_object($array) && $array instanceof Traversable) {
-        return array_reverse(iterator_to_array($array));
+        return array_reverse(iterator_to_array($array), $preserveKeys);
     }
 
     if (!is_array($array)) {
         return array();
     }
 
-    return array_reverse($array);
+    return array_reverse($array, $preserveKeys);
 }
 
 /**
@@ -458,23 +460,6 @@ function twig_in_filter($value, $compare)
 }
 
 /**
- * Replaces placeholders in a string.
- *
- * <pre>
- *  {{ "I like %this% and %that%."|replace({'%this%': foo, '%that%': "bar"}) }}
- * </pre>
- *
- * @param string $pattern      A string
- * @param string $replacements The values for the placeholders
- *
- * @return string The string where the placeholders have been replaced
- */
-function twig_strtr($pattern, $replacements)
-{
-    return str_replace(array_keys($replacements), array_values($replacements), $pattern);
-}
-
-/**
  * Escapes a string.
  *
  * @param Twig_Environment $env        A Twig_Environment instance
@@ -497,6 +482,8 @@ function twig_escape_filter(Twig_Environment $env, $string, $type = 'html', $cha
         $charset = $env->getCharset();
     }
 
+    $string = (string) $string;
+
     switch ($type) {
         case 'js':
             // escape all non-alphanumeric characters
@@ -517,21 +504,28 @@ function twig_escape_filter(Twig_Environment $env, $string, $type = 'html', $cha
 
         case 'html':
             // see http://php.net/htmlspecialchars
-            if (in_array(strtolower($charset), array(
-                'iso-8859-1', 'iso8859-1',
-                'iso-8859-15', 'iso8859-15',
-                'utf-8',
-                'cp866', 'ibm866', '866',
-                'cp1251', 'windows-1251', 'win-1251', '1251',
-                'cp1252', 'windows-1252', '1252',
-                'koi8-r', 'koi8-ru', 'koi8r',
-                'big5', '950',
-                'gb2312', '936',
-                'big5-hkscs',
-                'shift_jis', 'sjis', '932',
-                'euc-jp', 'eucjp',
-                'iso8859-5', 'iso-8859-5', 'macroman',
-            ))) {
+
+            // Using a static variable to avoid initializing the array
+            // each time the function is called. Moving the declaration on the
+            // top of the function slow downs other escaping types.
+            static $htmlspecialcharsCharsets = array(
+                'iso-8859-1' => true, 'iso8859-1' => true,
+                'iso-8859-15' => true, 'iso8859-15' => true,
+                'utf-8' => true,
+                'cp866' => true, 'ibm866' => true, '866' => true,
+                'cp1251' => true, 'windows-1251' => true, 'win-1251' => true,
+                '1251' => true,
+                'cp1252' => true, 'windows-1252' => true, '1252' => true,
+                'koi8-r' => true, 'koi8-ru' => true, 'koi8r' => true,
+                'big5' => true, '950' => true,
+                'gb2312' => true, '936' => true,
+                'big5-hkscs' => true,
+                'shift_jis' => true, 'sjis' => true, '932' => true,
+                'euc-jp' => true, 'eucjp' => true,
+                'iso8859-5' => true, 'iso-8859-5' => true, 'macroman' => true,
+            );
+
+            if (isset($htmlspecialcharsCharsets[strtolower($charset)])) {
                 return htmlspecialchars($string, ENT_QUOTES | ENT_SUBSTITUTE, $charset);
             }
 
