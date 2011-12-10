@@ -426,7 +426,7 @@ class UserController extends Controller
 	
 	public function actionRecoverPassForm($token){
         if(!Yii::app()->user->isGuest)
-            throw new CHttpException(404);
+            $this->redirect(Yii::app()->getBaseUrl(true));
 		$token = Token::model()->findByAttributes(array(
             'code' => $token
 		));
