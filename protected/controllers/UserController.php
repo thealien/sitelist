@@ -385,7 +385,7 @@ class UserController extends Controller
 	
 	public function actionRecoverPassRequest(){
 		if(!Yii::app()->user->isGuest)
-            throw new CHttpException(404);
+            $this->redirect(Yii::app()->getBaseUrl(true));
         $form = new RecoverPassRequestForm();
 		if(isset($_POST['RecoverPassRequestForm'])){
 			$form->attributes = $_POST['RecoverPassRequestForm'];
