@@ -59,7 +59,7 @@ class Users extends CActiveRecord
             // Регистрация
             array('username, email', 'unique', 'message' => 'Указанный {attribute} уже используется в системе','on' => 'register, register_oid'),
             array('email', 'required','on' => 'register,register_oid', 'message' => ' Не указан {attribute}'),
-            array('password', 'compare', 'compareAttribute'=>'password2', 'on'=>'register,register_oid', 'message' => 'Пароли не совпадают'),
+            array('password', 'compare', 'compareAttribute'=>'password2', 'on'=>'register,register_oid,recover', 'message' => 'Пароли не совпадают'),
             array('captcha', 'captcha', 'allowEmpty'=>!extension_loaded('gd'), 'on' => 'register', 'message' => 'Неверный код подтверждения'),
             array('password2', 'safe')
 		);

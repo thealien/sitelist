@@ -382,5 +382,83 @@ class UserController extends Controller
         $url = $connection->getAuthorizeURL($request_token['oauth_token']);
         $this->redirect($url);
     }
+	
+	public function actionRecoverPassRequest(){
+		if(!Yii::app()->user->isGuest)
+            throw new CHttpException(404);
+        $form = new RecoverPassRequestForm();
+		if(isset($_POST['RecoverPassRequestForm'])){
+			$form->attributes = $_POST['RecoverPassRequestForm'];
+			if($form->validate()){
+				// Найти пользователя по email
+				$user = Users::model()->findByAttributes(array(
+                    'username' => $form->username
+				));
+				if(!$user) throw new CHttpException(404); // хотя такого быть не должно
+				// Попробовать найти ранее созданный токен
+				$token = Token::model()->findByAttributes(array(
+                    'user_id' => $user->userID,
+					'type' => 'pass-recover'
+				));
+				// Создать, если нужно
+				if(!$token){
+				    $token = new Token();
+                    $token->user_id = $user->userID;
+                    $token->type = 'pass-recover';
+                    $token->code = md5(md5($user->userID) . md5(time()) . md5(mt_rand(0, 100000)));
+				}
+				$token->ip = $_SERVER['REMOTE_ADDR'];
+				if(!$token->save()){
+					var_dump($token->errors);
+                    exit('catn save token');
+                }
+                    //throw new CHttpException(404);
+				MailHelper::sendPassRecoveryInstruction($user->email, $token->code, $token->ip);
+				Yii::app()->user->setFlash('message', 'Инструкция по восстановлению пароля отправлена на email, указанный при регистрации аккаунта.');
+				$this->refresh();
+			}
+		}
+		
+		$this->render('recover_pass_request', array(
+            'form'      => $form,
+		));
+	}
+	
+	public function actionRecoverPassForm($token){
+        if(!Yii::app()->user->isGuest)
+            throw new CHttpException(404);
+		$token = Token::model()->findByAttributes(array(
+            'code' => $token
+		));
+		if(!$token)
+            throw new CHttpException(404);
+			
+		$form = new Users('recover');
+		if(isset($_POST['Users'])){
+			$form->attributes = $_POST['Users'];
+			if($form->validate(array('password', 'password2'))){
+				$user = Users::model()->findByPk($token->user_id);
+				if(!$user)
+                    throw new CHttpException(404);
+				$user->password = $form->password;
+				if($user->save()){
+					$token->delete();
+				    Yii::app()->user->setFlash('message', 'Пароль успешно изменен. Теперь вы можете войти.');
+                    $this->redirect(array('user/recoverPassRequest'));	
+				}
+			} 
+		}
+        $this->render('recover_pass_form', array(
+            'token' => $token,
+			'form' => $form
+		));
+    }
 
 }
+
+
+
+
+
+
+

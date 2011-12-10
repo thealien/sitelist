@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+    <meta http-equiv=Content-Type content="text/html; CHARSET=utf-8">
+    <title>Каталог сайтов SiteList &mdash; восстановление пароля</title>
+    </head>
+<body style="margin:0;padding:0;color:#454545;">
+<div>
+Вы получили это письмо, так как зарегистрированы на сайте<br>
+{{ Yii.getBaseUrl(true) }} и хотите восстановить пароль к учетной записи.<br>
+<br>
+Чтобы продолжить и начать процесс сброса пароля, перейдите по ссылке:<br>
+{{ Yii.getBaseUrl(true) }}{{ this.createUrl("user/recoverPassForm", {"token" : code }) }}<br>
+<br>
+Если Вы не посылали запрос о восстановлении пароля, проигнорируйте это письмо.<br>
+C уважением,<br>
+Администрация сайта <a href='{{ Yii.getBaseUrl(true) }}' target='_blank'>SiteList.in</a>
+</div>
+<br>
+------------------<br>
+Запрос на восстановление пароля был выслан с IP-адреса {{ ip|e }}
+</body>
+</html>

@@ -59,5 +59,18 @@ class MailHelper {
         $message->subject = 'Каталог сайтов SiteList - смена email';
         return Yii::app()->mail->send($message);
 	}
+	
+	static function sendPassRecoveryInstruction($email, $code, $ip){
+		$message = new YiiMailMessage;
+        $message->view = 'recover_pass';
+        $message->setBody(array(
+            'ip' => $ip,
+            'code' => $code,
+        ), 'text/html');
+        $message->addTo($email);
+        $message->from = Yii::app()->params['system_mail'];
+        $message->subject = 'Каталог сайтов SiteList - восстановление пароля';
+        return Yii::app()->mail->send($message);
+	}
 }
 

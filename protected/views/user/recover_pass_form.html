@@ -1,0 +1,48 @@
+{% extends "views/layouts/main.html" %}
+
+{% block content %}
+
+<div>
+    <div class='title'>
+        <b>Сброс пароля</b>
+    </div>
+</div>
+<br>
+{{ CHtml.form('', 'post', {"class":"forms"}) }}
+<p class='label'>Новый пароль</p>
+<p>
+    {{ CHtml.activePasswordField(form, 'password', {"maxlength":"50", "size":"50", "required":"required"}) }}
+</p>
+{{ CHtml.error(form, 'password')|default('<br>') }}
+
+<p class='label'>Еще раз</p>
+<p>
+    {{ CHtml.activePasswordField(form, 'password2', {"title":"Повторите пароль", "maxlength":"50", "size":"50", "required":"required"}) }}
+</p>
+{{ CHtml.error(form, 'password2')|default('<br>') }}
+{{ CHtml.submitButton('Сменить пароль') }}
+{{ CHtml.endForm() }}
+
+<hr>
+<form class='forms' action="" method="POST">
+    <p class='label'>Текущий пароль</p>
+    <p>
+        <input maxlength='50' size='50' title='Ваш текущий пароль' name="oldpass" type="password" value=''>
+    </p>
+    <br>
+    <p class='label'>Новый пароль</p>
+    <p>
+        <input maxlength='50' size='50' title='Укажите желаемый пароль'  type="password" name="pass" value='{{ pass|e }}'>
+    </p>
+    <br>
+    <p class='label'>Повторите новый пароль</p>
+    <p>
+        <input maxlength='50' size='50' title='Повторите новый пароль'  type="password" name="pass2" value=''>
+    </p>
+    <br>
+    <div>
+        <input class='submit' type="submit" name="change_pass" value="Сменить">
+    </div>
+    <div class='clear'></div>
+</form>
+{% endblock %}

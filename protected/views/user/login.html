@@ -19,6 +19,10 @@
 <p>
 	{{ CHtml.submitButton('Войти') }}
 </p>
+<br>
+<p>
+    Забыли пароль? Вспомнить можно <a href="{{ this.createUrl('user/recoverPassRequest') }}">тут</a>.
+</p>
 {{ CHtml.hiddenField('return', return ) }}
 {{ CHtml.endForm() }}
 
