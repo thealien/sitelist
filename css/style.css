@@ -113,7 +113,7 @@ body {
 	background-position: -79px -6px;
     background-repeat: no-repeat;
     padding: 2px 3px;
-	margin-left: 43px;
+	margin-left: 26px;
 	margin-top: 3px;
 }
 
@@ -172,7 +172,7 @@ body {
 
 /* rss twitter fb кнопки в меню*/
 a.rss_twitter_fb {
-    background-image: url(http://i.sitelist.in/head/rss_twitter_fb.png);
+    background-image: url(../images/head/rss_twitter_fb_vk.png);
     height: 16px;
     width: 16px;
 	float: left;
@@ -183,29 +183,39 @@ a.rss_twitter_fb {
 
 /* RSS */
 a.rss_twitter_fb.rss {
-    background-position: 0 0;
+    background-position: -2px 16px;
 }
 
 a.rss_twitter_fb.rss:hover {
-    background-position: 0 16px;
+    background-position: -2px 0;
 }
 
 /* Twitter */
 a.rss_twitter_fb.twitter {
-    background-position: -20px 0;
+    background-position: -18px 16px;
+	margin-left:2px;
 }
 
 a.rss_twitter_fb.twitter:hover {
-    background-position: -20px 16px;
+    background-position: -18px 0;
 }
 
 /* Facebook */
 a.rss_twitter_fb.facebook {
-    background-position: -39px 0;
+    background-position: -35px 16px;
 }
 
 a.rss_twitter_fb.facebook:hover {
-    background-position: -39px 16px;
+    background-position: -35px 0;
+}
+
+/* Vkontakte */
+a.rss_twitter_fb.vk {
+    background-position: -51px 16px;
+}
+
+a.rss_twitter_fb.vk:hover {
+    background-position: -51px 0;
 }
 
 /* конткнт под шапкой */
