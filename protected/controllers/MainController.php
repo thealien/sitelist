@@ -44,7 +44,7 @@ class MainController extends Controller
                 'desc'  => 1
             ));
             $sphinx->SetLimits($psize*($page-1), $psize);
-            $query = "@(url,title,desc) \*".$sphinx->escapeString(sprintf('%s',$q))."\*";
+            $query = "@(url,title,desc)".$sphinx->escapeString(sprintf('%s',$q));
             $result = $sphinx->Query($query, 'linksIndex');
             if ($result === false) {
             	$error = 'В данный момент служба поиска недоступна. Попробуйте позже.';
