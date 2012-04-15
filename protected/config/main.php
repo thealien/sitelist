@@ -100,6 +100,7 @@ return array(
 				'min-width'     => 1280,
 				'plugins'       => 'on',
 				'delay'         => 2000,
+				'max-wait'      => 30000,
 				'user-agent'    => 'Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0',
 				'header'        => 'Accept-Language: ru-ru,ru;q=0.8,en-us;q=0.5,en;q=0.3'
 			)
