@@ -73,13 +73,13 @@ return array(
                 'profile/pass'=>'profile/pass',
 				'profile'=>'profile/index',
 				
-                'user/<user:\w+>/fav/?'=>'user/fav',
+                'user/<user:[\w\s-.]+>/fav/?'=>'user/fav',
 				'user/captcha' => 'user/captcha',
 				'user/openid' => 'user/openid',
 				'user/oauth/facebook' => 'user/oauthfacebook',
 				'user/oauth/vkontakte' => 'user/oauthvkontakte',
 				'user/oauth/twitter' => 'user/oauthtwitter',
-                'user/<user:[\w\s-]+>'=>'user/index',
+                'user/<user:[\w\s-.]+>'=>'user/index',
 				
 				
 				'collection/<id:\d+>'=>'collection/index',
