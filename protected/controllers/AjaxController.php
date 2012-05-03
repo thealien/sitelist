@@ -14,7 +14,7 @@ class AjaxController extends Controller
         );
     }
 	
-	protected function beforeAction(CAction $action){
+	protected function beforeAction($action){
 		if($action->id == 'captcha') return true;
 	    if(!(Yii::app()->request->isAjaxRequest)){
             exit();
