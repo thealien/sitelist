@@ -19,8 +19,6 @@ class MainController extends Controller
 			if(mb_detect_encoding($q)===false)
                 throw new CHttpException(404);
 			$q = @iconv('utf-8//IGNORE', 'utf-8', $q);
-			if(!$q)
-                throw new CHttpException(404);
 			$q = trim($q);
 			if(!$q){
 				$error = 'Указан пустой поисковый запрос.';
