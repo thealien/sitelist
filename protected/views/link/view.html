@@ -150,20 +150,24 @@
     {% endif %}
     </div>
     
-	{% if not link.broken %}
-	<!-- жалоба на сайт -->
+	<!-- жалоба на неработающий сайт -->
 	<div id='broken-site'>
 		<div class='wrapper'>
+		{% if not link.broken %}
 		<div class='left-text'>
 			Если ссылка в нашем каталоге ведет на неработающий сайт, сообщите нам об этом
 		</div>
 		<div class='send-btn'>
             <a title='Сообщить модератору, что сайт не работает' href='javascript:void(0);' class='send-btn-link'>Сайт не работает</a>
         </div>
+		{% else %}
+		<div class='text'>
+            • возможно данный сайт сейчас не работает •
+        </div>
+		{% endif %}
         </div>
     </div>
 	<!-- / -->
-	{% endif %}
 	
     <!-- комментарии -->
 	<div id='add-comment' class='forms'>

@@ -1476,6 +1476,17 @@ div.linksgroup div.site.hover a.del-site-btn{
 	padding: 5px 8px; 
 	float: left;
 }
+#broken-site .text {
+    overflow: auto; 
+    background-color: #F0F5FB; 
+    border:solid #D4DBE5; 
+    border-width: 1px; 
+    border-radius: 5px 5px 0 0; 
+    padding: 5px 8px;
+	text-align: center;
+	font-variant: small-caps;
+	font-size: 14px; 
+}
 #broken-site .send-btn {
 	float: right;
 	position: absolute; 
