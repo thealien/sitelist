@@ -20,7 +20,8 @@ class GooglePageRank {
 
     private static function GPR_toHex8($intega){
         $Ziffer = "0123456789abcdef";
-        return $Ziffer[($intega%256)/16].$Ziffer[$intega%16];
+        $result = $Ziffer[(int)(($intega%256)/16)].$Ziffer[(int)($intega%16)];
+		return $result;
     }
 
     private static function GPR_hexEncodeU32($num) {
