@@ -19,7 +19,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface, Twig_ExistsLoaderI
 {
     protected $paths;
     protected $cache;
-    protected $minify;
+	protected $minify;
 
     /**
      * Constructor.
@@ -29,7 +29,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface, Twig_ExistsLoaderI
     public function __construct($paths, $minimize = false)
     {
         $this->setPaths($paths);
-        $this->minimize = (bool)$minimize;
+		$this->minimize = (bool)$minimize;
     }
 
     /**
@@ -221,8 +221,8 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface, Twig_ExistsLoaderI
             }
         }
     }
-
-    protected function minimizeSource($s){
+	
+	protected function minimizeSource($s){
         $s = trim($s);
         if($s){
             $s = preg_replace('/<!--(.*?)-->/m', '', $s);
