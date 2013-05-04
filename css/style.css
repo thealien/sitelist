@@ -100,7 +100,7 @@ body {
 
 /* форма поиска в шапке */
 #head-search {
-    width: 295px;
+    width: 316px;
 }
 #head-search div.rss_twitter_fb{
 	margin-top: 7px;
@@ -172,7 +172,7 @@ body {
 
 /* rss twitter fb кнопки в меню*/
 a.rss_twitter_fb {
-    background-image: url(../images/head/rss_twitter_fb_vk.png);
+    background-image: url(../images/head/rss_twitter_fb_vk_gp.png);
     height: 16px;
     width: 16px;
 	float: left;
@@ -216,6 +216,15 @@ a.rss_twitter_fb.vk {
 
 a.rss_twitter_fb.vk:hover {
     background-position: -51px 0;
+}
+
+/* Vkontakte */
+a.rss_twitter_fb.gp {
+    background-position: -69px 16px;
+}
+
+a.rss_twitter_fb.gp:hover {
+    background-position: -69px 0;
 }
 
 /* конткнт под шапкой */
