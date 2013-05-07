@@ -13,7 +13,7 @@ class UserIdentity extends CUserIdentity
             $this->errorCode=self::ERROR_PASSWORD_INVALID;
         else
         {
-            $this->_id = $record->userID;
+            $this->_id = $record->id;
             $this->errorCode=self::ERROR_NONE;
         }
         return !$this->errorCode;
@@ -27,7 +27,7 @@ class UserIdentity extends CUserIdentity
         else
         {
 			$this->username = $record->username;
-            $this->_id = $record->userID;
+            $this->_id = $record->id;
             $this->errorCode=self::ERROR_NONE;
         }
         return !$this->errorCode;

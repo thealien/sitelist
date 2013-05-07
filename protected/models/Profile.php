@@ -17,7 +17,7 @@ class Profile extends CActiveRecord
     {
         return array(
             // user_id
-			array('user_id','exist','allowEmpty' => false, 'attributeName' => 'userID', 'className' => 'Users', 'message' => '{attribute} не существует'),
+			array('user_id','exist','allowEmpty' => false, 'attributeName' => 'id', 'className' => 'Users', 'message' => '{attribute} не существует'),
 			// icq
             array('icq', 'match', 'allowEmpty' => true, 'pattern' => '/^[0-9-]+$/','message' => 'Номер ICQ имеет неверный формат'),
 			// from

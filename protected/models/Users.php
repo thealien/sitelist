@@ -4,7 +4,7 @@
  * This is the model class for table "users".
  *
  * The followings are the available columns in table 'users':
- * @property integer $userID
+ * @property integer $id
  * @property string $username
  * @property string $password
  * @property string $email
@@ -83,7 +83,7 @@ class Users extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'userID' => 'User',
+			'id' => 'User',
 			'username' => 'Логин',
 			'password' => 'Пароль',
 			'email' => 'Email',
@@ -102,7 +102,7 @@ class Users extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('userID',$this->userID);
+		$criteria->compare('id',$this->id);
 
 		$criteria->compare('username',$this->username,true);
 
@@ -149,7 +149,7 @@ class Users extends CActiveRecord
 		$user = self::model()->findByAttributes(array('email' => $email));
 		if(!$user) return false;
 		$identity= new UserIdentity($user->username, null);
-		$identity->authenticateById($user->userID);
+		$identity->authenticateById($user->id);
 		if($identity->errorCode != UserIdentity::ERROR_NONE) return false;	
 		Yii::app()->user->login($identity, 60*60*24*365);
         return true;
