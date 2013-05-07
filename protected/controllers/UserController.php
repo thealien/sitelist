@@ -91,14 +91,14 @@ class UserController extends Controller
 		if($user===NULL){
 			throw new CHttpException(404);
 		}
-		$owner = $user->userID===Yii::app()->user->id;
+		$owner = $user->id===Yii::app()->user->id;
 		
 		$collections = Collection::model()->with('linksCount')->findAllByAttributes(array(
-            'user_id' => $user->userID
+            'user_id' => $user->id
 		));
 		
 		$comments = Comments::model()->with('links')->findAllByAttributes(array(
-            'userid' => $user->userID				
+            'userid' => $user->id
 		),
 		array(
 		  'order' => 't.id desc'
@@ -200,8 +200,8 @@ class UserController extends Controller
 			$reg_form->password = $reg_form->password2 = $pass;
 			$reg_form->validate();
 			if(@$user_openid['identity'] && $reg_form->save()){
-				if(Users::authenticateById($reg_form->userID)){
-				    $reg_form->attachOidIdentity($user_openid['identity'], $reg_form->userID);
+				if(Users::authenticateById($reg_form->id)){
+				    $reg_form->attachOidIdentity($user_openid['identity'], $reg_form->id);
 					Yii::app()->session->offsetUnset('user_openid');
 					$this->redirect(array('/user'));	
 				}
@@ -397,15 +397,15 @@ class UserController extends Controller
 				if(!$user) throw new CHttpException(404); // хотя такого быть не должно
 				// Попробовать найти ранее созданный токен
 				$token = Token::model()->findByAttributes(array(
-                    'user_id' => $user->userID,
+                    'user_id' => $user->id,
 					'type' => 'pass-recover'
 				));
 				// Создать, если нужно
 				if(!$token){
 				    $token = new Token();
-                    $token->user_id = $user->userID;
+                    $token->user_id = $user->id;
                     $token->type = 'pass-recover';
-                    $token->code = md5(md5($user->userID) . md5(time()) . md5(mt_rand(0, 100000)));
+                    $token->code = md5(md5($user->id) . md5(time()) . md5(mt_rand(0, 100000)));
 				}
 				$token->ip = $_SERVER['REMOTE_ADDR'];
 				if(!$token->save()){
