@@ -170,7 +170,7 @@ class MainController extends Controller
         
         $criteria = new CDbCriteria();
         $count = Users::model()->count($criteria);
-		$criteria->order= 'UserID DESC';
+		$criteria->order= 'id DESC';
         
         $pages = new CPagination($count);
         $pages->pageSize = 30;
