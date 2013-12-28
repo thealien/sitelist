@@ -18,11 +18,11 @@
 		  пользователя <a href='{{ this.createUrl("user/index", {"user" : collection.user.username}) }}'>{{ collection.user.username|e}}</a></i>.
 		  </div>
 		  {% if link.foto=='' %}{% else %}<div>
-		  <a href='{{ this.createUrl("link/view", {"id" : link.id }) }}/{{ link.domain|e}}'><img src="http://f.sitelist.in/t_{{ link.foto }}" border="0"></a></div>{% endif %}
+		  <a href='{{ this.createUrl("link/view", {"id" : link.id }) }}/{{ link.domain|e}}'><img src="//f.sitelist.in/t_{{ link.foto }}" border="0"></a></div>{% endif %}
 		 ]]>
 	</description>
     <pubDate>{{ link.date|date('r') }}</pubDate>
-    <guid>http://sitelist.in/link/{{ link.id }}</guid>
+    <guid>//sitelist.in/link/{{ link.id }}</guid>
 </item>
 {% endfor %}
 </channel>
