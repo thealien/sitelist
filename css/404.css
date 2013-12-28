@@ -63,7 +63,7 @@ body {
 #search-bg {
     width: 136px;
     height: 24px;
-    background-image: url(http://i.sitelist.in/top_logo_newcont_search_sprite.png);
+    background-image: url(//i.sitelist.in/top_logo_newcont_search_sprite.png);
     background-position: -79px -6px;
     background-repeat: no-repeat;
     padding: 2px 3px;
@@ -87,7 +87,7 @@ body {
 /* кнопка поиска */
 #search-form input.s-btn {
     margin-top: 1px;
-    background-image: url(http://i.sitelist.in/top_logo_newcont_search_sprite.png);
+    background-image: url(//i.sitelist.in/top_logo_newcont_search_sprite.png);
     background-position: -221px -10px;
     background-repeat: no-repeat;
     border: none;
@@ -118,7 +118,7 @@ body {
     width: 40px;
     height: 36px;
     display: block;
-    background: url(http://i.sitelist.in/top_logo_newcont_search_sprite.png) 0 0 no-repeat; 
+    background: url(//i.sitelist.in/top_logo_newcont_search_sprite.png) 0 0 no-repeat;
 }
 /* футер */
 #footer {

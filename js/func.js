@@ -229,21 +229,6 @@ $(function(){
         });
         return false;
 	});
-	
-	//Copiny
-	var copinyWidgetOptions = {
-        position: 'left',
-        hostcommunity:'http://sitelist.copiny.com',
-        newwindow: '0',
-        type: 'idea',
-        color:    '#ff8400',
-        border:   '#ffffff',
-        round:    '1',
-        cache:   "9ca936d041c7637244c3fb8ef4a8ea6c\/9ca936d041c7637244c3fb8ef4a8ea6c\/ejOwVXUxULV0BZFOhqouhqoWBmC2AZhtBGa7IIm4aYMpQ7CQEUQIzDYHs50B",
-        community:3332
-    };
-    initCopinyWidget(copinyWidgetOptions);
-
 });
 
 function sendComment(form){

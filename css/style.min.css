@@ -6,24 +6,24 @@ a{color:#0384e8;outline:0;}
 .br{line-height:.5em;zoom:1;}
 h1{font-size:20px;}
 html,body{line-height:1.5em;height:100%;width:100%;font-family:Arial, Helvetica, sans-serif;font-size:12px;margin:0;padding:0;}
-body{background-image:url(http://i.sitelist.in/head/head_bg.png);background-repeat:repeat-x;}
+body{background-image:url(//i.sitelist.in/head/head_bg.png);background-repeat:repeat-x;}
 #main{width:940px;position:relative;height:auto!important;min-height:100%;margin:0 auto;}
 #head{height:235px;position:relative;}
-#head-top-logo{width:40px;height:36px;display:block;background:url(http://i.sitelist.in/top_logo_newcont_search_sprite.png) 0 0 no-repeat;}
+#head-top-logo{width:40px;height:36px;display:block;background:url(//i.sitelist.in/top_logo_newcont_search_sprite.png) 0 0 no-repeat;}
 #head-desc{margin-left:30px;width:230px;color:#c9c9c9;line-height:1.2em;}
 #head-add-btn{float:right;width:190px;}
 #head-bottom{position:absolute;bottom:0;height:34px;width:100%;}
 #head-search{width:295px;}
 #head-search div.rss_twitter_fb{margin-top:7px;}
-#search-bg{width:136px;height:24px;background-image:url(http://i.sitelist.in/top_logo_newcont_search_sprite.png);background-position:-79px -6px;background-repeat:no-repeat;margin-left:43px;margin-top:3px;padding:2px 3px;}
+#search-bg{width:136px;height:24px;background-image:url(//i.sitelist.in/top_logo_newcont_search_sprite.png);background-position:-79px -6px;background-repeat:no-repeat;margin-left:43px;margin-top:3px;padding:2px 3px;}
 #search-form{margin-right:7px;padding:0;}
 #search-form input.s-input{width:110px;font-size:12px;border:none;background:none;}
-#search-form input.s-btn{margin-top:1px;background-image:url(http://i.sitelist.in/top_logo_newcont_search_sprite.png);background-position:-221px -10px;background-repeat:no-repeat;border:none;width:16px;height:16px;cursor:pointer;}
+#search-form input.s-btn{margin-top:1px;background-image:url(//i.sitelist.in/top_logo_newcont_search_sprite.png);background-position:-221px -10px;background-repeat:no-repeat;border:none;width:16px;height:16px;cursor:pointer;}
 #head-menu{color:#FFF;list-style:none;margin:5px 0 0;padding:0;}
 #head-menu li.menu-item{display:inline;margin-right:15px;}
 #head-menu a{color:#0384e8;font-size:14px;}
 #head-menu a.current,#head-menu a:hover{color:#8e8e8e;text-decoration:none;}
-a.rss_twitter_fb{background-image:url(http://i.sitelist.in/head/rss_twitter_fb.png);height:16px;width:16px;float:left;margin-left:3px;display:block;cursor:pointer;}
+a.rss_twitter_fb{background-image:url(//i.sitelist.in/head/rss_twitter_fb.png);height:16px;width:16px;float:left;margin-left:3px;display:block;cursor:pointer;}
 a.rss_twitter_fb.twitter{background-position:-20px 0;}
 a.rss_twitter_fb.twitter:hover{background-position:-20px 16px;}
 a.rss_twitter_fb.facebook{background-position:-39px 0;}
@@ -33,7 +33,7 @@ a.rss_twitter_fb.facebook:hover{background-position:-39px 16px;}
 #sidebar{width:220px;}
 #cat-list{list-style:none;margin:0;padding:0;}
 #cat-list li.cat-item{float:left;position:relative;width:215px;height:80px;margin:0 17px 20px 0;}
-#cat-list li.cat-item div.subcat-cnt{position:absolute;width:32px;height:24px;background-image:url(http://i.sitelist.in/top_logo_newcont_search_sprite.png);background-position:-45px -3px;font-size:14px;color:#FFF;left:-12px;top:20px;text-align:center;padding-top:6px;}
+#cat-list li.cat-item div.subcat-cnt{position:absolute;width:32px;height:24px;background-image:url(//i.sitelist.in/top_logo_newcont_search_sprite.png);background-position:-45px -3px;font-size:14px;color:#FFF;left:-12px;top:20px;text-align:center;padding-top:6px;}
 #cat-list div.info{width:165px;}
 #cat-list .cat-name{font-size:18px;}
 #cat-list p.subcat-name{font-size:14px;}
@@ -57,7 +57,7 @@ div.cat-site sup.new{color:#E01B6B;}
 #footer div.menu a.item:hover{color:#0384e8;}
 #footer div.copyright{width:190px;border-left:solid 2px #000;font-weight:700;padding-left:10px;margin:20px 20px 0 0;}
 div.top-site div.rate{width:65px;}
-div.top-site div.rate-value{padding-top:12px;color:#7e7e7e;font-size:16px;font-weight:700;text-align:center;width:45px;height:28px;background-image:url(http://i.sitelist.in/top/counter_sprite.png);background-repeat:no-repeat;background-position:0 -40px;}
+div.top-site div.rate-value{padding-top:12px;color:#7e7e7e;font-size:16px;font-weight:700;text-align:center;width:45px;height:28px;background-image:url(//i.sitelist.in/top/counter_sprite.png);background-repeat:no-repeat;background-position:0 -40px;}
 div.top-site div.favicon{padding-top:3px;width:20px;}
 div.top-site div.site{width:610px;}
 div.forms.search{padding-left:22px;}
@@ -73,7 +73,7 @@ div.new-site .name{font-size:16px;font-weight:700;margin-bottom:3px;}
 ul.site-rate{list-style:none;margin:10px 0 0;padding:0;}
 ul.site-rate li.rate,ul.site-rate li.rate-value{display:inline;float:left;}
 ul.site-rate li.rate-value{font-size:18px;font-weight:700;color:#5E5E5E;padding:3px 8px 0;}
-ul.site-rate a.t-up,ul.site-rate a.t-down{cursor:default;width:22px;height:22px;display:inline-block;background-image:url(http://i.sitelist.in/site/rate.png);}
+ul.site-rate a.t-up,ul.site-rate a.t-down{cursor:default;width:22px;height:22px;display:inline-block;background-image:url(//i.sitelist.in/site/rate.png);}
 ul.site-rate a.t-up{background-position:0 -22px;}
 ul.site-rate a.t-up.active{cursor:pointer;background-position:-22px -22px;}
 ul.site-rate a.t-down.active{cursor:pointer;background-position:-22px 0;}
@@ -86,13 +86,13 @@ ul.yiiPager a:hover{text-decoration:none;}
 ul.yiiPager .previous a,ul.yiiPager .next a{font-size:15px;color:#7e7e7e;font-weight:400;text-decoration:none;}
 ul.yiiPager .first a,ul.yiiPager .last a{font-size:12px;color:#a8a8a8;font-weight:400;}
 ul.yiiPager .first a:hover,ul.yiiPager .last a:hover,ul.yiiPager .previous a:hover,ul.yiiPager .next a:hover{color:#0384E8;text-decoration:none;}
-#feedback a.send-btn{width:211px;height:42px;display:inline-block;background-image:url(http://i.sitelist.in/feedback/feedback_send.png);background-repeat:no-repeat;}
+#feedback a.send-btn{width:211px;height:42px;display:inline-block;background-image:url(//i.sitelist.in/feedback/feedback_send.png);background-repeat:no-repeat;}
 #message{width:670px;}
 .forms input,.forms textarea,.forms select{color:#333;border:solid 1px #ccc;padding:10px;}
 .forms input:focus,.forms textarea:focus,.forms select:focus{border-color:#aaa;}
 .forms select{line-height:2em;}
 #add-site textarea.desc{width:600px;}
-#add-site input.add-btn{width:145px;height:42px;background-image:url(http://i.sitelist.in/site/add_btn.png);border:none;cursor:pointer;}
+#add-site input.add-btn{width:145px;height:42px;background-image:url(//i.sitelist.in/site/add_btn.png);border:none;cursor:pointer;}
 img#yw0{border:solid 1px #ccc;cursor:pointer;}
 #site-info div.info{width:150px;}
 #site-info div.category-info{width:230px;}
@@ -109,7 +109,7 @@ div.collect-info{padding:3px 0;}
 div.collect-add-panel{overflow-x:hidden;background-color:#f0f5fb;border-radius:5px;display:none;}
 div.collect-add-inner{margin:10px;}
 #add-comment textarea.desc{width:95%;}
-#add-comment input.add-btn{width:211px;height:42px;background-image:url(http://i.sitelist.in/site/comment_send.png);border:none;cursor:pointer;}
+#add-comment input.add-btn{width:211px;height:42px;background-image:url(//i.sitelist.in/site/comment_send.png);border:none;cursor:pointer;}
 #comments img.avatar{width:50px;height:50px;display:block;float:left;border:solid 1px #e5e5e5;border-radius:2px;margin:2px 10px 4px 0;padding:2px;}
 #comments div.info{float:left;width:590px;overflow-x:hidden;}
 #comments div.name{font-size:16px;font-weight:700;color:#6b6b6b;}
@@ -122,7 +122,7 @@ div.collect-add-inner{margin:10px;}
 #comments input.adm{width:110px;background:none;border:none;cursor:pointer;font-size:11px;padding:0;}
 .genScreenBtn{color:green;font-size:10px;cursor:pointer;}
 .ajaxProgress{display:none;}
-div.cat-logo{background-image:url(http://i.sitelist.in/cat_spite.png);background-repeat:no-repeat;width:40px;height:40px;}
+div.cat-logo{background-image:url(//i.sitelist.in/cat_spite.png);background-repeat:no-repeat;width:40px;height:40px;}
 a.cat-logo-link{display:block;width:100%;height:100%;}
 .cat-animals.hover{background-position:-41px 0;}
 .cat-auto{background-position:-82px 0;}

@@ -44,7 +44,7 @@ html, body {
 }
 
 body {
-    background-image: url(http://i.sitelist.in/head/head_bg.png);
+    background-image: url(//i.sitelist.in/head/head_bg.png);
     background-repeat: repeat-x;
 }
 
@@ -73,7 +73,7 @@ body {
     width: 40px;
 	height: 36px;
 	display: block;
-	background: url(http://i.sitelist.in/top_logo_newcont_search_sprite.png) 0 0 no-repeat;	
+	background: url(//i.sitelist.in/top_logo_newcont_search_sprite.png) 0 0 no-repeat;
 }
 
 /* краткое описание каталога в шапке */
@@ -109,7 +109,7 @@ body {
 #search-bg {
     width: 136px;
     height: 24px;
-	background-image: url(http://i.sitelist.in/top_logo_newcont_search_sprite.png);
+	background-image: url(//i.sitelist.in/top_logo_newcont_search_sprite.png);
 	background-position: -79px -6px;
     background-repeat: no-repeat;
     padding: 2px 3px;
@@ -134,8 +134,8 @@ body {
 /* кнопка поиска */
 #search-form input.s-btn {
     margin-top: 1px;
-	/*background-image: url(http://i.sitelist.in/head/search_btn.png);*/
-	background-image: url(http://i.sitelist.in/top_logo_newcont_search_sprite.png);
+	/*background-image: url(//i.sitelist.in/head/search_btn.png);*/
+	background-image: url(//i.sitelist.in/top_logo_newcont_search_sprite.png);
     background-position: -221px -10px;
 	background-repeat: no-repeat;
 	border: none;
@@ -265,8 +265,8 @@ a.rss_twitter_fb.gp:hover {
     position: absolute;
     width: 32px;
     height: 24px;
-    /*background: url(http://i.sitelist.in/subcat_cnt.png) no-repeat left top;*/
-	background-image: url(http://i.sitelist.in/top_logo_newcont_search_sprite.png);
+    /*background: url(//i.sitelist.in/subcat_cnt.png) no-repeat left top;*/
+	background-image: url(//i.sitelist.in/top_logo_newcont_search_sprite.png);
     background-position: -45px -3px;
     font-size: 14px;
     color: white;
@@ -478,7 +478,7 @@ div.top-site div.rate-value {
     text-align: center;
     width: 45px;
     height: 28px;
-    background-image: url(http://i.sitelist.in/top/counter_sprite.png);
+    background-image: url(//i.sitelist.in/top/counter_sprite.png);
     background-repeat: no-repeat;
     background-position: 0 -40px;
 }
@@ -598,7 +598,7 @@ ul.site-rate a.t-up, ul.site-rate a.t-down {
     width: 22px;
     height: 22px;
     display: inline-block;
-    background-image: url(http://i.sitelist.in/site/rate.png);
+    background-image: url(//i.sitelist.in/site/rate.png);
 }
 
 ul.site-rate a.t-up {
@@ -684,7 +684,7 @@ ul.yiiPager .first a:hover, ul.yiiPager .last a:hover, ul.yiiPager .previous a:h
     width: 211px;
     height: 42px;
     display: inline-block;
-    background-image: url(http://i.sitelist.in/feedback/feedback_send.png);
+    background-image: url(//i.sitelist.in/feedback/feedback_send.png);
     background-repeat: no-repeat;
 	cursor: pointer;
 	border: none;
@@ -790,7 +790,7 @@ ul.yiiPager .first a:hover, ul.yiiPager .last a:hover, ul.yiiPager .previous a:h
 #add-site input.add-btn {
     width: 145px;
     height: 42px;
-    background-image: url(http://i.sitelist.in/site/add_btn.png);
+    background-image: url(//i.sitelist.in/site/add_btn.png);
     border: none;
     cursor: pointer;
 }
@@ -936,7 +936,7 @@ div.collect-add-inner{
 #add-comment input.add-btn {
     width: 211px;
     height: 42px;
-    background-image: url(http://i.sitelist.in/site/comment_send.png);
+    background-image: url(//i.sitelist.in/site/comment_send.png);
     border: none;
     cursor: pointer;
 }
@@ -1014,7 +1014,7 @@ div.collect-add-inner{
 }
 
 div.cat-logo {
-    background-image: url(http://i.sitelist.in/cat_spite.png);
+    background-image: url(//i.sitelist.in/cat_spite.png);
     background-repeat: no-repeat;
     width: 40px;
     height: 40px;
