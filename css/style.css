@@ -1571,22 +1571,3 @@ div.linksgroup div.site.hover a.del-site-btn{
     -webkit-border-radius: 15px;
 	color: #0384E8;
 }
-/* idea lamp */
-a.idea-lamp {
-	display: block;
-	width: 48px;
-	height: 48px;
-	bottom: 50px;
-    left: -8px;
-    position: fixed;
-	background-image: url(../images/idea.png);
-	background-position: 0 -46px;
-	background-repeat: no-repeat;
-}
-a.idea-lamp:hover {
-	background-position: 0 0;
-	left: -2px;
-}
-
-
-
