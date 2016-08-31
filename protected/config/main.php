@@ -99,8 +99,9 @@ return array(
 				'window-size'	=> '1280/1024',
 				'stream-type'	=> 'jpeg',
 				'quality'		=> 100,
-				'render-delay'	=> 2000,
-				'timeout'		=> 30000
+				'render-delay'	=> 3000,
+				'timeout'		=> 30000,
+				'default-white-background' => 1
 			)
 
 			
