@@ -100,7 +100,8 @@ return array(
 				'stream-type'	=> 'jpeg',
 				'quality'		=> 100,
 				'render-delay'	=> 3000,
-				'timeout'		=> 30000
+				'timeout'		=> 30000,
+				'custom-header' => 'Accept-Language:ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4'
 			)
 
 			
