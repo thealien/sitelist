@@ -96,12 +96,11 @@ return array(
             'path' => 'webshot',
             'fileType' => 'jpg',
 			'params' => array(
-				'window-size'	=> '1280/1024',
+				'window-size'	=> '1024/768',
 				'stream-type'	=> 'jpeg',
 				'quality'		=> 100,
 				'render-delay'	=> 3000,
-				'timeout'		=> 30000,
-				'default-white-background' => 1
+				'timeout'		=> 30000
 			)
 
 			

@@ -39,7 +39,7 @@ class EWebshot extends CApplicationComponent {
 
     public function capture($url){
         $tmpFile = tempnam($this->tmpdir, 'webshot') . '.' . $this->fileType;
-        $cmdline = '%s %s %s %s';
+        $cmdline = '%s --default-white-background %s %s %s';
         $cmdline = sprintf($cmdline,
             $this->path,
             $this->getParamsCommandLine(),
