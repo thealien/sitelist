@@ -100,7 +100,7 @@ class AjaxController extends Controller
             if (filesize($tmpfname) > 1) {
                 require_once Yii::app()->basePath . '/vendors/phmagick/phmagick.php';
                 $thumb = new phMagick($tmpfname);
-                $thumb->setImageQuality(85);
+                $thumb->setImageQuality(90);
                 // Основной скрин (1024 х 768)
                 $thumb->setDestination(Yii::app()->params->IMAGES_DIR.$f);
                 $thumb->resize(1024)->crop(1024,768,0,0,'North');

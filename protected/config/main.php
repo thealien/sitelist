@@ -98,7 +98,7 @@ return array(
 			'params' => array(
 				'window-size'	=> '1280/1024',
 				'stream-type'	=> 'jpeg',
-				'quality'		=> 85,
+				'quality'		=> 100,
 				'render-delay'	=> 2000,
 				'timeout'		=> 30000
 			)
