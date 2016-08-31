@@ -8,11 +8,10 @@ return CMap::mergeArray(
         'preload'=>array('log'),
         
         'components'=>array(
-            // CutyCapt скринер
-            'cutycapt'=>array(
-                'class' => 'application.components.CutyCapt',
-                'path' => '/home/*******/CutyCapt',
-                'user_xvfb' => true,
+            // Webshot скринер
+            'webshot'=>array(
+                'class' => 'application.components.EWebshot',
+                'path' => 'webshot',
                 'filetype' => 'jpg'
             ),
             

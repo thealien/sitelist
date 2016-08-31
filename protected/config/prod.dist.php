@@ -5,14 +5,7 @@ return CMap::mergeArray(
     require(dirname(__FILE__).'/main.php'),
     array(
         'components'=>array(
-            // CutyCapt скринер
-            'cutycapt'=>array(
-                'class' => 'application.components.CutyCapt',
-                'path' => '/home/*************/CutyCapt',
-                'user_xvfb' => true,
-                'filetype' => 'jpg'
-            ),
-            
+
             // Настройки БД
             'db'=>array(
                 'connectionString' => 'mysql:host=localhost;dbname=******',

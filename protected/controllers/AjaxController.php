@@ -95,12 +95,12 @@ class AjaxController extends Controller
         $orig_foto = $link->foto;
         $f = str_replace('/','',$link->domain) . date("_Y.m.d-H.i.s", time()).".jpg";
         // TODO зачистить от говнокода
-        $tmpfname = Yii::app()->cutycapt->capture($link->url);
+        $tmpfname = Yii::app()->webshot->capture($link->url);
         if (file_exists($tmpfname)) {
             if (filesize($tmpfname) > 1) {
                 require_once Yii::app()->basePath . '/vendors/phmagick/phmagick.php';
                 $thumb = new phMagick($tmpfname);
-                $thumb->setImageQuality(90);
+                $thumb->setImageQuality(85);
                 // Основной скрин (800 х 600)
                 $thumb->setDestination(Yii::app()->params->IMAGES_DIR.$f);
                 $thumb->resize(800)->crop(800,600,0,0,'North');
@@ -108,8 +108,8 @@ class AjaxController extends Controller
                 $thumb->setDestination(Yii::app()->params->IMAGES_DIR.'t_'.$f);
                 $thumb->resize(200);//->crop(200,150,0,0,'North');
                 if ($orig_foto && $orig_foto!=$f) {
-                    unlink(Yii::app()->params->IMAGES_DIR.$orig_foto);
-                    unlink(Yii::app()->params->IMAGES_DIR.'t_'.$orig_foto);
+                    @unlink(Yii::app()->params->IMAGES_DIR.$orig_foto);
+                    @unlink(Yii::app()->params->IMAGES_DIR.'t_'.$orig_foto);
                 }
                 $link->foto = $f;
                 if($link->save(true, array('foto'))){
@@ -135,7 +135,7 @@ class AjaxController extends Controller
 		$orig_foto = $link->foto;
         $f = str_replace('/','',$link->domain) . date("_Y.m.d-h.i.s", time()).".jpg";
         // TODO зачистить от говнокода
-        $tmpfname = Yii::app()->cutycapt->capture($link->url);
+        $tmpfname = Yii::app()->webshot->capture($link->url);
         if (file_exists($tmpfname)) {
             if (filesize($tmpfname) > 1) {
                 if (copy($tmpfname, Yii::app()->params->IMAGES_DIR . $f)) {

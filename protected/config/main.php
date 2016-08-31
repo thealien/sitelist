@@ -90,21 +90,19 @@ return array(
             ),
         ),
         
-        // CutyCapt скринер ( http://cutycapt.sourceforge.net )
-        'cutycapt'=>array(
-            'class' => 'application.components.ECutyCapt',
-            'path' => '/PATH/TO/CutyCapt',
-            'useXvfb' => true,
+        // Webshot ( https://www.npmjs.com/package/webshot-cli )
+        'webshot'=>array(
+            'class' => 'application.components.EWebshot',
+            'path' => 'webshot',
             'fileType' => 'jpg',
 			'params' => array(
-				'min-width'     => 1280,
-				'plugins'       => 'on',
-				'delay'         => 2000,
-				'max-wait'      => 30000,
-				'user-agent'    => 'Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0',
-				'header'        => 'Accept-Language: ru-ru,ru;q=0.8,en-us;q=0.5,en;q=0.3'
+				'window-size'	=> '1280/1024',
+				'stream-type'	=> 'jpeg',
+				'quality'		=> 85,
+				'render-delay'	=> 2000,
+				'timeout'		=> 30000
 			)
-			
+
 			
         ),
         'cache'=>array(
