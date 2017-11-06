@@ -158,7 +158,9 @@ class MainController extends Controller
             case 504:
                 $tpl = '504';
                 break;*/
-            default: $this->redirect('/', true, 302);
+            default:
+                error_log($error);
+                $this->redirect('/', true, 302);
         };
         $this->render($tpl, $error);
     }
