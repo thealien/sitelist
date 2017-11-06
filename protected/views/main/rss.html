@@ -10,7 +10,14 @@
 <item>
     <title>{{ link.title|e }}</title>
     <link>{{ Yii.getBaseUrl(true) }}{{ this.createUrl("link/view", {"id" : link.id }) }}/{{ link.domain|e}}</link>
-    <description><![CDATA[<div>{{ link.desc|cut(300)|e }}</div>{% if link.foto=='' %}{% else %}<div><a href='{{ Yii.getBaseUrl(true) }}{{ this.createUrl("link/view", {"id" : link.id }) }}/{{ link.domain|e}}'><img src="//f.sitelist.in/t_{{ link.foto }}" border="0"></a></div>{% endif %}]]></description>
+    <description><![CDATA[
+        <div>{{ link.desc|cut(300)|e }}</div>
+        {% if link.foto=='' %}{% else %}
+        <div>
+            <a href='{{ Yii.getBaseUrl(true) }}{{ this.createUrl("link/view", {"id" : link.id }) }}/{{ link.domain|e}}'><img
+                    src="{{ Yii.getBaseUrl(true) }}/foto/t_{{ link.foto }}" border="0"></a></div>
+        {% endif %}]]>
+    </description>
     <pubDate>{{ link.date|date('r') }}</pubDate>
     <guid>{{ Yii.getBaseUrl(true) }}{{ this.createUrl("link/view", {"id" : link.id }) }}</guid>
 </item>
