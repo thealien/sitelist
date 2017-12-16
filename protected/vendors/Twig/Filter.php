@@ -3,19 +3,21 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2009 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+@trigger_error('The Twig_Filter class is deprecated since version 1.12 and will be removed in 2.0. Use Twig_SimpleFilter instead.', E_USER_DEPRECATED);
 
 /**
  * Represents a template filter.
  *
  * Use Twig_SimpleFilter instead.
  *
- * @package    twig
- * @author     Fabien Potencier <fabien@symfony.com>
+ * @author Fabien Potencier <fabien@symfony.com>
+ *
  * @deprecated since 1.12 (to be removed in 2.0)
  */
 abstract class Twig_Filter implements Twig_FilterInterface, Twig_FilterCallableInterface
@@ -27,10 +29,10 @@ abstract class Twig_Filter implements Twig_FilterInterface, Twig_FilterCallableI
     {
         $this->options = array_merge(array(
             'needs_environment' => false,
-            'needs_context'     => false,
-            'pre_escape'        => null,
-            'preserves_safety'  => null,
-            'callable'          => null,
+            'needs_context' => false,
+            'pre_escape' => null,
+            'preserves_safety' => null,
+            'callable' => null,
         ), $options);
     }
 
@@ -63,8 +65,6 @@ abstract class Twig_Filter implements Twig_FilterInterface, Twig_FilterCallableI
         if (isset($this->options['is_safe_callback'])) {
             return call_user_func($this->options['is_safe_callback'], $filterArgs);
         }
-
-        return null;
     }
 
     public function getPreservesSafety()

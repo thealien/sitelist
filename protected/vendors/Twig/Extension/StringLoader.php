@@ -3,16 +3,17 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2012 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+/**
+ * @final
+ */
 class Twig_Extension_StringLoader extends Twig_Extension
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getFunctions()
     {
         return array(
@@ -20,9 +21,6 @@ class Twig_Extension_StringLoader extends Twig_Extension
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return 'string_loader';
@@ -33,32 +31,17 @@ class Twig_Extension_StringLoader extends Twig_Extension
  * Loads a template from a string.
  *
  * <pre>
- * {% include template_from_string("Hello {{ name }}") }}
+ * {{ include(template_from_string("Hello {{ name }}")) }}
  * </pre>
  *
  * @param Twig_Environment $env      A Twig_Environment instance
- * @param string           $template A template as a string
+ * @param string           $template A template as a string or object implementing __toString()
  *
- * @return Twig_Template A Twig_Template instance
+ * @return Twig_Template
  */
 function twig_template_from_string(Twig_Environment $env, $template)
 {
-    static $loader;
-
-    if (null === $loader) {
-        $loader = new Twig_Loader_String();
-    }
-
-    $current = $env->getLoader();
-    $env->setLoader($loader);
-    try {
-        $template = $env->loadTemplate($template);
-    } catch (Exception $e) {
-        $env->setLoader($current);
-
-        throw $e;
-    }
-    $env->setLoader($current);
-
-    return $template;
+    return $env->createTemplate((string) $template);
 }
+
+class_alias('Twig_Extension_StringLoader', 'Twig\Extension\StringLoaderExtension', false);

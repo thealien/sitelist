@@ -3,7 +3,7 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2010-2012 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,8 +12,9 @@
 /**
  * Represents a template function.
  *
- * @package    twig
- * @author     Fabien Potencier <fabien@symfony.com>
+ * @final
+ *
+ * @author Fabien Potencier <fabien@symfony.com>
  */
 class Twig_SimpleFunction
 {
@@ -28,10 +29,13 @@ class Twig_SimpleFunction
         $this->callable = $callable;
         $this->options = array_merge(array(
             'needs_environment' => false,
-            'needs_context'     => false,
-            'is_safe'           => null,
-            'is_safe_callback'  => null,
-            'node_class'        => 'Twig_Node_Expression_Function',
+            'needs_context' => false,
+            'is_variadic' => false,
+            'is_safe' => null,
+            'is_safe_callback' => null,
+            'node_class' => 'Twig_Node_Expression_Function',
+            'deprecated' => false,
+            'alternative' => null,
         ), $options);
     }
 
@@ -82,4 +86,26 @@ class Twig_SimpleFunction
 
         return array();
     }
+
+    public function isVariadic()
+    {
+        return $this->options['is_variadic'];
+    }
+
+    public function isDeprecated()
+    {
+        return (bool) $this->options['deprecated'];
+    }
+
+    public function getDeprecatedVersion()
+    {
+        return $this->options['deprecated'];
+    }
+
+    public function getAlternative()
+    {
+        return $this->options['alternative'];
+    }
 }
+
+class_alias('Twig_SimpleFunction', 'Twig\TwigFunction', false);
