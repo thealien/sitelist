@@ -39,7 +39,10 @@ class My_Twig_Extension extends Twig_Extension
         
     static function auto_link($message){
         if( FALSE!==strpos($message,'http://') || FALSE!==strpos($message,'https://') || FALSE!==strpos($message,'ftp://') ) {
-                $message    = preg_replace('#(^|\s)((http|https|ftp)://[\wа-я]+[^\s\[\]]+)#ie', 'self::postparse_build_link("\\2", "\\1")', $message);
+                // $message    = preg_replace('#(^|\s)((http|https|ftp)://[\wа-я]+[^\s\[\]]+)#ie', 'self::postparse_build_link("\\2", "\\1")', $message);
+            $message = preg_replace_callback('#(^|\s)((http|https|ftp)://[\wа-я]+[^\s\[\]]+)#i', function ($match) {
+                return self::postparse_build_link($match[2], $match[1]);
+            }, $message);
         }
         return $message;
     }
