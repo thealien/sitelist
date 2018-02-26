@@ -85,15 +85,6 @@
             <span title='Сгененировать скриншот' class='genScreenBtn'>Сгенерить&nbsp;скрин</span><br>
             <img width='16' height='16' src='{{ Yii.getBaseUrl(true) }}/images/ajax.gif' class='ajaxProgress' alt=''>
         {% endif %}
-		<div id='link-share'>
-            <script asyncsrc="http://connect.facebook.net/ru_RU/all.js#xfbml=1" type='text/javascript'></script>
-            <fb:like href="{{ Yii.getBaseUrl(true) }}{{ this.createUrl("link/view", {"id" : link.id }) }}" layout="button_count" width="136" font="arial"></fb:like>
-			
-			<div class='right' style='padding:0 0 0 2px;'>
-                <script type="text/javascript" asyncsrc="https://apis.google.com/js/plusone.js"></script>
-                <g:plusone size="medium" href="{{ link.url }}"></g:plusone>
-            </div>
-        </div>
     </div>
     <div class='favicon left'>
         {% if link.domain!=false %}
