@@ -159,7 +159,7 @@ class MainController extends Controller
                 $tpl = '504';
                 break;*/
             default:
-                error_log($error);
+                error_log(implode('\n', $error));
                 $this->redirect('/', true, 302);
         };
         $this->render($tpl, $error);
